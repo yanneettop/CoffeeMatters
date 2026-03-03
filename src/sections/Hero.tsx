@@ -175,9 +175,11 @@ export default function Hero() {
         style={{ willChange: 'transform' }}
       >
         <img
-          src="/hero-bg.jpg"
+          src="/hero-bg.webp"
           alt="Coffee shop interior"
           className="img-content w-full h-full object-cover"
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
 
