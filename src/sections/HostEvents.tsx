@@ -213,7 +213,7 @@ export default function HostEvents() {
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover animate-pulse-glow">
               <img
                 src="/events-gathering.jpg"
-                alt="People at a social gathering"
+                alt="Private event gathering hosted at Coffee Matters café venue, London"
                 className="img-content w-full h-auto object-cover aspect-square"
                 loading="lazy"
               />

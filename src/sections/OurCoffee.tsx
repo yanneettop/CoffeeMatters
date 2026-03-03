@@ -186,7 +186,7 @@ export default function OurCoffee() {
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover">
               <img
                 src="/coffee-drinks.jpg"
-                alt="Iced coffee drinks"
+                alt="Freddo Espresso and specialty iced coffee drinks at Coffee Matters"
                 className="img-content w-full h-auto object-cover aspect-square"
                 loading="lazy"
               />

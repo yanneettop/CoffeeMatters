@@ -186,7 +186,7 @@ export default function Hero() {
       >
         <img
           src="/hero-bg.webp"
-          alt="Coffee shop interior"
+          alt="Coffee Matters café interior at Brick Lane, London"
           className="img-content w-full h-full object-cover"
           fetchPriority="high"
           decoding="async"
@@ -251,6 +251,7 @@ export default function Hero() {
         >
           <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">COFFEE</span>{' '}
           <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">MATTERS</span>
+          <span className="sr-only"> — Specialty Coffee Shop in Brick Lane, London</span>
         </h1>
 
         {/* Animated divider line */}

@@ -200,7 +200,7 @@ export default function AboutUs() {
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover">
               <img
                 src="/about-storefront.jpg"
-                alt="Coffee shop storefront"
+                alt="Coffee Matters café storefront on Brick Lane, London"
                 className="img-content w-full h-auto object-cover aspect-square"
                 loading="lazy"
               />

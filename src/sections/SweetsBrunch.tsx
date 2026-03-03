@@ -169,7 +169,7 @@ export default function SweetsBrunch() {
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img
                 src="/pastries-display.jpg"
-                alt="Pastries display"
+                alt="Freshly baked Greek pastries and sweets at Coffee Matters, Brick Lane"
                 className="img-content w-full h-auto object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
                 loading="lazy"
               />
