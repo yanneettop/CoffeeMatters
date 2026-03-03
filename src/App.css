@@ -1,0 +1,93 @@
+/* App-specific styles */
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(194, 91, 58, 0.3);
+  color: inherit;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #c25b3a;
+  outline-offset: 2px;
+}
+
+/* Image loading placeholder — only for content images (photos, hero, etc.) */
+img.img-content {
+  background-color: #f3efe6;
+}
+
+/* Prevent layout shift — only for content images */
+img.img-content[src] {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Button hover states */
+.btn-outline {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-outline:hover::before {
+  left: 100%;
+}
+
+/* Glassmorphism enhancement */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Section transitions */
+section {
+  position: relative;
+}
+
+/* Parallax optimization */
+[style*="will-change"] {
+  will-change: transform, opacity;
+}
+
+/* Mobile touch optimization */
+@media (hover: none) {
+  .img-hover:hover {
+    transform: none;
+  }
+  
+  .btn-outline:hover {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+/* Print styles */
+@media print {
+  nav,
+  .btn-outline,
+  .animate-steam,
+  .animate-float {
+    display: none !important;
+  }
+  
+  section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
