@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { MapPin, Mail, Clock, Send, Loader2 } from 'lucide-react';
 import Footer from '@/sections/Footer';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ── Form schema ──────────────────────────────────────────── */
 const contactSchema = z.object({

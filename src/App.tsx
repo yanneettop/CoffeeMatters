@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useState, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
@@ -10,12 +10,13 @@ import AboutUs from './sections/AboutUs';
 import NewsletterCTA from './sections/NewsletterCTA';
 import Footer from './sections/Footer';
 import ScrollMarquee from './components/ScrollMarquee';
-import MenuPage from './pages/MenuPage';
-import AboutUsPage from './pages/AboutUsPage';
-import ContactPage from './pages/ContactPage';
-import GalleryPage from './pages/GalleryPage';
 import { Toaster } from 'sonner';
 import './App.css';
+
+const MenuPage = lazy(() => import('./pages/MenuPage'));
+const AboutUsPage = lazy(() => import('./pages/AboutUsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -130,10 +131,12 @@ function App() {
       <Toaster position="top-right" richColors />
       <Navbar forceGlass={currentPage !== 'home'} />
       <main className="relative w-full min-h-screen bg-cream overflow-x-hidden">
-        {currentPage === 'menu' && <MenuPage />}
-        {currentPage === 'about' && <AboutUsPage />}
-        {currentPage === 'contact' && <ContactPage />}
-        {currentPage === 'gallery' && <GalleryPage />}
+        <Suspense fallback={null}>
+          {currentPage === 'menu' && <MenuPage />}
+          {currentPage === 'about' && <AboutUsPage />}
+          {currentPage === 'contact' && <ContactPage />}
+          {currentPage === 'gallery' && <GalleryPage />}
+        </Suspense>
         {currentPage === 'home' && (
           <>
             <Hero />

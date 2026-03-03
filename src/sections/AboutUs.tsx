@@ -3,8 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function AboutUs() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -181,12 +179,14 @@ export default function AboutUs() {
         alt=""
         className="beans-deco absolute -right-16 top-20 w-32 lg:w-40 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(10deg)' }}
+        loading="lazy"
       />
       <img
         src="/beans2.png"
         alt=""
         className="beans-deco absolute -left-14 bottom-24 w-24 lg:w-32 opacity-80 pointer-events-none hidden lg:block"
         style={{ transform: 'rotate(170deg) scaleX(-1)' }}
+        loading="lazy"
       />
 
       <div className="section-padding">
@@ -198,10 +198,11 @@ export default function AboutUs() {
             style={{ willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover">
-              <img 
-                src="/about-storefront.jpg" 
+              <img
+                src="/about-storefront.jpg"
                 alt="Coffee shop storefront"
                 className="img-content w-full h-auto object-cover aspect-square"
+                loading="lazy"
               />
             </div>
             

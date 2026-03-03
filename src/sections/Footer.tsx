@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MapPin, Mail, Clock } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const quickLinks = [
   { name: 'Home', href: '#home' },

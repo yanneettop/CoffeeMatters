@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function OurCoffee() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
@@ -138,12 +136,14 @@ export default function OurCoffee() {
         alt=""
         className="beans-deco absolute -right-10 top-1/4 w-36 lg:w-48 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(15deg)' }}
+        loading="lazy"
       />
       <img
         src="/beans2.png"
         alt=""
         className="beans-deco absolute -left-16 bottom-8 w-28 lg:w-36 opacity-80 pointer-events-none hidden lg:block"
         style={{ transform: 'rotate(-160deg) scaleX(-1)' }}
+        loading="lazy"
       />
 
       <div className="section-padding">
@@ -184,10 +184,11 @@ export default function OurCoffee() {
             style={{ willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover">
-              <img 
-                src="/coffee-drinks.jpg" 
+              <img
+                src="/coffee-drinks.jpg"
                 alt="Iced coffee drinks"
                 className="img-content w-full h-auto object-cover aspect-square"
+                loading="lazy"
               />
               {/* Subtle overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />

@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Footer from '@/sections/Footer';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ── Gallery data ─────────────────────────────────────────── */
 const galleryImages = [

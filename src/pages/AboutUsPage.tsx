@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 import Footer from '@/sections/Footer';
 
-gsap.registerPlugin(ScrollTrigger);
-
 /* ── Ornamental divider (SVG) ─────────────────────────────── */
 function OrnamentDivider({ className = '' }: { className?: string }) {
   return (

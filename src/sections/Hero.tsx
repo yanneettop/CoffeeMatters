@@ -2,8 +2,6 @@ import { useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -30,9 +28,14 @@ export default function Hero() {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Smooth rAF lerp loop — 60fps synced
+    // Smooth rAF lerp loop — paused when hero is off-screen
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    let heroVisible = true;
     const parallaxLoop = () => {
+      if (!heroVisible) {
+        rafId.current = requestAnimationFrame(parallaxLoop);
+        return;
+      }
       const smoothing = 0.06;
       mouseLerped.current.x = lerp(mouseLerped.current.x, mouseTarget.current.x, smoothing);
       mouseLerped.current.y = lerp(mouseLerped.current.y, mouseTarget.current.y, smoothing);
@@ -49,6 +52,12 @@ export default function Hero() {
       rafId.current = requestAnimationFrame(parallaxLoop);
     };
     rafId.current = requestAnimationFrame(parallaxLoop);
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => { heroVisible = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    if (heroRef.current) visibilityObserver.observe(heroRef.current);
 
     const ctx = gsap.context(() => {
       // Background Ken Burns entrance — scale down + fade in
@@ -159,6 +168,7 @@ export default function Hero() {
       ctx.revert();
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(rafId.current);
+      visibilityObserver.disconnect();
     };
   }, [handleMouseMove]);
 

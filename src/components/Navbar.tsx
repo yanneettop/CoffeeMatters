@@ -3,8 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Menu, X } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'Menu', href: '#menu' },

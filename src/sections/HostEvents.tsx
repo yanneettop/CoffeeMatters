@@ -3,8 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function HostEvents() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -18,11 +16,10 @@ export default function HostEvents() {
       // Text card glassmorphism reveal
       if (textRef.current) {
         gsap.fromTo(textRef.current,
-          { opacity: 0, y: 40, backdropFilter: 'blur(0px)' },
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            backdropFilter: 'blur(10px)',
             duration: 0.8,
             ease: 'expo.out',
             scrollTrigger: {
@@ -214,10 +211,11 @@ export default function HostEvents() {
             style={{ willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover animate-pulse-glow">
-              <img 
-                src="/events-gathering.jpg" 
+              <img
+                src="/events-gathering.jpg"
                 alt="People at a social gathering"
                 className="img-content w-full h-auto object-cover aspect-square"
+                loading="lazy"
               />
             </div>
             

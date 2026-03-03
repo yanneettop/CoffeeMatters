@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { menuTabs } from '@/data/menuData';
 import type { MenuTab } from '@/data/menuData';
 import MenuCategoryCard from '@/components/menu/MenuCategoryCard';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Menu() {
   const sectionRef = useRef<HTMLDivElement>(null);

@@ -3,8 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function SweetsBrunch() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -147,12 +145,14 @@ export default function SweetsBrunch() {
         alt=""
         className="beans-deco absolute -right-12 bottom-16 w-32 lg:w-44 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(-25deg) scaleX(-1)' }}
+        loading="lazy"
       />
       <img
         src="/beans2.png"
         alt=""
         className="beans-deco absolute -left-10 top-12 w-24 lg:w-32 opacity-80 pointer-events-none hidden lg:block"
         style={{ transform: 'rotate(30deg)' }}
+        loading="lazy"
       />
 
       <div className="section-padding">
@@ -167,10 +167,11 @@ export default function SweetsBrunch() {
             }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
-              <img 
-                src="/pastries-display.jpg" 
+              <img
+                src="/pastries-display.jpg"
                 alt="Pastries display"
                 className="img-content w-full h-auto object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
               />
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-coral/0 group-hover:bg-coral/10 transition-colors duration-500" />

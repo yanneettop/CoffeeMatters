@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 interface ScrollMarqueeProps {
   /** Text to repeat across the strip. Default: Coffee Matters tagline. */
   text?: string;
