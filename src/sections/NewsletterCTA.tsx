@@ -152,7 +152,7 @@ export default function NewsletterCTA() {
           {/* CTA Button */}
           <a
             ref={buttonRef}
-            href="https://instagram.com"
+            href="https://www.instagram.com/coffeematterslondon"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-white text-white rounded-full text-sm font-medium tracking-wide uppercase transition-all duration-300 hover:bg-white hover:text-coral hover:scale-105"

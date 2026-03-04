@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import Menu from '@/sections/Menu';
+import NewsletterCTA from '@/sections/NewsletterCTA';
 import Footer from '@/sections/Footer';
 
 export default function MenuPage() {
@@ -21,6 +22,7 @@ export default function MenuPage() {
   return (
     <div ref={pageRef} className="pt-20">
       <Menu />
+      <NewsletterCTA />
       <Footer />
     </div>
   );

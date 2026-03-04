@@ -210,7 +210,7 @@ export default function HostEvents() {
             className="relative"
             style={{ willChange: 'transform, clip-path' }}
           >
-            <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover animate-pulse-glow">
+            <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover animate-pulse-glow group">
               <img
                 src="/events-gathering.jpg"
                 alt="Private event gathering hosted at Coffee Matters café venue, London"

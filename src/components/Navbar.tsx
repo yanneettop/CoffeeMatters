@@ -101,14 +101,14 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
               href={link.href}
               className={`relative text-sm font-normal tracking-widest uppercase transition-colors duration-300 group ${
                 navScrolled
-                  ? 'text-gray-800 hover:text-black'
-                  : 'text-white/90 hover:text-white'
+                  ? 'text-gray-800 hover:text-[#C25B3A]'
+                  : 'text-white/90 hover:text-[#C25B3A]'
               }`}
             >
               {link.name}
               <span
                 className={`absolute -bottom-1 left-0 w-full h-0.5 transform origin-center scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${
-                  navScrolled ? 'bg-black' : 'bg-white'
+                  navScrolled ? 'bg-[#C25B3A]' : 'bg-[#C25B3A]'
                 }`}
               />
             </a>
@@ -134,7 +134,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
               key={link.name}
               href={link.href}
               onClick={handleLinkClick}
-              className="block py-3 text-gray-800 hover:text-black font-normal tracking-widest uppercase text-sm border-b border-gray-200 last:border-0"
+              className="block py-3 text-gray-800 hover:text-[#C25B3A] font-normal tracking-widest uppercase text-sm border-b border-gray-200 last:border-0"
             >
               {link.name}
             </a>

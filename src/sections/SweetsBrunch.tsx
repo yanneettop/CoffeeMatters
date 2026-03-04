@@ -170,11 +170,11 @@ export default function SweetsBrunch() {
               <img
                 src="/pastries-display.jpg"
                 alt="Freshly baked Greek pastries and sweets at Coffee Matters, Brick Lane"
-                className="img-content w-full h-auto object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
+                className="img-content w-full h-auto object-cover aspect-square"
                 loading="lazy"
               />
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-coral/0 group-hover:bg-coral/10 transition-colors duration-500" />
+              <div className="absolute inset-0 bg-coral/0 group-hover:bg-coral/10 transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
             </div>
             
             {/* Decorative glow */}
@@ -183,12 +183,12 @@ export default function SweetsBrunch() {
 
           {/* Text Content */}
           <div ref={textRef} className="lg:pl-8">
-            <div className="mb-8 group">
+            <div className="mb-8 group/heading">
               <h2 className="text-4xl md:text-5xl lg:text-6xl">
-                <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">SWEETS & PIES</span>
-                <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
+                <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
+                <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover/heading:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
               </h2>
-              <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
+              <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover/heading:w-24" />
             </div>
             
             <div className="space-y-6 text-gray-700 font-body leading-relaxed mb-8">
@@ -204,12 +204,12 @@ export default function SweetsBrunch() {
             <a
               ref={buttonRef}
               href="#menu"
-              className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300"
+              className="btn-outline group/btn inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300"
             >
               <span>SEE MENU</span>
-              <ArrowRight 
-                size={18} 
-                className="transition-transform duration-300 group-hover:translate-x-2"
+              <ArrowRight
+                size={18}
+                className="transition-transform duration-300 group-hover/btn:translate-x-2"
               />
             </a>
           </div>

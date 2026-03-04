@@ -112,6 +112,34 @@ export default function Hero() {
           stagger: 0.5,
           delay: 2.2,
         });
+
+        // Hover effects on each word
+        words.forEach((word) => {
+          word.addEventListener('mouseenter', () => {
+            gsap.to(word, {
+              scale: 1.05,
+              color: '#C25B3A',
+              skewX: -1,
+              letterSpacing: '0.04em',
+              textShadow: '0 0 20px rgba(194,91,58,0.35)',
+              duration: 0.4,
+              ease: 'power2.out',
+              overwrite: 'auto',
+            });
+          });
+          word.addEventListener('mouseleave', () => {
+            gsap.to(word, {
+              scale: 1,
+              color: '#ffffff',
+              skewX: 0,
+              letterSpacing: '0.025em',
+              textShadow: 'none',
+              duration: 0.5,
+              ease: 'power2.out',
+              overwrite: 'auto',
+            });
+          });
+        });
       }
 
       // Divider line expands from center
@@ -249,8 +277,8 @@ export default function Hero() {
           className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 tracking-wide"
           style={{ perspective: '1000px' }}
         >
-          <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">COFFEE</span>{' '}
-          <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">MATTERS</span>
+          <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)] cursor-default select-none">COFFEE</span>{' '}
+          <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)] cursor-default select-none">MATTERS</span>
           <span className="sr-only"> — Specialty Coffee Shop in Brick Lane, London</span>
         </h1>
 
