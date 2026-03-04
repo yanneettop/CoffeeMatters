@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { MapPin, Mail, Clock, Send, Loader2 } from 'lucide-react';
+import NewsletterCTA from '@/sections/NewsletterCTA';
 import Footer from '@/sections/Footer';
 
 /* ── Form schema ──────────────────────────────────────────── */
@@ -329,6 +330,7 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <NewsletterCTA />
       <Footer />
     </div>
   );

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import NewsletterCTA from '@/sections/NewsletterCTA';
 import Footer from '@/sections/Footer';
 
 /* ── Gallery data ─────────────────────────────────────────── */
@@ -210,13 +211,13 @@ export default function GalleryPage() {
             <button
               key={image.src}
               onClick={() => openLightbox(index)}
-              className="gallery-item group relative w-full mb-4 md:mb-5 break-inside-avoid block overflow-hidden rounded-xl border border-[var(--sandstone)]/30 bg-white/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral"
+              className="gallery-item group relative w-full mb-4 md:mb-5 break-inside-avoid block overflow-hidden rounded-xl border border-[var(--sandstone)]/30 bg-white/30 img-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-coral"
             >
               <img
                 src={image.src}
                 alt={image.alt}
                 loading="lazy"
-                className="img-content w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                className="img-content w-full h-auto object-cover"
               />
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
@@ -236,6 +237,7 @@ export default function GalleryPage() {
         />
       )}
 
+      <NewsletterCTA />
       <Footer />
     </div>
   );

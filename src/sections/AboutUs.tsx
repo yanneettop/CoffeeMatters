@@ -197,7 +197,7 @@ export default function AboutUs() {
             className="relative"
             style={{ willChange: 'transform, clip-path' }}
           >
-            <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover">
+            <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img
                 src="/about-storefront.jpg"
                 alt="Coffee Matters café storefront on Brick Lane, London"

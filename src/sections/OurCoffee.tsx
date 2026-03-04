@@ -183,7 +183,7 @@ export default function OurCoffee() {
             className="order-1 lg:order-2 relative"
             style={{ willChange: 'transform, clip-path' }}
           >
-            <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover">
+            <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img
                 src="/coffee-drinks.jpg"
                 alt="Freddo Espresso and specialty iced coffee drinks at Coffee Matters"

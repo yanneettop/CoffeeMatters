@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
+import NewsletterCTA from '@/sections/NewsletterCTA';
 import Footer from '@/sections/Footer';
 
 /* ── Ornamental divider (SVG) ─────────────────────────────── */
@@ -329,7 +330,7 @@ export default function AboutUsPage() {
 
           {/* ── Full-width image break ────────────────── */}
           <StorySection className="mb-16">
-            <div className="relative -mx-6 md:-mx-12 lg:-mx-24 overflow-hidden rounded-lg shadow-xl">
+            <div className="relative -mx-6 md:-mx-12 lg:-mx-24 overflow-hidden rounded-lg shadow-xl img-hover group">
               <img
                 src="/about-storefront.jpg"
                 alt="Inside Coffee Matters"
@@ -412,6 +413,7 @@ export default function AboutUsPage() {
         </div>
       </div>
 
+      <NewsletterCTA />
       <Footer />
     </div>
   );
