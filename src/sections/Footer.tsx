@@ -156,10 +156,15 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-coral mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-sm">
+                <a
+                  href="https://www.google.com/maps?ll=51.52556,-0.070537&z=15&t=m&hl=en-US&gl=US&mapclient=embed&cid=10714594583351249534"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 text-sm hover:text-white transition-colors duration-300"
+                >
                   157 Bethnal Green Rd,<br />
                   London E2 7DG
-                </span>
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-coral flex-shrink-0" />
