@@ -107,7 +107,7 @@ export default function NewsletterCTA() {
     return () => ctx.revert();
   }, []);
 
-  const headingText = 'JOIN COFFEE MATTERS AND BE ONE OF THE FIRST TO HEAR ABOUT OUR SPECIAL OFFERS AND EVENTS';
+  const headingText = 'Join Coffee Matters and be one of the first to hear about our special offers and events';
   const words = headingText.split(' ');
 
   return (
@@ -139,7 +139,7 @@ export default function NewsletterCTA() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 
             ref={headingRef}
-            className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-tight mb-10"
+            className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[3.2rem] text-white font-medium leading-[1.15] tracking-[0.01em] mb-10 max-w-5xl mx-auto"
             style={{ willChange: 'transform' }}
           >
             {words.map((word, i) => (
@@ -155,13 +155,13 @@ export default function NewsletterCTA() {
             href="https://www.instagram.com/coffeematterslondon"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-white text-white rounded-full text-sm font-medium tracking-wide uppercase transition-all duration-300 hover:bg-white hover:text-coral hover:scale-105"
+            className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-white text-white rounded-full text-sm font-medium tracking-[0.02em] transition-all duration-300 hover:bg-white hover:text-coral hover:scale-105"
             style={{ 
               animation: 'pulse 3s ease-in-out infinite',
             }}
           >
             <Instagram size={20} />
-            <span>FOLLOW US ON INSTAGRAM</span>
+            <span>Follow us on Instagram</span>
             <ArrowRight 
               size={18} 
               className="transition-transform duration-300 group-hover:translate-x-2"
