@@ -18,7 +18,7 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-const WEB3FORMS_ACCESS_KEY = 'c67f21e2-a4d4-48fe-9375-72a7b1218d74';
+const WEB3FORMS_ACCESS_KEY = '71f9a8c2-6394-476e-9798-bee3f2424d3e';
 
 const openingHours = [
   { day: 'Monday – Friday', hours: '7:00 – 18:00' },

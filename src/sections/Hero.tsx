@@ -467,10 +467,6 @@ export default function Hero() {
           Dive in heavenly Greek pies, pastries, and coffee delights in the vibrant heart of Bricklane.
         </p>
 
-        <p className="max-w-xl text-sm sm:text-base text-white/80 font-body tracking-wide px-4">
-          Join Coffee Matters and be one of the first to hear about our special offers and events
-        </p>
-
         {/* Scroll Indicator */}
         <div
           ref={scrollIndicatorRef}
