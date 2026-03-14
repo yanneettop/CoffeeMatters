@@ -107,8 +107,10 @@ export default function NewsletterCTA() {
     return () => ctx.revert();
   }, []);
 
-  const headingText = 'Join Coffee Matters and be one of the first to hear about our special offers and events';
-  const words = headingText.split(' ');
+  const headingLines = [
+    'A little Coffee Matters,',
+    'in your feed',
+  ];
 
   return (
     <section 
@@ -135,19 +137,33 @@ export default function NewsletterCTA() {
         />
       </div>
 
-      <div className="section-padding relative z-10">
+      <div className="section-padding relative z-10 flex items-center justify-center">
         <div className="max-w-4xl mx-auto text-center">
           <h2 
             ref={headingRef}
-            className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[3.2rem] text-white font-medium leading-[1.15] tracking-[0.01em] mb-10 max-w-5xl mx-auto"
+            className="font-display text-[1.8rem] sm:text-[2.2rem] md:text-[2.5rem] lg:text-[2.8rem] text-white font-light leading-snug tracking-[0.01em] mb-3 sm:mb-4 max-w-2xl mx-auto text-balance"
             style={{ willChange: 'transform' }}
           >
-            {words.map((word, i) => (
-              <span key={i} className="word inline-block mr-[0.25em]">
-                {word}
+            {headingLines.map((line, lineIndex) => (
+              <span
+                key={lineIndex}
+                className="block md:whitespace-nowrap"
+              >
+                {line.split(' ').map((word, wordIndex) => (
+                  <span
+                    key={`${lineIndex}-${wordIndex}`}
+                    className="word inline-block mr-[0.25em]"
+                  >
+                    {word}
+                  </span>
+                ))}
               </span>
             ))}
           </h2>
+
+          <p className="text-xs sm:text-sm text-white/80 max-w-xl mx-auto mb-6 sm:mb-7 leading-relaxed">
+            Follow us on Instagram for specialty coffee, brunch moments, and the warm details behind the space.
+          </p>
 
           {/* CTA Button */}
           <a
@@ -155,13 +171,13 @@ export default function NewsletterCTA() {
             href="https://www.instagram.com/coffeematterslondon"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-white text-white rounded-full text-sm font-medium tracking-[0.02em] transition-all duration-300 hover:bg-white hover:text-coral hover:scale-105"
+            className="group inline-flex items-center gap-2.5 sm:gap-3 px-6 sm:px-7 py-2.5 sm:py-3 border border-white/80 bg-white/5 text-white rounded-full text-[0.75rem] sm:text-sm font-medium tracking-[0.06em] transition-all duration-300 hover:bg-white hover:text-coral hover:shadow-lg/40 hover:shadow-black/30 hover:-translate-y-[1px]"
             style={{ 
               animation: 'pulse 3s ease-in-out infinite',
             }}
           >
             <Instagram size={20} />
-            <span>Follow us on Instagram</span>
+            <span>Follow @coffeematterslondon</span>
             <ArrowRight 
               size={18} 
               className="transition-transform duration-300 group-hover:translate-x-2"
