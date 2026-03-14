@@ -134,6 +134,29 @@
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-24;
   }
+
+  .hero-steam {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 50% 80%, rgba(255,255,255,0.18) 0%, transparent 60%);
+    position: relative;
+    overflow: visible;
+  }
+
+  .hero-steam::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 14px;
+    height: 32px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.6) 0%, transparent 70%);
+    opacity: 0.75;
+    filter: blur(2px);
+    animation: steamDrift 7s ease-in-out infinite;
+  }
   
   /* Image Hover Effect — wrapper only clips overflow, inner img scales */
   .img-hover {
@@ -260,6 +283,23 @@
   100% {
     opacity: 0;
     transform: translateY(-100px) scale(1.5);
+  }
+}
+
+@keyframes steamDrift {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 6px) scale(0.7);
+  }
+  30% {
+    opacity: 0.4;
+  }
+  60% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -18px) scale(1.1);
   }
 }
 

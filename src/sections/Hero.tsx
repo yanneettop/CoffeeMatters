@@ -27,8 +27,30 @@ export default function Hero() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const isMobile = window.innerWidth < 768;
-    // On mobile we keep the hero static — no parallax or GSAP timelines
-    if (isMobile) return;
+    // On mobile we keep things simpler: static Ken Burns, light scroll parallax, no GSAP timelines.
+    if (isMobile) {
+      if (imgRef.current) {
+        imgRef.current.style.opacity = '1';
+      }
+
+      const handleScroll = () => {
+        if (!heroRef.current || !contentRef.current || !bgRef.current) return;
+        const rect = heroRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const progress = Math.min(Math.max(-rect.top / (viewportHeight * 0.6), 0), 1);
+
+        // Very light counter parallax between background and content
+        bgRef.current.style.transform = `translate3d(0, ${progress * 8}px, 0)`;
+        contentRef.current.style.transform = `translate3d(0, ${progress * -12}px, 0)`;
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
 
     // --- Mouse parallax (rAF only — no GSAP on bgRef transform) ---
     window.addEventListener('mousemove', handleMouseMove);
@@ -161,11 +183,19 @@ export default function Hero() {
     };
   }, [handleMouseMove]);
 
+  const handleScrollIndicatorClick = () => {
+    const heroEl = heroRef.current;
+    if (!heroEl) return;
+    const nextSection = heroEl.nextElementSibling as HTMLElement | null;
+    const targetOffset = nextSection ? nextSection.offsetTop : heroEl.offsetTop + heroEl.offsetHeight;
+    window.scrollTo({ top: targetOffset, behavior: 'smooth' });
+  };
+
   return (
     <section
       id="home"
       ref={heroRef}
-      className="relative w-full h-screen overflow-hidden"
+      className="relative w-full h-[85vh] sm:h-screen overflow-hidden"
     >
       {/* Background Image — oversized for parallax + Ken Burns */}
       <div
@@ -177,10 +207,9 @@ export default function Hero() {
           ref={imgRef}
           src="/hero-bg.webp"
           alt="Coffee Matters café interior at Brick Lane, London"
-          className="img-content w-full h-full object-cover"
+          className="img-content w-full h-full object-cover object-[50%_30%] sm:object-center animate-fade-in sm:animate-none"
           fetchPriority="high"
           decoding="async"
-          style={{ opacity: 0 }}
         />
       </div>
 
@@ -196,7 +225,7 @@ export default function Hero() {
 
       {/* Bokeh particles — white, behind content */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(40)].map((_, i) => {
+        {[...Array(20)].map((_, i) => {
           const size = 5 + (i % 8) * 4;
           return (
             <div
@@ -229,9 +258,14 @@ export default function Hero() {
         ref={contentRef}
         className="relative z-10 h-full flex flex-col items-center justify-center text-center section-padding"
       >
+        {/* Subtle steam above logo on mobile */}
+        <div className="sm:hidden mb-2 h-6 flex items-end justify-center pointer-events-none">
+          <div className="hero-steam" />
+        </div>
+
         {/* Mobile heading — stacked lines, no per-letter animation */}
         <h1
-          className="font-display text-4xl xs:text-5xl text-white mb-4 tracking-wide sm:hidden"
+          className="font-display text-3xl xs:text-4xl text-white mb-3 tracking-wide leading-snug sm:hidden"
         >
           <span className="block">COFFEE</span>
           <span className="block">MATTERS</span>
@@ -292,27 +326,44 @@ export default function Hero() {
           ref={subheadingRef}
           className="max-w-2xl text-base sm:text-lg text-white/90 font-body leading-relaxed px-4 mb-6 relative"
         >
-          {'Dive in heavenly Greek pies, pastries, and coffee delights in the vibrant heart of Bricklane.'.split(' ').map((word, i) => (
-            <span
-              key={i}
-              className="sub-word inline-block mr-[0.3em] cursor-default"
-              style={{ transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1), color 0.3s ease, text-shadow 0.3s ease, letter-spacing 0.3s ease' }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.transform = 'scale(1.18) translateY(-2px)';
-                el.style.color = '#fff';
-                el.style.textShadow = '0 0 12px rgba(194,91,58,0.6), 0 0 30px rgba(194,91,58,0.25)';
-                el.style.letterSpacing = '0.03em';
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.transform = '';
-                el.style.color = '';
-                el.style.textShadow = '';
-                el.style.letterSpacing = '';
-              }}
-            >{word}</span>
-          ))}
+          {'Dive in heavenly Greek pies, pastries, and coffee delights in the vibrant heart of Bricklane.'.split(' ').map((word, i) => {
+            const playfulWords = ['Greek', 'pies,', 'coffee', 'delights'];
+            const isPlayful = playfulWords.includes(word.replace(/[^a-zA-Z,]/g, ''));
+            return (
+              <span
+                key={i}
+                className="sub-word inline-block mr-[0.3em] cursor-default"
+                style={{ transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1), color 0.3s ease, text-shadow 0.3s ease, letter-spacing 0.3s ease' }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.transform = 'scale(1.18) translateY(-2px)';
+                  el.style.color = '#fff';
+                  el.style.textShadow = '0 0 12px rgba(194,91,58,0.6), 0 0 30px rgba(194,91,58,0.25)';
+                  el.style.letterSpacing = '0.03em';
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.transform = '';
+                  el.style.color = '';
+                  el.style.textShadow = '';
+                  el.style.letterSpacing = '';
+                }}
+                onClick={isPlayful ? (e) => {
+                  const el = e.currentTarget;
+                  el.style.transform = 'scale(1.12) translateY(-1px)';
+                  el.style.color = '#fff';
+                  el.style.textShadow = '0 0 10px rgba(194,91,58,0.6)';
+                  setTimeout(() => {
+                    el.style.transform = '';
+                    el.style.color = '';
+                    el.style.textShadow = '';
+                  }, 220);
+                } : undefined}
+              >
+                {word}
+              </span>
+            );
+          })}
           {/* Shimmer overlay — soft glow sweep */}
           <span
             className="absolute inset-[-10px] pointer-events-none"
@@ -330,10 +381,11 @@ export default function Hero() {
         {/* Scroll Indicator */}
         <div
           ref={scrollIndicatorRef}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60"
+          className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 sm:gap-2 text-white/60"
+          onClick={handleScrollIndicatorClick}
         >
-          <span className="text-[10px] tracking-[0.3em] uppercase font-body">Scroll</span>
-          <div className="relative w-5 h-9 border border-white/40 rounded-full flex justify-center overflow-hidden">
+          <span className="text-[9px] sm:text-[10px] tracking-[0.3em] uppercase font-body">Scroll</span>
+          <div className="relative w-4 h-8 sm:w-5 sm:h-9 border border-white/40 rounded-full flex justify-center overflow-hidden">
             <div
               className="w-[3px] h-[3px] bg-white/80 rounded-full mt-2"
               style={{
@@ -344,7 +396,7 @@ export default function Hero() {
         </div>
       </div>
       {/* Terracotta bokeh — clustered at heading edges (COF... and ...ERS) */}
-      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+      <div className="hidden sm:block absolute inset-0 z-20 pointer-events-none overflow-hidden">
         {[...Array(40)].map((_, i) => {
           const size = 15 + (i % 6) * 10;
           const colors = [
