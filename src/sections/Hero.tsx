@@ -26,6 +26,10 @@ export default function Hero() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const isMobile = window.innerWidth < 768;
+    // On mobile we keep the hero static — no parallax or GSAP timelines
+    if (isMobile) return;
+
     // --- Mouse parallax (rAF only — no GSAP on bgRef transform) ---
     window.addEventListener('mousemove', handleMouseMove);
 
@@ -225,9 +229,19 @@ export default function Hero() {
         ref={contentRef}
         className="relative z-10 h-full flex flex-col items-center justify-center text-center section-padding"
       >
+        {/* Mobile heading — stacked lines, no per-letter animation */}
+        <h1
+          className="font-display text-4xl xs:text-5xl text-white mb-4 tracking-wide sm:hidden"
+        >
+          <span className="block">COFFEE</span>
+          <span className="block">MATTERS</span>
+          <span className="sr-only"> — Specialty Coffee Shop in Brick Lane, London</span>
+        </h1>
+
+        {/* Desktop / tablet heading — animated per letter */}
         <h1
           ref={headingRef}
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 tracking-wide"
+          className="hidden sm:block font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 tracking-wide"
         >
           {'COFFEE MATTERS'.split('').map((char, i) => (
             <span
