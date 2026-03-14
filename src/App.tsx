@@ -10,7 +10,7 @@ import SweetsBrunch from './sections/SweetsBrunch';
 import HostEvents from './sections/HostEvents';
 import AboutUs from './sections/AboutUs';
 import NewsletterCTA from './sections/NewsletterCTA';
-import Stats from './sections/Stats';
+import GoogleReviews from './sections/GoogleReviews';
 import Footer from './sections/Footer';
 import ScrollMarquee from './components/ScrollMarquee';
 import BackToTop from './components/BackToTop';
@@ -279,7 +279,7 @@ function App() {
               text="SWEETS & PIES  ·  BRUNCH  ·  MEDITERRANEAN  ·  AUTHENTIC RECIPES  ·  BAKED DAILY  ·  "
             />
             <HostEvents />
-            <Stats />
+            <GoogleReviews />
             <AboutUs />
             <NewsletterCTA />
             <Footer />

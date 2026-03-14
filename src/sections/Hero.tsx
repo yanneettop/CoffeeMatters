@@ -353,7 +353,7 @@ export default function Hero() {
 
       {/* ── DESKTOP CONTENT ──────────────────────────────────────── */}
       <div
-        className="hidden sm:flex relative z-10 h-full flex-col items-center justify-center text-center section-padding"
+        className="hidden sm:flex relative z-10 h-full flex-col items-center justify-center text-center section-padding pb-16"
         style={{ willChange: 'transform' }}
       >
         {/* Location tag */}
