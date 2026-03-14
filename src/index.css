@@ -65,7 +65,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 }
 
@@ -132,7 +132,7 @@
   
   /* Section Padding */
   .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-24;
+    @apply px-4 sm:px-6 lg:px-12 xl:px-20 2xl:px-28;
   }
 
   .hero-steam {
@@ -389,6 +389,25 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a34b30;
+}
+
+/* Mobile Content Cards */
+@media (max-width: 639px) {
+  .content-card {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 28px 18px;
+    box-shadow: 0 2px 12px rgba(43, 38, 35, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+  }
+
+  .content-card .rounded-lg {
+    border-radius: 14px;
+  }
+
+  .content-card p {
+    line-height: 1.8;
+  }
 }
 
 /* Reduced Motion */

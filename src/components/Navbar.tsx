@@ -23,6 +23,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
   const navRef = useRef<HTMLElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(forceGlass);
+  const [activeSection, setActiveSection] = useState<string>('home');
 
   // Scroll-based glassmorphism (only on home page)
   useEffect(() => {
@@ -47,6 +48,30 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
 
     return () => {
       trigger.kill();
+    };
+  }, [forceGlass]);
+
+  // Track active section for nav indicator
+  useEffect(() => {
+    if (forceGlass) return; // Only on home page
+
+    const sectionIds = ['home', 'menu', 'gallery', 'about', 'contact'];
+    
+    const triggers = sectionIds.map((id) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+
+      return ScrollTrigger.create({
+        trigger: el,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        onEnter: () => setActiveSection(id),
+        onEnterBack: () => setActiveSection(id),
+      });
+    }).filter(Boolean) as ScrollTrigger[];
+
+    return () => {
+      triggers.forEach(t => t.kill());
     };
   }, [forceGlass]);
 
@@ -97,40 +122,49 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
         </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => {
-                const target = document.querySelector(link.href);
-                if (target) {
-                  // Element exists on current page — smooth scroll, stop bubbling
-                  e.preventDefault();
-                  e.stopPropagation();
-                  gsap.to(window, {
-                    scrollTo: { y: target, offsetY: 0 },
-                    duration: 1,
-                    ease: 'power3.inOut',
-                  });
-                }
-                // If target not found, let App's global handler deal with page navigation
-              }}
-              className={`relative text-sm font-normal tracking-widest uppercase group ${
-                navScrolled
-                  ? 'text-gray-800 hover:text-[#C25B3A]'
-                  : 'text-white/90 hover:text-[#C25B3A]'
-              }`}
-              style={{ transition: 'color 0.3s ease, letter-spacing 0.4s cubic-bezier(0.22,1,0.36,1)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.letterSpacing = '0.2em'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.letterSpacing = ''; }}
-            >
-              {link.name}
-              <span
-                className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#C25B3A] transform origin-center scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
-              />
-            </a>
-          ))}
+        <div className="hidden md:flex items-center gap-8 relative">
+          {navLinks.map((link) => {
+            const sectionId = link.href.slice(1); // Remove # from href
+            const isActive = activeSection === sectionId;
+            
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => {
+                  const target = document.querySelector(link.href);
+                  if (target) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    gsap.to(window, {
+                      scrollTo: { y: target, offsetY: 0 },
+                      duration: 1,
+                      ease: 'power3.inOut',
+                    });
+                  }
+                }}
+                className={`relative text-sm font-normal tracking-widest uppercase group transition-colors duration-300 ${
+                  isActive
+                    ? navScrolled
+                      ? 'text-[#C25B3A]'
+                      : 'text-[#C25B3A]'
+                    : navScrolled
+                    ? 'text-gray-800 hover:text-[#C25B3A]'
+                    : 'text-white/90 hover:text-[#C25B3A]'
+                }`}
+                style={{ transition: 'color 0.3s ease, letter-spacing 0.4s cubic-bezier(0.22,1,0.36,1)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.letterSpacing = '0.2em'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.letterSpacing = ''; }}
+              >
+                {link.name}
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-[#C25B3A] transform origin-center transition-transform duration-300 ${
+                    isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
+              </a>
+            );
+          })}
         </div>
 
         {/* Mobile Menu Button */}

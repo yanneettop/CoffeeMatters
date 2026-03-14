@@ -13,22 +13,42 @@ export default function AboutUs() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const isMobile = window.innerWidth < 768;
+
     const ctx = gsap.context(() => {
       // Image curtain reveal
       if (imageRef.current) {
-        gsap.fromTo(imageRef.current,
-          { clipPath: 'inset(0 100% 0 0)' },
-          {
-            clipPath: 'inset(0 0% 0 0)',
-            duration: 1.2,
-            ease: 'expo.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 60%',
-              toggleActions: 'play none none reverse'
+        if (isMobile) {
+          // Simpler mobile reveal (fade + slide)
+          gsap.fromTo(imageRef.current,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+              }
             }
-          }
-        );
+          );
+        } else {
+          gsap.fromTo(imageRef.current,
+            { clipPath: 'inset(0 100% 0 0)' },
+            {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 1.2,
+              ease: 'expo.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+        }
       }
 
       // Frame border draw
@@ -167,7 +187,7 @@ export default function AboutUs() {
     <section
       id="about-preview"
       ref={sectionRef}
-      className="relative w-full py-20 md:py-32 bg-cream overflow-hidden"
+      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
     >
       {/* Atmospheric depth layers */}
       <div className="parallax-far absolute top-10 -right-24 w-[500px] h-[500px] rounded-full bg-coral/[0.05] pointer-events-none blur-[90px]" />
@@ -190,7 +210,8 @@ export default function AboutUs() {
       />
 
       <div className="section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
+        <div className="content-card">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
           {/* Image */}
           <div 
             ref={imageRef}
@@ -201,7 +222,7 @@ export default function AboutUs() {
               <img
                 src="/about-storefront.jpg"
                 alt="Coffee Matters café storefront on Brick Lane, London"
-                className="img-content w-full h-auto object-cover aspect-square"
+                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
                 loading="lazy"
               />
             </div>
@@ -209,7 +230,7 @@ export default function AboutUs() {
             {/* Decorative frame */}
             <div 
               ref={frameRef}
-              className="absolute -inset-4 border-2 border-coral/30 rounded-xl pointer-events-none"
+              className="absolute -inset-4 border-2 border-coral/30 rounded-xl pointer-events-none hidden sm:block"
               style={{
                 boxShadow: '0 0 30px rgba(194, 91, 58, 0.2)',
                 animation: 'pulseGlow 4s ease-in-out infinite'
@@ -227,14 +248,14 @@ export default function AboutUs() {
             style={{ willChange: 'transform' }}
           >
             <div className="mb-8 group">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 <span className="about-word block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">ABOUT</span>
                 <span className="us-word block text-coral mt-1 transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>US</span>
               </h2>
               <div className="about-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
             </div>
             
-            <p className="text-gray-700 font-body leading-relaxed mb-8">
+            <p className="text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
               {words.map((word, i) => (
                 <span key={i} className="word-reveal inline-block mr-[0.3em]">
                   {word}
@@ -255,6 +276,7 @@ export default function AboutUs() {
               />
             </a>
           </div>
+        </div>
         </div>
       </div>
     </section>

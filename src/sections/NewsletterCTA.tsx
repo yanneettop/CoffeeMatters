@@ -108,14 +108,14 @@ export default function NewsletterCTA() {
   }, []);
 
   const headingLines = [
-    'A little Coffee Matters,',
-    'in your feed',
+    'Follow our daily rituals,',
+    'fresh bakes & East London moments',
   ];
 
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full py-20 md:py-28 overflow-hidden"
+      className="relative w-full py-20 md:py-32 lg:py-36 overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #c25b3a 0%, #a34b30 50%, #c25b3a 100%)',
         backgroundSize: '200% 200%',
@@ -141,7 +141,7 @@ export default function NewsletterCTA() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 
             ref={headingRef}
-            className="font-display text-[1.8rem] sm:text-[2.2rem] md:text-[2.5rem] lg:text-[2.8rem] text-white font-light leading-snug tracking-[0.01em] mb-3 sm:mb-4 max-w-2xl mx-auto text-balance"
+            className="font-display text-[1.8rem] sm:text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] text-white font-light leading-snug tracking-[0.01em] mb-4 sm:mb-6 max-w-3xl mx-auto text-balance"
             style={{ willChange: 'transform' }}
           >
             {headingLines.map((line, lineIndex) => (
@@ -161,8 +161,8 @@ export default function NewsletterCTA() {
             ))}
           </h2>
 
-          <p className="text-xs sm:text-sm text-white/80 max-w-xl mx-auto mb-6 sm:mb-7 leading-relaxed">
-            Follow us on Instagram for specialty coffee, brunch moments, and the warm details behind the space.
+          <p className="text-xs sm:text-sm md:text-base text-white/75 max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed font-body" style={{ fontWeight: 300 }}>
+            Join a community that savours the small things — specialty pours, homemade Greek pastries, and the warmth of Brick Lane mornings.
           </p>
 
           {/* CTA Button */}

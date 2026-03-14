@@ -11,6 +11,8 @@ export default function OurCoffee() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const isMobile = window.innerWidth < 768;
+
     const ctx = gsap.context(() => {
       // Heading animation
       const headingWords = headingRef.current?.querySelectorAll('.heading-word');
@@ -74,20 +76,39 @@ export default function OurCoffee() {
 
       // Image reveal animation
       if (imageRef.current) {
-        gsap.fromTo(imageRef.current,
-          { clipPath: 'inset(0 100% 0 0)', x: 50 },
-          {
-            clipPath: 'inset(0 0% 0 0)',
-            x: 0,
-            duration: 1,
-            ease: 'expo.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 60%',
-              toggleActions: 'play none none reverse'
+        if (isMobile) {
+          // Simpler reveal for mobile: fade + slide in (no clip-path)
+          gsap.fromTo(imageRef.current,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+              }
             }
-          }
-        );
+          );
+        } else {
+          // Desktop: reveal with clip-path + slide
+          gsap.fromTo(imageRef.current,
+            { clipPath: 'inset(0 100% 0 0)', x: 50 },
+            {
+              clipPath: 'inset(0 0% 0 0)',
+              x: 0,
+              duration: 1,
+              ease: 'expo.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+        }
       }
 
       // Parallax — beans + bg depth layers
@@ -124,7 +145,7 @@ export default function OurCoffee() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full py-20 md:py-32 bg-cream overflow-hidden"
+      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
     >
       {/* Atmospheric depth layers — ultra-slow parallax, creates genuine multi-plane depth */}
       <div className="parallax-far absolute -top-24 right-[20%] w-[560px] h-[560px] rounded-full bg-coral/[0.06] pointer-events-none blur-[100px]" />
@@ -147,11 +168,12 @@ export default function OurCoffee() {
       />
 
       <div className="section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
+        <div className="content-card">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
           {/* Text Content */}
           <div ref={textRef} className="order-2 lg:order-1">
-            <div ref={headingRef} className="mb-8 group">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl">
+            <div ref={headingRef} className="mb-8 lg:mb-10 group">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 <span className="heading-word inline-block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">OUR</span>
                 <br />
                 <span className="heading-word inline-block text-coral transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>COFFEE</span>
@@ -159,7 +181,7 @@ export default function OurCoffee() {
               <div className="heading-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
             </div>
             
-            <div className="space-y-6 text-gray-700 font-body leading-relaxed">
+            <div className="space-y-6 text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85]">
               <p>
                 At Coffee Matters, we take pride in our expertly crafted brews. Our signature blend features double-origin beans from Brazil and Peru, delivering a rich, complex flavor profile.
               </p>
@@ -187,7 +209,7 @@ export default function OurCoffee() {
               <img
                 src="/coffee-drinks.jpg"
                 alt="Freddo Espresso and specialty iced coffee drinks at Coffee Matters"
-                className="img-content w-full h-auto object-cover aspect-square"
+                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
                 loading="lazy"
               />
               {/* Subtle overlay gradient */}
@@ -197,6 +219,7 @@ export default function OurCoffee() {
             {/* Decorative element */}
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-coral/10 rounded-full blur-2xl" />
           </div>
+        </div>
         </div>
       </div>
     </section>

@@ -50,7 +50,7 @@ export default function ScrollMarquee({
   return (
     <div
       ref={wrapperRef}
-      className="w-full overflow-hidden py-[18px] border-y border-coral/[0.18]"
+      className="w-full overflow-hidden py-[18px] md:py-6 border-y border-coral/[0.18]"
       aria-hidden="true"
       style={{ backgroundColor: 'var(--cream)' }}
     >
@@ -60,7 +60,7 @@ export default function ScrollMarquee({
         style={{ willChange: 'transform' }}
       >
         <span
-          className="font-display text-xl md:text-2xl font-light tracking-[0.55em] uppercase"
+          className="font-display text-xl md:text-2xl lg:text-[1.7rem] font-light tracking-[0.55em] uppercase"
           style={{ color: 'rgba(194, 91, 58, 0.28)' }}
         >
           {repeated}

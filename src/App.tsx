@@ -4,15 +4,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
+import SignatureSection from './sections/SignatureSection';
 import OurCoffee from './sections/OurCoffee';
 import SweetsBrunch from './sections/SweetsBrunch';
 import HostEvents from './sections/HostEvents';
 import AboutUs from './sections/AboutUs';
 import NewsletterCTA from './sections/NewsletterCTA';
+import Stats from './sections/Stats';
 import Footer from './sections/Footer';
 import ScrollMarquee from './components/ScrollMarquee';
 import BackToTop from './components/BackToTop';
 import LoadingScreen from './components/LoadingScreen';
+
 import { Toaster } from 'sonner';
 import './App.css';
 
@@ -267,6 +270,7 @@ function App() {
         {currentPage === 'home' && (
           <>
             <Hero />
+            <SignatureSection />
             <ScrollMarquee direction={-1} />
             <OurCoffee />
             <SweetsBrunch />
@@ -275,6 +279,7 @@ function App() {
               text="SWEETS & PIES  ·  BRUNCH  ·  MEDITERRANEAN  ·  AUTHENTIC RECIPES  ·  BAKED DAILY  ·  "
             />
             <HostEvents />
+            <Stats />
             <AboutUs />
             <NewsletterCTA />
             <Footer />

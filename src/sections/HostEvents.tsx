@@ -12,6 +12,8 @@ export default function HostEvents() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const isMobile = window.innerWidth < 768;
+
     const ctx = gsap.context(() => {
       // Text card glassmorphism reveal
       if (textRef.current) {
@@ -107,21 +109,39 @@ export default function HostEvents() {
         );
       }
 
-      // Image circular reveal
+      // Image reveal
       if (imageRef.current) {
-        gsap.fromTo(imageRef.current,
-          { clipPath: 'circle(0% at 50% 50%)' },
-          {
-            clipPath: 'circle(100% at 50% 50%)',
-            duration: 1.2,
-            ease: 'expo.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 60%',
-              toggleActions: 'play none none reverse'
+        if (isMobile) {
+          // Simpler reveal for mobile: fade + slide
+          gsap.fromTo(imageRef.current,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+              }
             }
-          }
-        );
+          );
+        } else {
+          gsap.fromTo(imageRef.current,
+            { clipPath: 'circle(0% at 50% 50%)' },
+            {
+              clipPath: 'circle(100% at 50% 50%)',
+              duration: 1.2,
+              ease: 'expo.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+        }
       }
 
       // Parallax effects
@@ -153,10 +173,11 @@ export default function HostEvents() {
     <section 
       id="events"
       ref={sectionRef}
-      className="relative w-full py-20 md:py-32 bg-cream overflow-hidden"
+      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
     >
       <div className="section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
+        <div className="content-card">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
           {/* Text Content */}
           <div 
             ref={textRef}
@@ -164,9 +185,9 @@ export default function HostEvents() {
             style={{ willChange: 'transform' }}
           >
             {/* Glassmorphism card effect */}
-            <div className="relative p-8 lg:p-12 rounded-2xl bg-white/30 backdrop-blur-sm">
+            <div className="relative p-0 sm:p-8 lg:p-12 rounded-none sm:rounded-2xl bg-transparent sm:bg-white/30 backdrop-blur-none sm:backdrop-blur-sm">
               <div className="mb-8 group">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                   <span className="block font-display font-light tracking-widest text-[var(--text-secondary)]">
                     {chars.map((char, i) => (
                       <span
@@ -185,7 +206,7 @@ export default function HostEvents() {
                 <div className="w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
               </div>
               
-              <p className="body-text text-gray-700 font-body leading-relaxed mb-8">
+              <p className="body-text text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
                 Make Coffee Matters the canvas for your next special event. Our versatile venue transforms to suit your vision, whether you're planning an intimate gathering or a lively celebration.
               </p>
 
@@ -214,7 +235,7 @@ export default function HostEvents() {
               <img
                 src="/events-gathering.jpg"
                 alt="Private event gathering hosted at Coffee Matters café venue, London"
-                className="img-content w-full h-auto object-cover aspect-square"
+                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
                 loading="lazy"
               />
             </div>
@@ -223,6 +244,7 @@ export default function HostEvents() {
             <div className="absolute -top-6 -right-6 w-32 h-32 bg-coral/10 rounded-full blur-2xl" />
             <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-coral/15 rounded-full blur-3xl" />
           </div>
+        </div>
         </div>
       </div>
     </section>

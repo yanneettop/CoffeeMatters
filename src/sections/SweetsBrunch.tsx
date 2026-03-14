@@ -13,24 +13,45 @@ export default function SweetsBrunch() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const isMobile = window.innerWidth < 768;
+
     const ctx = gsap.context(() => {
-      // Image 3D flip entrance
+      // Image reveal
       if (imageRef.current) {
-        gsap.fromTo(imageRef.current,
-          { rotateY: -30, opacity: 0, x: -50 },
-          {
-            rotateY: 0,
-            opacity: 1,
-            x: 0,
-            duration: 1,
-            ease: 'expo.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 60%',
-              toggleActions: 'play none none reverse'
+        if (isMobile) {
+          // Simpler mobile reveal: fade + slide
+          gsap.fromTo(imageRef.current,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+              }
             }
-          }
-        );
+          );
+        } else {
+          // Image 3D flip entrance
+          gsap.fromTo(imageRef.current,
+            { rotateY: -30, opacity: 0, x: -50 },
+            {
+              rotateY: 0,
+              opacity: 1,
+              x: 0,
+              duration: 1,
+              ease: 'expo.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+        }
       }
 
       // Heading animation
@@ -132,7 +153,7 @@ export default function SweetsBrunch() {
     <section 
       id="brunch"
       ref={sectionRef}
-      className="relative w-full py-20 md:py-32 bg-cream overflow-hidden"
+      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
       style={{ perspective: '1000px' }}
     >
       {/* Atmospheric depth layers */}
@@ -156,7 +177,8 @@ export default function SweetsBrunch() {
       />
 
       <div className="section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
+        <div className="content-card">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
           {/* Image */}
           <div 
             ref={imageRef}
@@ -170,7 +192,7 @@ export default function SweetsBrunch() {
               <img
                 src="/pastries-display.jpg"
                 alt="Freshly baked Greek pastries and sweets at Coffee Matters, Brick Lane"
-                className="img-content w-full h-auto object-cover aspect-square"
+                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
                 loading="lazy"
               />
               {/* Hover overlay */}
@@ -183,15 +205,15 @@ export default function SweetsBrunch() {
 
           {/* Text Content */}
           <div ref={textRef} className="lg:pl-8">
-            <div className="mb-8 group/heading">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl">
+            <div className="mb-8 lg:mb-10 group/heading">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
                 <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover/heading:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
               </h2>
               <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover/heading:w-24" />
             </div>
             
-            <div className="space-y-6 text-gray-700 font-body leading-relaxed mb-8">
+            <div className="space-y-6 text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
               <p>
                 Tired of the same old brunch? Come discover our new Mediterranean-inspired menu. We use authentic ingredients to bring you true flavors from across the sea.
               </p>
@@ -213,6 +235,7 @@ export default function SweetsBrunch() {
               />
             </a>
           </div>
+        </div>
         </div>
       </div>
     </section>
