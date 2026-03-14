@@ -116,11 +116,11 @@ export default function Footer() {
         >
           {/* Brand Column */}
           <div className="footer-column sm:col-span-2 lg:col-span-1">
-            <div ref={logoRef} className="mb-6">
-              <h3 className="text-2xl tracking-wide">
-                <span className="font-display font-bold tracking-wider">COFFEE</span>
+            <div ref={logoRef} className="mb-6 group/logo cursor-default">
+              <h3 className="text-2xl tracking-wide" style={{ transition: 'color 0.4s ease, text-shadow 0.4s ease' }}>
+                <span className="font-display font-bold tracking-wider group-hover/logo:text-[#C25B3A] transition-colors duration-400">COFFEE</span>
                 <br />
-                <span style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>MATTERS</span>
+                <span className="group-hover/logo:text-[#C25B3A] transition-colors duration-400" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>MATTERS</span>
               </h3>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">

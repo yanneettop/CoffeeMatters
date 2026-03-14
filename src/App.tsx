@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import OurCoffee from './sections/OurCoffee';
@@ -10,6 +11,8 @@ import AboutUs from './sections/AboutUs';
 import NewsletterCTA from './sections/NewsletterCTA';
 import Footer from './sections/Footer';
 import ScrollMarquee from './components/ScrollMarquee';
+import BackToTop from './components/BackToTop';
+import LoadingScreen from './components/LoadingScreen';
 import { Toaster } from 'sonner';
 import './App.css';
 
@@ -18,7 +21,7 @@ const AboutUsPage = lazy(() => import('./pages/AboutUsPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 type Page = 'home' | 'menu' | 'about' | 'contact' | 'gallery';
 
@@ -35,29 +38,90 @@ function App() {
     const hash = window.location.hash;
     return PAGE_HASHES[hash] ?? 'home';
   });
+  const [loading, setLoading] = useState(() => {
+    // Only show loader on initial home page load
+    const hash = window.location.hash;
+    return !hash || hash === '#home';
+  });
   const pendingScrollRef = useRef<string | null>(null);
+  const transitionRef = useRef<HTMLDivElement>(null);
+  const isTransitioning = useRef(false);
+
+  /* ── Page transition animation ─────────────────────────── */
+  const transitionTo = useCallback(
+    (page: Page, hash: string) => {
+      if (isTransitioning.current) return;
+      isTransitioning.current = true;
+
+      const overlay = transitionRef.current;
+      if (!overlay) {
+        // Fallback: no animation
+        window.history.pushState(null, '', hash);
+        setCurrentPage(page);
+        window.scrollTo({ top: 0 });
+        isTransitioning.current = false;
+        return;
+      }
+
+      // Phase 1: fade in overlay
+      gsap.to(overlay, {
+        opacity: 1,
+        duration: 0.35,
+        ease: 'power2.in',
+        onComplete: () => {
+          // Switch page while overlay covers screen
+          window.history.pushState(null, '', hash);
+          window.scrollTo({ top: 0 });
+
+          if (page === 'home' && hash !== '#home') {
+            pendingScrollRef.current = hash;
+          }
+          setCurrentPage(page);
+
+          // Phase 2: fade out overlay after a brief pause
+          requestAnimationFrame(() => {
+            gsap.to(overlay, {
+              opacity: 0,
+              duration: 0.4,
+              delay: 0.1,
+              ease: 'power2.out',
+              onComplete: () => {
+                isTransitioning.current = false;
+              },
+            });
+          });
+        },
+      });
+    },
+    [],
+  );
 
   /* ── Navigate helper ──────────────────────────────────── */
   const navigateTo = useCallback(
     (page: Page, hash: string) => {
-      window.history.pushState(null, '', hash);
-
       if (page !== 'home') {
-        setCurrentPage(page);
-        window.scrollTo({ top: 0 });
+        // Page switch → use transition
+        if (currentPage !== page) {
+          transitionTo(page, hash);
+        }
       } else {
         if (currentPage !== 'home') {
-          // Switching from sub-page → home: store target, render home first
-          pendingScrollRef.current = hash;
-          setCurrentPage('home');
+          // Sub-page → home: use transition
+          transitionTo('home', hash);
         } else {
-          // Already on home — just scroll
+          // Already on home — just smooth scroll
           const el = document.querySelector(hash);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          if (el) {
+            gsap.to(window, {
+              scrollTo: { y: el, offsetY: 0 },
+              duration: 1,
+              ease: 'power3.inOut',
+            });
+          }
         }
       }
     },
-    [currentPage],
+    [currentPage, transitionTo],
   );
 
   /* ── Intercept all # link clicks ──────────────────────── */
@@ -85,14 +149,31 @@ function App() {
       const hash = window.location.hash;
       const destPage = PAGE_HASHES[hash] ?? 'home';
 
-      if (destPage !== 'home') {
-        setCurrentPage(destPage);
-        window.scrollTo({ top: 0 });
+      // Animate page transition for back/forward
+      const overlay = transitionRef.current;
+      if (overlay && destPage !== currentPage) {
+        gsap.to(overlay, {
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power2.in',
+          onComplete: () => {
+            window.scrollTo({ top: 0 });
+            if (destPage === 'home' && hash) {
+              pendingScrollRef.current = hash;
+            }
+            setCurrentPage(destPage);
+            requestAnimationFrame(() => {
+              gsap.to(overlay, {
+                opacity: 0,
+                duration: 0.35,
+                delay: 0.1,
+                ease: 'power2.out',
+              });
+            });
+          },
+        });
       } else {
-        setCurrentPage('home');
-        if (hash) {
-          pendingScrollRef.current = hash;
-        }
+        setCurrentPage(destPage);
       }
     };
 
@@ -126,10 +207,56 @@ function App() {
     return () => clearTimeout(timeout);
   }, [currentPage]);
 
+  /* ── Global subtle parallax drift on all sections ──────── */
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (currentPage !== 'home') return;
+
+    let ctx: gsap.Context | null = null;
+
+    const timeout = setTimeout(() => {
+      ctx = gsap.context(() => {
+        // Apply upward drift to each section — they start slightly below and float up
+        const sections = document.querySelectorAll('main section');
+
+        sections.forEach((section) => {
+          // Skip hero — has its own parallax
+          if (section.id === 'home') return;
+
+          gsap.fromTo(section,
+            { y: 120 },
+            {
+              y: -60,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1,
+              },
+            }
+          );
+        });
+      });
+    }, 600);
+
+    return () => {
+      clearTimeout(timeout);
+      ctx?.revert();
+    };
+  }, [currentPage]);
+
   return (
     <>
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <Toaster position="top-right" richColors />
       <Navbar forceGlass={currentPage !== 'home'} />
+      {/* Page transition overlay */}
+      <div
+        ref={transitionRef}
+        className="fixed inset-0 z-[999] pointer-events-none bg-[#1a1a1a]"
+        style={{ opacity: 0 }}
+      />
       <main className="relative w-full min-h-screen bg-cream overflow-x-hidden">
         <Suspense fallback={null}>
           {currentPage === 'menu' && <MenuPage />}
@@ -154,6 +281,7 @@ function App() {
           </>
         )}
       </main>
+      <BackToTop />
     </>
   );
 }

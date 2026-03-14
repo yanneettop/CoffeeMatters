@@ -282,6 +282,15 @@
   }
 }
 
+@keyframes subtitleShimmer {
+  0%, 100% {
+    background-position: -50% center;
+  }
+  50% {
+    background-position: 400% center;
+  }
+}
+
 @keyframes scrollDot {
   0% {
     opacity: 1;

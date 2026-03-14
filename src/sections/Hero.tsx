@@ -5,22 +5,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const subheadingRef = useRef<HTMLParagraphElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
+  const subheadingRef = useRef<HTMLParagraphElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
-  const gradientMeshRef = useRef<HTMLDivElement>(null);
-  const steamParticlesRef = useRef<HTMLDivElement>(null);
-  const lightOrbsRef = useRef<HTMLDivElement>(null);
-  const vignetteRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const mouseTarget = useRef({ x: 0, y: 0 });
-  const mouseLerped = useRef({ x: 0, y: 0 });
+  const mouseCurrent = useRef({ x: 0, y: 0 });
   const rafId = useRef<number>(0);
 
-
-  // Mouse parallax handler — just stores target, no heavy work
   const handleMouseMove = useCallback((e: MouseEvent) => {
     mouseTarget.current = {
       x: (e.clientX / window.innerWidth - 0.5) * 2,
@@ -31,49 +26,37 @@ export default function Hero() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    // --- Mouse parallax (rAF only — no GSAP on bgRef transform) ---
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Smooth rAF lerp loop — paused when hero is off-screen
+    // Ken Burns scale lives in a ref so rAF can read it without fighting GSAP
+    const kbScale = { value: 1.05 };
+
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-    let heroVisible = true;
-    const parallaxLoop = () => {
-      if (!heroVisible) {
-        rafId.current = requestAnimationFrame(parallaxLoop);
-        return;
-      }
-      const smoothing = 0.06;
-      mouseLerped.current.x = lerp(mouseLerped.current.x, mouseTarget.current.x, smoothing);
-      mouseLerped.current.y = lerp(mouseLerped.current.y, mouseTarget.current.y, smoothing);
-      const { x, y } = mouseLerped.current;
+    const loop = () => {
+      mouseCurrent.current.x = lerp(mouseCurrent.current.x, mouseTarget.current.x, 0.05);
+      mouseCurrent.current.y = lerp(mouseCurrent.current.y, mouseTarget.current.y, 0.05);
 
       if (bgRef.current) {
         bgRef.current.style.transform =
-          `translate3d(${-x * 15}px, ${-y * 10}px, 0) scale(${bgRef.current.dataset.scale || '1.05'})`;
+          `translate3d(${-mouseCurrent.current.x * 12}px, ${-mouseCurrent.current.y * 8}px, 0) scale(${kbScale.value})`;
       }
-      if (contentRef.current) {
-        contentRef.current.style.transform =
-          `translate3d(${x * 8}px, ${y * 5}px, 0)`;
-      }
-      rafId.current = requestAnimationFrame(parallaxLoop);
+
+      rafId.current = requestAnimationFrame(loop);
     };
-    rafId.current = requestAnimationFrame(parallaxLoop);
+    rafId.current = requestAnimationFrame(loop);
 
-    const visibilityObserver = new IntersectionObserver(
-      ([entry]) => { heroVisible = entry.isIntersecting; },
-      { threshold: 0 }
-    );
-    if (heroRef.current) visibilityObserver.observe(heroRef.current);
-
+    // --- GSAP animations (no transform on bgRef — only on children / other refs) ---
     const ctx = gsap.context(() => {
-      // Background Ken Burns entrance — scale down + fade in
-      gsap.fromTo(bgRef.current,
-        { scale: 1.15, opacity: 0 },
-        { scale: 1.05, opacity: 1, duration: 2, ease: 'expo.out' }
-      );
 
-      // Continuous slow Ken Burns drift
-      gsap.to(bgRef.current, {
-        scale: 1.12,
+      // Ken Burns drift — animates the scale value read by the rAF loop
+      gsap.fromTo(kbScale, { value: 1.08 }, {
+        value: 1.05,
+        duration: 2,
+        ease: 'expo.out',
+      });
+      gsap.to(kbScale, {
+        value: 1.1,
         duration: 25,
         ease: 'sine.inOut',
         repeat: -1,
@@ -81,165 +64,46 @@ export default function Hero() {
         delay: 2,
       });
 
-      // Overlay gradient breathing
-      gsap.to(overlayRef.current, {
-        opacity: 0.7,
-        duration: 6,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-      });
+      // Background fade in
+      gsap.fromTo(imgRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 1.5, ease: 'power2.out' }
+      );
 
-      // Animated gradient mesh - slow morphing movement
-      if (gradientMeshRef.current) {
-        const meshLayers = gradientMeshRef.current.querySelectorAll('.mesh-layer');
-        meshLayers.forEach((layer, i) => {
-          gsap.to(layer, {
-            x: `${30 + i * 20}`,
-            y: `${-20 + i * 15}`,
-            scale: 1.2,
-            duration: 15 + i * 5,
-            ease: 'sine.inOut',
-            repeat: -1,
-            yoyo: true,
-            delay: i * 2,
-          });
-          gsap.to(layer, {
-            opacity: 0.15 + i * 0.05,
-            duration: 8 + i * 3,
-            ease: 'sine.inOut',
-            repeat: -1,
-            yoyo: true,
-            delay: i * 1.5,
-          });
-        });
-      }
-
-      // Steam particles - rising animation
-      if (steamParticlesRef.current) {
-        const steamParticles = steamParticlesRef.current.querySelectorAll('.steam-particle');
-        steamParticles.forEach((particle, i) => {
-          gsap.fromTo(particle,
-            { y: 100, opacity: 0, scale: 0.5 },
-            {
-              y: -150 - Math.random() * 100,
-              opacity: 0.4,
-              scale: 1.5,
-              duration: 8 + Math.random() * 6,
-              ease: 'power1.out',
-              repeat: -1,
-              delay: i * 1.2,
-            }
-          );
-          gsap.to(particle, {
-            x: `+=${-30 + Math.random() * 60}`,
-            duration: 6 + Math.random() * 4,
-            ease: 'sine.inOut',
-            repeat: -1,
-            yoyo: true,
-            delay: i * 0.8,
-          });
-        });
-      }
-
-      // Floating light orbs - gentle drift
-      if (lightOrbsRef.current) {
-        const orbs = lightOrbsRef.current.querySelectorAll('.light-orb');
-        orbs.forEach((orb, i) => {
-          gsap.to(orb, {
-            x: `${100 + i * 50}`,
-            y: `${-50 + i * 30}`,
-            duration: 20 + i * 8,
-            ease: 'sine.inOut',
-            repeat: -1,
-            yoyo: true,
-            delay: i * 3,
-          });
-          gsap.to(orb, {
-            scale: 1.3,
-            opacity: 0.6,
-            duration: 10 + i * 4,
-            ease: 'sine.inOut',
-            repeat: -1,
-            yoyo: true,
-            delay: i * 2,
-          });
-        });
-      }
-
-      // Vignette pulse effect
-      gsap.to(vignetteRef.current, {
-        boxShadow: 'inset 0 0 180px 80px rgba(0,0,0,0.4)',
-        duration: 4,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-      });
-
-
-      // Heading animation — letter-style stagger with lift + rotation
+      // Heading stagger reveal — per letter
       if (headingRef.current) {
-        const words = headingRef.current.querySelectorAll('.word');
-        gsap.fromTo(words,
-          { y: 80, opacity: 0, rotateX: -20, scale: 0.9 },
-          {
-            y: 0,
-            opacity: 1,
-            rotateX: 0,
-            scale: 1,
-            duration: 1.0,
-            stagger: 0.2,
-            delay: 0.8,
-            ease: 'expo.out'
-          }
+        const letters = headingRef.current.querySelectorAll('.word');
+        gsap.fromTo(letters,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.03, delay: 0.6, ease: 'expo.out' }
         );
+      }
 
-        // Subtle continuous float on heading
-        gsap.to(words, {
-          y: -4,
-          duration: 3,
+      // Overlay breathing — very slow opacity shift
+      gsap.to(overlayRef.current, {
+        opacity: 0.65,
+        duration: 8,
+        ease: 'sine.inOut',
+        repeat: -1,
+        yoyo: true,
+      });
+
+      // Heading letter-spacing pulse
+      if (headingRef.current) {
+        gsap.to(headingRef.current, {
+          letterSpacing: '0.08em',
+          duration: 6,
           ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
-          stagger: 0.5,
-          delay: 2.2,
-        });
-
-        // Hover effects on each word
-        words.forEach((word) => {
-          word.addEventListener('mouseenter', () => {
-            gsap.to(word, {
-              scale: 1.08,
-              rotation: Math.random() > 0.5 ? 3 : -3,
-              color: '#C25B3A',
-              skewX: -2,
-              letterSpacing: '0.06em',
-              textShadow: '0 0 25px rgba(194,91,58,0.5), 0 0 50px rgba(194,91,58,0.3)',
-              duration: 0.35,
-              ease: 'back.out(1.7)',
-              overwrite: 'auto',
-            });
-          });
-          word.addEventListener('mouseleave', () => {
-            gsap.to(word, {
-              scale: 1,
-              rotation: 0,
-              color: '#ffffff',
-              skewX: 0,
-              letterSpacing: '0.025em',
-              textShadow: 'none',
-              duration: 0.5,
-              ease: 'power2.out',
-              overwrite: 'auto',
-            });
-          });
+          delay: 2,
         });
       }
 
-      // Divider line expands from center
+      // Divider expand
       gsap.fromTo(dividerRef.current,
         { scaleX: 0, opacity: 0 },
-        { scaleX: 1, opacity: 1, duration: 0.8, delay: 1.6, ease: 'expo.out' }
+        { scaleX: 1, opacity: 1, duration: 0.8, delay: 1.2, ease: 'expo.out' }
       );
 
       // Divider shimmer loop
@@ -248,49 +112,48 @@ export default function Hero() {
         duration: 3,
         ease: 'none',
         repeat: -1,
-        delay: 2.4,
+        delay: 2,
       });
 
-      // Subheading blur reveal
-      gsap.fromTo(subheadingRef.current,
-        { filter: 'blur(12px)', opacity: 0, y: 30 },
-        { filter: 'blur(0px)', opacity: 1, y: 0, duration: 0.8, delay: 1.8, ease: 'power2.out' }
-      );
+      // Subheading word-by-word reveal
+      if (subheadingRef.current) {
+        const subWords = subheadingRef.current.querySelectorAll('.sub-word');
+        gsap.fromTo(subWords,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.04, delay: 1.4, ease: 'power2.out' }
+        );
+      }
 
-      // Scroll indicator entrance
+      // Scroll indicator
       gsap.fromTo(scrollIndicatorRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 2.4, ease: 'power2.out' }
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, delay: 2, ease: 'power2.out' }
       );
 
-      // Scroll-triggered effects — store scale in data attr for rAF loop
+      // Scroll fade-out: content blurs + fades, scroll indicator disappears
       ScrollTrigger.create({
         trigger: heroRef.current,
         start: 'top top',
         end: '50% top',
         scrub: true,
         onUpdate: (self) => {
-          const progress = self.progress;
-          if (bgRef.current) {
-            bgRef.current.dataset.scale = String(1.05 + progress * 0.1);
-            bgRef.current.style.marginTop = `${-progress * 60}px`;
-          }
+          const p = self.progress;
           if (contentRef.current) {
-            contentRef.current.style.opacity = String(1 - progress * 0.6);
-            contentRef.current.style.filter = `blur(${progress * 4}px)`;
+            contentRef.current.style.opacity = String(1 - p * 0.7);
+            contentRef.current.style.filter = `blur(${p * 4}px)`;
           }
           if (scrollIndicatorRef.current) {
-            scrollIndicatorRef.current.style.opacity = String(1 - progress * 3);
+            scrollIndicatorRef.current.style.opacity = String(1 - p * 3);
           }
         }
       });
+
     }, heroRef);
 
     return () => {
       ctx.revert();
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(rafId.current);
-      visibilityObserver.disconnect();
     };
   }, [handleMouseMove]);
 
@@ -300,22 +163,24 @@ export default function Hero() {
       ref={heroRef}
       className="relative w-full h-screen overflow-hidden"
     >
-      {/* Background Image with Ken Burns */}
+      {/* Background Image — oversized for parallax + Ken Burns */}
       <div
         ref={bgRef}
-        className="absolute inset-[-30px] w-[calc(100%+60px)] h-[calc(100%+60px)]"
+        className="absolute inset-[-20px] w-[calc(100%+40px)] h-[calc(100%+40px)]"
         style={{ willChange: 'transform' }}
       >
         <img
+          ref={imgRef}
           src="/hero-bg.webp"
           alt="Coffee Matters café interior at Brick Lane, London"
           className="img-content w-full h-full object-cover"
           fetchPriority="high"
           decoding="async"
+          style={{ opacity: 0 }}
         />
       </div>
 
-      {/* Gradient Overlay — breathing */}
+      {/* Dark overlay — breathing */}
       <div
         ref={overlayRef}
         className="absolute inset-0 pointer-events-none"
@@ -325,132 +190,81 @@ export default function Hero() {
         }}
       />
 
-      {/* Floating bokeh / light particles */}
+      {/* Bokeh particles — white, behind content */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(12)].map((_, i) => {
-          const size = 6 + Math.random() * 18;
+        {[...Array(40)].map((_, i) => {
+          const size = 5 + (i % 8) * 4;
           return (
             <div
-              key={i}
+              key={`w-${i}`}
               className="absolute rounded-full"
               style={{
                 width: `${size}px`,
                 height: `${size}px`,
-                left: `${5 + Math.random() * 90}%`,
-                top: `${10 + Math.random() * 80}%`,
-                background: i % 3 === 0
-                  ? 'radial-gradient(circle, rgba(255,220,180,0.4) 0%, transparent 70%)'
-                  : i % 3 === 1
-                  ? 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)'
-                  : 'radial-gradient(circle, rgba(194,91,58,0.25) 0%, transparent 70%)',
-                filter: `blur(${1 + Math.random() * 2}px)`,
-                animation: `heroBokeh ${10 + Math.random() * 15}s ease-in-out infinite`,
-                animationDelay: `${Math.random() * -10}s`,
+                left: `${(i * 2.5) % 96}%`,
+                top: `${(i * 4.3) % 90}%`,
+                background: 'radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%)',
+                filter: `blur(${1 + (i % 3)}px)`,
+                animation: `heroBokeh ${7 + (i % 10) * 1.5}s ease-in-out ${-i * 0.6}s infinite`,
               }}
             />
           );
         })}
       </div>
 
-      {/* Animated Gradient Mesh Overlay */}
+      {/* Static vignette */}
       <div
-        ref={gradientMeshRef}
-        className="absolute inset-0 pointer-events-none overflow-hidden opacity-60"
-      >
-        <div
-          className="mesh-layer absolute w-[150%] h-[150%] -top-1/4 -left-1/4 rounded-full blur-3xl"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(194,91,58,0.15) 0%, transparent 60%)',
-          }}
-        />
-        <div
-          className="mesh-layer absolute w-[120%] h-[120%] top-1/3 -right-1/4 rounded-full blur-3xl"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(255,220,180,0.12) 0%, transparent 55%)',
-          }}
-        />
-        <div
-          className="mesh-layer absolute w-[100%] h-[100%] -bottom-1/4 left-1/4 rounded-full blur-3xl"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(111,127,99,0.1) 0%, transparent 50%)',
-          }}
-        />
-      </div>
-
-      {/* Steam/Dust Particles */}
-      <div
-        ref={steamParticlesRef}
-        className="absolute inset-0 pointer-events-none overflow-hidden"
-      >
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={`steam-${i}`}
-            className="steam-particle absolute rounded-full"
-            style={{
-              width: `${20 + Math.random() * 40}px`,
-              height: `${20 + Math.random() * 40}px`,
-              left: `${10 + i * 12}%`,
-              bottom: '10%',
-              background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
-              filter: 'blur(8px)',
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Floating Light Orbs */}
-      <div
-        ref={lightOrbsRef}
-        className="absolute inset-0 pointer-events-none overflow-hidden"
-      >
-        {[...Array(5)].map((_, i) => {
-          const size = 80 + i * 40;
-          return (
-            <div
-              key={`orb-${i}`}
-              className="light-orb absolute rounded-full"
-              style={{
-                width: `${size}px`,
-                height: `${size}px`,
-                left: `${15 + i * 18}%`,
-                top: `${20 + (i % 3) * 25}%`,
-                background: i % 2 === 0
-                  ? 'radial-gradient(circle, rgba(255,220,180,0.2) 0%, transparent 70%)'
-                  : 'radial-gradient(circle, rgba(194,91,58,0.15) 0%, transparent 70%)',
-                filter: `blur(${20 + i * 5}px)`,
-              }}
-            />
-          );
-        })}
-      </div>
-
-      {/* Vignette edge with pulse */}
-      <div
-        ref={vignetteRef}
         className="absolute inset-0 pointer-events-none"
         style={{
-          boxShadow: 'inset 0 0 150px 60px rgba(0,0,0,0.3)',
+          boxShadow: 'inset 0 0 120px 50px rgba(0,0,0,0.25)',
         }}
       />
 
-
-      {/* Hero Content */}
+      {/* Content */}
       <div
         ref={contentRef}
         className="relative z-10 h-full flex flex-col items-center justify-center text-center section-padding"
-        style={{ willChange: 'transform, opacity' }}
       >
         <h1
           ref={headingRef}
           className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 tracking-wide"
-          style={{ perspective: '1000px' }}
         >
-          <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)] cursor-default select-none">COFFEE</span>{' '}
-          <span className="word inline-block drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)] cursor-default select-none">MATTERS</span>
+          {'COFFEE MATTERS'.split('').map((char, i) => (
+            <span
+              key={i}
+              className={`word inline-block cursor-default select-none transition-all duration-300 ease-out hover:-translate-y-[2px] hover:text-[#c25b3a] ${char === ' ' ? 'w-[0.3em]' : ''}`}
+              style={{
+                textShadow: '0 2px 20px rgba(0,0,0,0.4)',
+                transitionDelay: '0ms',
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget;
+                el.style.textShadow = '0 2px 25px rgba(194,91,58,0.7), 0 0 50px rgba(194,91,58,0.4)';
+                // Glow neighbors
+                const prev = el.previousElementSibling as HTMLElement | null;
+                const next = el.nextElementSibling as HTMLElement | null;
+                if (prev) {
+                  prev.style.textShadow = '0 2px 20px rgba(194,91,58,0.35), 0 0 25px rgba(194,91,58,0.15)';
+                  prev.style.color = 'rgba(220,160,130,1)';
+                }
+                if (next) {
+                  next.style.textShadow = '0 2px 20px rgba(194,91,58,0.35), 0 0 25px rgba(194,91,58,0.15)';
+                  next.style.color = 'rgba(220,160,130,1)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget;
+                el.style.textShadow = '0 2px 20px rgba(0,0,0,0.4)';
+                const prev = el.previousElementSibling as HTMLElement | null;
+                const next = el.nextElementSibling as HTMLElement | null;
+                if (prev) { prev.style.textShadow = '0 2px 20px rgba(0,0,0,0.4)'; prev.style.color = ''; }
+                if (next) { next.style.textShadow = '0 2px 20px rgba(0,0,0,0.4)'; next.style.color = ''; }
+              }}
+            >{char === ' ' ? '\u00A0' : char}</span>
+          ))}
           <span className="sr-only"> — Specialty Coffee Shop in Brick Lane, London</span>
         </h1>
 
-        {/* Animated divider line */}
         <div
           ref={dividerRef}
           className="w-24 h-[1px] mb-5 origin-center"
@@ -462,9 +276,41 @@ export default function Hero() {
 
         <p
           ref={subheadingRef}
-          className="max-w-2xl text-base sm:text-lg text-white/90 font-body leading-relaxed px-4 mb-6"
+          className="max-w-2xl text-base sm:text-lg text-white/90 font-body leading-relaxed px-4 mb-6 relative"
         >
-          Dive in heavenly Greek pies, pastries, and coffee delights in the vibrant heart of Bricklane.
+          {'Dive in heavenly Greek pies, pastries, and coffee delights in the vibrant heart of Bricklane.'.split(' ').map((word, i) => (
+            <span
+              key={i}
+              className="sub-word inline-block mr-[0.3em] cursor-default"
+              style={{ transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1), color 0.3s ease, text-shadow 0.3s ease, letter-spacing 0.3s ease' }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget;
+                el.style.transform = 'scale(1.18) translateY(-2px)';
+                el.style.color = '#fff';
+                el.style.textShadow = '0 0 12px rgba(194,91,58,0.6), 0 0 30px rgba(194,91,58,0.25)';
+                el.style.letterSpacing = '0.03em';
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget;
+                el.style.transform = '';
+                el.style.color = '';
+                el.style.textShadow = '';
+                el.style.letterSpacing = '';
+              }}
+            >{word}</span>
+          ))}
+          {/* Shimmer overlay — soft glow sweep */}
+          <span
+            className="absolute inset-[-10px] pointer-events-none"
+            style={{
+              background: 'linear-gradient(90deg, transparent 0%, transparent 30%, rgba(194,91,58,0.3) 45%, rgba(194,91,58,0.35) 50%, rgba(194,91,58,0.3) 55%, transparent 70%, transparent 100%)',
+              backgroundSize: '400% 100%',
+              animation: 'subtitleShimmer 8s ease-in-out infinite',
+              filter: 'blur(8px)',
+              borderRadius: '50%',
+              mixBlendMode: 'screen',
+            }}
+          />
         </p>
 
         {/* Scroll Indicator */}
@@ -482,6 +328,38 @@ export default function Hero() {
             />
           </div>
         </div>
+      </div>
+      {/* Terracotta bokeh — clustered at heading edges (COF... and ...ERS) */}
+      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+        {[...Array(40)].map((_, i) => {
+          const size = 15 + (i % 6) * 10;
+          const colors = [
+            'radial-gradient(circle, rgba(194,91,58,0.7) 0%, rgba(194,91,58,0.2) 50%, transparent 70%)',
+            'radial-gradient(circle, rgba(210,105,65,0.65) 0%, rgba(210,105,65,0.15) 50%, transparent 70%)',
+            'radial-gradient(circle, rgba(180,75,45,0.6) 0%, rgba(180,75,45,0.15) 50%, transparent 70%)',
+          ];
+          // Cluster: first half around left edge (COF), second half around right edge (ERS)
+          const isLeft = i < 20;
+          const baseLeft = isLeft
+            ? 5 + (i * 1.3) % 18     // 5%–23% — left cluster
+            : 72 + (i * 1.1) % 20;   // 72%–92% — right cluster
+          const baseTop = 35 + (i * 1.7) % 25; // 35%–60% — heading vertical zone
+          return (
+            <div
+              key={`t-${i}`}
+              className="absolute rounded-full"
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                left: `${baseLeft}%`,
+                top: `${baseTop}%`,
+                background: colors[i % 3],
+                filter: `blur(${2 + (i % 3)}px)`,
+                animation: `heroBokeh ${8 + (i % 8) * 2}s ease-in-out ${-i * 0.6}s infinite`,
+              }}
+            />
+          );
+        })}
       </div>
     </section>
   );

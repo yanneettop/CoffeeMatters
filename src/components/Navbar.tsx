@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -75,20 +78,20 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
         {/* Logo */}
         <a
           href="#home"
-          className="relative transition-transform duration-300 hover:scale-105 h-10"
+          className="group relative transition-transform duration-300 hover:scale-105 h-12"
         >
           <img
             src="/minimal-logowhite.png"
             alt="Coffee Matters"
-            className={`h-10 w-auto object-contain transition-opacity duration-500 ${
-              navScrolled ? 'opacity-0' : 'opacity-100'
+            className={`h-12 w-auto object-contain transition-opacity duration-500 ${
+              navScrolled ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
             }`}
           />
           <img
             src="/minimal-logowhiteracota.png"
             alt="Coffee Matters"
-            className={`h-10 w-auto object-contain absolute top-0 left-0 transition-opacity duration-500 ${
-              navScrolled ? 'opacity-100' : 'opacity-0'
+            className={`h-12 w-auto object-contain absolute top-0 left-0 transition-opacity duration-500 ${
+              navScrolled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
             }`}
           />
         </a>
@@ -99,17 +102,32 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
             <a
               key={link.name}
               href={link.href}
-              className={`relative text-sm font-normal tracking-widest uppercase transition-colors duration-300 group ${
+              onClick={(e) => {
+                const target = document.querySelector(link.href);
+                if (target) {
+                  // Element exists on current page — smooth scroll, stop bubbling
+                  e.preventDefault();
+                  e.stopPropagation();
+                  gsap.to(window, {
+                    scrollTo: { y: target, offsetY: 0 },
+                    duration: 1,
+                    ease: 'power3.inOut',
+                  });
+                }
+                // If target not found, let App's global handler deal with page navigation
+              }}
+              className={`relative text-sm font-normal tracking-widest uppercase group ${
                 navScrolled
                   ? 'text-gray-800 hover:text-[#C25B3A]'
                   : 'text-white/90 hover:text-[#C25B3A]'
               }`}
+              style={{ transition: 'color 0.3s ease, letter-spacing 0.4s cubic-bezier(0.22,1,0.36,1)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.letterSpacing = '0.2em'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.letterSpacing = ''; }}
             >
               {link.name}
               <span
-                className={`absolute -bottom-1 left-0 w-full h-0.5 transform origin-center scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${
-                  navScrolled ? 'bg-[#C25B3A]' : 'bg-[#C25B3A]'
-                }`}
+                className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#C25B3A] transform origin-center scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
               />
             </a>
           ))}
@@ -133,7 +151,18 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
             <a
               key={link.name}
               href={link.href}
-              onClick={handleLinkClick}
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick();
+                const target = document.querySelector(link.href);
+                if (target) {
+                  gsap.to(window, {
+                    scrollTo: { y: target, offsetY: 0 },
+                    duration: 1,
+                    ease: 'power3.inOut',
+                  });
+                }
+              }}
               className="block py-3 text-gray-800 hover:text-[#C25B3A] font-normal tracking-widest uppercase text-sm border-b border-gray-200 last:border-0"
             >
               {link.name}
