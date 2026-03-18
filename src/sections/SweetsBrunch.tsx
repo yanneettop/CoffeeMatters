@@ -190,10 +190,30 @@ export default function SweetsBrunch() {
       <div className="section-padding">
         <div className="content-card">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
+          {/* Text Content */}
+          <div ref={textRef} className="order-1 lg:order-2 lg:pl-8">
+            <div className="mb-8 lg:mb-10 group/heading">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
+                <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover/heading:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
+              </h2>
+              <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover/heading:w-24" />
+            </div>
+
+            <div className="space-y-6 text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
+              <p>
+                Tired of the same old brunch? Come discover our new Mediterranean-inspired menu. We use authentic ingredients to bring you true flavors from across the sea.
+              </p>
+              <p>
+                We've given classic brunch foods a fresh Greek twist. Our menu blends time-honored recipes with creative new ideas to create something truly special.
+              </p>
+            </div>
+          </div>
+
           {/* Image */}
-          <div 
+          <div
             ref={imageRef}
-            className="relative"
+            className="order-2 lg:order-1 relative"
             style={isMobile ? undefined : {
               willChange: 'transform',
               transformStyle: 'preserve-3d'
@@ -209,43 +229,23 @@ export default function SweetsBrunch() {
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-coral/0 group-hover:bg-coral/10 transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
             </div>
-            
+
             {/* Decorative glow */}
             <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-coral/15 rounded-full blur-3xl" />
           </div>
 
-          {/* Text Content */}
-          <div ref={textRef} className="lg:pl-8">
-            <div className="mb-8 lg:mb-10 group/heading">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-                <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
-                <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover/heading:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
-              </h2>
-              <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover/heading:w-24" />
-            </div>
-            
-            <div className="space-y-6 text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
-              <p>
-                Tired of the same old brunch? Come discover our new Mediterranean-inspired menu. We use authentic ingredients to bring you true flavors from across the sea.
-              </p>
-              <p>
-                We've given classic brunch foods a fresh Greek twist. Our menu blends time-honored recipes with creative new ideas to create something truly special.
-              </p>
-            </div>
-
-            {/* CTA Button */}
-            <a
-              ref={buttonRef}
-              href="#menu"
-              className="btn-outline group/btn inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
-            >
-              <span>SEE MENU</span>
-              <ArrowRight
-                size={18}
-                className="transition-transform duration-300 group-hover/btn:translate-x-2"
-              />
-            </a>
-          </div>
+          {/* CTA Button */}
+          <a
+            ref={buttonRef}
+            href="#menu"
+            className="order-3 col-span-1 lg:col-span-2 lg:col-start-2 btn-outline group/btn inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
+          >
+            <span>SEE MENU</span>
+            <ArrowRight
+              size={18}
+              className="transition-transform duration-300 group-hover/btn:translate-x-2"
+            />
+          </a>
         </div>
         </div>
       </div>

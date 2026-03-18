@@ -71,7 +71,44 @@ export default function GoogleReviews() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.innerWidth < 1024) return;
+
+    const isMobile = window.innerWidth < 1024;
+
+    if (isMobile) {
+      const ctx = gsap.context(() => {
+        const st = { trigger: sectionRef.current, start: 'top 78%', once: true };
+
+        // Header fade up
+        const header = sectionRef.current?.querySelector('.reviews-header');
+        if (header) {
+          gsap.fromTo(header, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', scrollTrigger: st });
+        }
+
+        // Cards stagger reveal
+        const cards = cardsRef.current?.querySelectorAll('.review-card');
+        if (cards && cards.length > 0) {
+          gsap.fromTo(cards,
+            { y: 40, opacity: 0, scale: 0.97 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.5,
+              stagger: 0.1,
+              ease: 'power2.out',
+              scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', once: true },
+            }
+          );
+        }
+
+        // CTA link
+        const cta = sectionRef.current?.querySelector('.reviews-cta');
+        if (cta) {
+          gsap.fromTo(cta, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, delay: 0.3, ease: 'power2.out', scrollTrigger: { trigger: cta, start: 'top 90%', once: true } });
+        }
+      }, sectionRef);
+      return () => ctx.revert();
+    }
 
     const ctx = gsap.context(() => {
       // Header animation
@@ -214,7 +251,7 @@ export default function GoogleReviews() {
         </div>
 
         {/* CTA to Google */}
-        <div className="text-center mt-12 sm:mt-16">
+        <div className="reviews-cta text-center mt-12 sm:mt-16">
           <a
             href="https://www.google.com/search?q=Coffee+Matters+157+Bethnal+Green+Road+Reviews"
             target="_blank"

@@ -179,7 +179,7 @@ export default function OurCoffee() {
         <div className="content-card">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
           {/* Text Content */}
-          <div ref={textRef} className="order-2 lg:order-1">
+          <div ref={textRef} className="order-1">
             <div ref={headingRef} className="mb-8 lg:mb-10 group">
               <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 <span className="heading-word inline-block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">OUR</span>
@@ -208,9 +208,9 @@ export default function OurCoffee() {
           </div>
 
           {/* Image */}
-          <div 
+          <div
             ref={imageRef}
-            className="order-1 lg:order-2 relative"
+            className="order-2 relative"
             style={isMobile ? undefined : { willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">

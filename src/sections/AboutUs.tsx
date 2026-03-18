@@ -225,10 +225,33 @@ export default function AboutUs() {
       <div className="section-padding">
         <div className="content-card">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
+          {/* Text Content */}
+          <div
+            ref={textRef}
+            className="order-1 lg:order-2 lg:pl-8"
+            style={isMobile ? undefined : { willChange: 'transform' }}
+          >
+            <div className="mb-8 group">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                <span className="about-word block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">ABOUT</span>
+                <span className="us-word block text-coral mt-1 transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>US</span>
+              </h2>
+              <div className="about-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
+            </div>
+
+            <p className="text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
+              {words.map((word, i) => (
+                <span key={i} className="word-reveal inline-block mr-[0.3em]">
+                  {word}
+                </span>
+              ))}
+            </p>
+          </div>
+
           {/* Image */}
-          <div 
+          <div
             ref={imageRef}
-            className="relative"
+            className="order-2 lg:order-1 relative"
             style={isMobile ? undefined : { willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
@@ -239,9 +262,9 @@ export default function AboutUs() {
                 loading="lazy"
               />
             </div>
-            
+
             {/* Decorative frame */}
-            <div 
+            <div
               ref={frameRef}
               className="absolute -inset-4 border-2 border-coral/30 rounded-xl pointer-events-none hidden sm:block"
               style={{
@@ -249,46 +272,23 @@ export default function AboutUs() {
                 animation: 'pulseGlow 4s ease-in-out infinite'
               }}
             />
-            
+
             {/* Decorative glow */}
             <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-coral/15 rounded-full blur-3xl" />
           </div>
 
-          {/* Text Content */}
-          <div 
-            ref={textRef}
-            className="lg:pl-8"
-            style={isMobile ? undefined : { willChange: 'transform' }}
+          {/* CTA Button */}
+          <a
+            ref={buttonRef}
+            href="#about"
+            className="order-3 col-span-1 lg:col-span-2 lg:col-start-2 btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
           >
-            <div className="mb-8 group">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-                <span className="about-word block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">ABOUT</span>
-                <span className="us-word block text-coral mt-1 transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>US</span>
-              </h2>
-              <div className="about-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
-            </div>
-            
-            <p className="text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
-              {words.map((word, i) => (
-                <span key={i} className="word-reveal inline-block mr-[0.3em]">
-                  {word}
-                </span>
-              ))}
-            </p>
-
-            {/* CTA Button */}
-            <a
-              ref={buttonRef}
-              href="#about"
-              className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
-            >
-              <span>READ OUR STORY</span>
-              <ArrowRight 
-                size={18} 
-                className="transition-transform duration-300 group-hover:translate-x-2"
-              />
-            </a>
-          </div>
+            <span>READ OUR STORY</span>
+            <ArrowRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-2"
+            />
+          </a>
         </div>
         </div>
       </div>

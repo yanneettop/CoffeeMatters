@@ -280,8 +280,8 @@ function App() {
               text="SWEETS & PIES  ·  BRUNCH  ·  MEDITERRANEAN  ·  AUTHENTIC RECIPES  ·  BAKED DAILY  ·  "
             /></div>
             <HostEvents />
-            <GoogleReviews />
             <AboutUs />
+            <GoogleReviews />
             <NewsletterCTA />
             <Footer />
           </>

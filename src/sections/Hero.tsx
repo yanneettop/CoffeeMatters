@@ -309,12 +309,39 @@ export default function Hero() {
         {/* Main content — pushed toward bottom */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
 
-          {/* Brand title */}
+          {/* Brand title — per-letter interactive */}
           <h1
             className="font-display text-[2.8rem] text-white tracking-[0.04em] leading-none mb-4"
-            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}
           >
-            COFFEE MATTERS
+            {['COFFEE', 'MATTERS'].map((word, wi) => (
+              <span key={wi} className="inline-block whitespace-nowrap">
+                {wi > 0 && <span className="inline-block w-[0.3em]" />}
+                {word.split('').map((char, ci) => (
+                  <span
+                    key={ci}
+                    className="inline-block cursor-default select-none transition-all duration-300 ease-out hover:-translate-y-[2px] hover:text-[#c25b3a]"
+                    style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)', transitionDelay: '0ms' }}
+                    onMouseEnter={(e) => {
+                      const el = e.currentTarget;
+                      el.style.textShadow = '0 2px 25px rgba(194,91,58,0.7), 0 0 50px rgba(194,91,58,0.4)';
+                      const prev = el.previousElementSibling as HTMLElement | null;
+                      const next = el.nextElementSibling as HTMLElement | null;
+                      if (prev) { prev.style.textShadow = '0 2px 20px rgba(194,91,58,0.35), 0 0 25px rgba(194,91,58,0.15)'; prev.style.color = 'rgba(220,160,130,1)'; }
+                      if (next) { next.style.textShadow = '0 2px 20px rgba(194,91,58,0.35), 0 0 25px rgba(194,91,58,0.15)'; next.style.color = 'rgba(220,160,130,1)'; }
+                    }}
+                    onMouseLeave={(e) => {
+                      const el = e.currentTarget;
+                      el.style.textShadow = '0 2px 20px rgba(0,0,0,0.4)';
+                      const prev = el.previousElementSibling as HTMLElement | null;
+                      const next = el.nextElementSibling as HTMLElement | null;
+                      if (prev) { prev.style.textShadow = '0 2px 20px rgba(0,0,0,0.4)'; prev.style.color = ''; }
+                      if (next) { next.style.textShadow = '0 2px 20px rgba(0,0,0,0.4)'; next.style.color = ''; }
+                    }}
+                  >{char}</span>
+                ))}
+              </span>
+            ))}
+            <span className="sr-only"> — Specialty Coffee Shop in Brick Lane, London</span>
           </h1>
 
           {/* Divider */}
@@ -327,39 +354,63 @@ export default function Hero() {
             }}
           />
 
-          {/* Subheading */}
+          {/* Subheading — per-word interactive */}
           <p
             className="font-body text-white/70 leading-relaxed mb-8"
             style={{ fontSize: '0.84rem', maxWidth: '270px' }}
           >
-            Specialty coffee, homemade bakes &amp; Greek warmth in the heart of Brick Lane.
+            {'Specialty coffee, homemade bakes & Greek warmth in the heart of Brick Lane.'.split(' ').map((word, i) => (
+              <span
+                key={i}
+                className="inline-block mr-[0.3em] cursor-default"
+                style={{ transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1), color 0.3s ease' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.color = '#fff';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = '';
+                  e.currentTarget.style.color = '';
+                }}
+              >
+                {word}
+              </span>
+            ))}
           </p>
 
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
             <a
               href="#menu"
-              className="font-body uppercase tracking-[0.2em] text-white rounded-full transition-all duration-200 active:scale-95"
+              className="hero-cta-primary group/cta relative font-body uppercase tracking-[0.2em] text-white rounded-full transition-all duration-300 active:scale-95 overflow-hidden"
               style={{
                 fontSize: '10px',
-                padding: '10px 22px',
-                background: '#c25b3a',
+                padding: '11px 24px',
+                background: 'linear-gradient(135deg, #c25b3a 0%, #d4724f 50%, #c25b3a 100%)',
+                backgroundSize: '200% 200%',
                 boxShadow: '0 4px 20px rgba(194,91,58,0.35)',
               }}
             >
-              View Menu
+              <span className="relative z-10 flex items-center gap-2">
+                View Menu
+                <svg className="w-3 h-3 transition-transform duration-300 group-active/cta:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+              </span>
             </a>
             <a
               href="#contact"
-              className="font-body uppercase tracking-[0.2em] text-white/90 rounded-full transition-all duration-200 active:scale-95"
+              className="hero-cta-outline group/cta relative font-body uppercase tracking-[0.2em] text-white/90 rounded-full transition-all duration-300 active:scale-95 overflow-hidden"
               style={{
                 fontSize: '10px',
-                padding: '9px 22px',
+                padding: '10px 24px',
                 border: '1px solid rgba(255,255,255,0.38)',
-                backdropFilter: 'blur(4px)',
+                backdropFilter: 'blur(8px)',
+                background: 'rgba(255,255,255,0.05)',
               }}
             >
-              Find Us
+              <span className="relative z-10 flex items-center gap-2">
+                Find Us
+                <svg className="w-3 h-3 transition-transform duration-300 group-active/cta:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              </span>
             </a>
           </div>
         </div>
@@ -459,30 +510,64 @@ export default function Hero() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <a
             href="#menu"
-            className="hero-cta font-body uppercase tracking-[0.18em] text-white rounded-full transition-all duration-300 hover:scale-[1.03] hover:shadow-lg"
+            className="hero-cta hero-cta-primary group/cta relative font-body uppercase tracking-[0.18em] text-white rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04] hover:tracking-[0.22em] overflow-hidden"
             style={{
               fontSize: '11px',
-              padding: '13px 32px',
-              background: '#c25b3a',
+              padding: '14px 36px',
+              background: 'linear-gradient(135deg, #c25b3a 0%, #d4724f 50%, #c25b3a 100%)',
+              backgroundSize: '200% 200%',
               boxShadow: '0 4px 24px rgba(194,91,58,0.3)',
             }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget;
+              el.style.backgroundPosition = '100% 100%';
+              el.style.boxShadow = '0 8px 40px rgba(194,91,58,0.5), 0 0 60px rgba(194,91,58,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget;
+              el.style.backgroundPosition = '0% 0%';
+              el.style.boxShadow = '0 4px 24px rgba(194,91,58,0.3)';
+            }}
           >
-            View Menu
+            {/* Shimmer sweep */}
+            <span className="absolute inset-0 -translate-x-full group-hover/cta:translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <span className="relative z-10 flex items-center gap-2.5">
+              View Menu
+              <svg className="w-3.5 h-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+            </span>
           </a>
           <a
             href="#contact"
-            className="hero-cta font-body uppercase tracking-[0.18em] text-white/90 rounded-full transition-all duration-300 hover:bg-white/10 hover:scale-[1.03]"
+            className="hero-cta hero-cta-outline group/cta relative font-body uppercase tracking-[0.18em] text-white/90 rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04] hover:text-white hover:tracking-[0.22em] overflow-hidden"
             style={{
               fontSize: '11px',
-              padding: '12px 32px',
+              padding: '13px 36px',
               border: '1px solid rgba(255,255,255,0.35)',
-              backdropFilter: 'blur(4px)',
+              backdropFilter: 'blur(8px)',
+              background: 'rgba(255,255,255,0.04)',
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget;
+              el.style.borderColor = 'rgba(255,255,255,0.6)';
+              el.style.background = 'rgba(255,255,255,0.12)';
+              el.style.boxShadow = '0 8px 32px rgba(255,255,255,0.08), inset 0 0 20px rgba(255,255,255,0.05)';
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget;
+              el.style.borderColor = 'rgba(255,255,255,0.35)';
+              el.style.background = 'rgba(255,255,255,0.04)';
+              el.style.boxShadow = 'none';
             }}
           >
-            Find Us
+            {/* Shimmer sweep */}
+            <span className="absolute inset-0 -translate-x-full group-hover/cta:translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            <span className="relative z-10 flex items-center gap-2.5">
+              Find Us
+              <svg className="w-3.5 h-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            </span>
           </a>
         </div>
 
