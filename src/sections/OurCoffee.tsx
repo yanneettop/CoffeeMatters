@@ -21,7 +21,16 @@ export default function OurCoffee() {
           gsap.fromTo(headingWords, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'expo.out', scrollTrigger: st });
         }
         if (imageRef.current) {
-          gsap.fromTo(imageRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
+          gsap.fromTo(imageRef.current, { y: 20, opacity: 0, rotateZ: 1.5 }, { y: 0, opacity: 1, rotateZ: 0, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+              if (imageRef.current) gsap.set(imageRef.current, { scale: 0.97 + self.progress * 0.06 });
+            }
+          });
         }
         const paragraphs = textRef.current?.querySelectorAll('p');
         if (paragraphs?.length) {

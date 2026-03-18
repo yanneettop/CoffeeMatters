@@ -19,7 +19,16 @@ export default function AboutUs() {
       const ctx = gsap.context(() => {
         const st = { trigger: sectionRef.current, start: 'top 78%', once: true };
         if (imageRef.current) {
-          gsap.fromTo(imageRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
+          gsap.fromTo(imageRef.current, { y: 20, opacity: 0, rotateZ: 1.5 }, { y: 0, opacity: 1, rotateZ: 0, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+              if (imageRef.current) gsap.set(imageRef.current, { scale: 0.97 + self.progress * 0.06 });
+            }
+          });
         }
         const aboutWord = textRef.current?.querySelector('.about-word');
         const usWord = textRef.current?.querySelector('.us-word');
@@ -271,7 +280,7 @@ export default function AboutUs() {
             <a
               ref={buttonRef}
               href="#about"
-              className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300"
+              className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
             >
               <span>READ OUR STORY</span>
               <ArrowRight 

@@ -28,7 +28,16 @@ export default function HostEvents() {
           gsap.fromTo(buttonRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, delay: 0.2, ease: 'power2.out', scrollTrigger: st });
         }
         if (imageRef.current) {
-          gsap.fromTo(imageRef.current, { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, delay: 0.15, ease: 'power2.out', scrollTrigger: st });
+          gsap.fromTo(imageRef.current, { y: 20, opacity: 0, rotateZ: 1.5 }, { y: 0, opacity: 1, rotateZ: 0, duration: 0.6, delay: 0.15, ease: 'power2.out', scrollTrigger: st });
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+              if (imageRef.current) gsap.set(imageRef.current, { scale: 0.97 + self.progress * 0.06 });
+            }
+          });
         }
       }, sectionRef);
       return () => ctx.revert();
@@ -187,7 +196,7 @@ export default function HostEvents() {
             style={isMobile ? undefined : { willChange: 'transform' }}
           >
             {/* Glassmorphism card effect */}
-            <div className="relative p-0 sm:p-8 lg:p-12 rounded-none sm:rounded-2xl bg-transparent sm:bg-white/30 backdrop-blur-none sm:backdrop-blur-sm">
+            <div className="relative p-5 sm:p-8 lg:p-12 rounded-2xl bg-white/20 sm:bg-white/30 backdrop-blur-sm">
               <div className="mb-8 group">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                   <span className="block font-display font-light tracking-widest text-[var(--text-secondary)]">
@@ -216,7 +225,7 @@ export default function HostEvents() {
               <a
                 ref={buttonRef}
                 href="#contact"
-                className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300"
+                className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
               >
                 <span>HIRE OUR VENUE</span>
                 <ArrowRight 
