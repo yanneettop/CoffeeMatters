@@ -214,6 +214,7 @@ function App() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (currentPage !== 'home') return;
+    if (window.innerWidth < 1024) return; // Skip on mobile/tablet — too expensive
 
     let ctx: gsap.Context | null = null;
 

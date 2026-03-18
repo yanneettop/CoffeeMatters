@@ -8,10 +8,10 @@ export default function OurCoffee() {
   const textRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = window.innerWidth < 1024;
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const isMobile = window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
       // Heading animation
@@ -111,7 +111,8 @@ export default function OurCoffee() {
         }
       }
 
-      // Parallax — beans + bg depth layers
+      // Parallax — beans + bg depth layers (desktop only)
+      if (!isMobile) {
       const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
       const bgFar = sectionRef.current?.querySelector('.parallax-far');
       const bgNear = sectionRef.current?.querySelector('.parallax-near');
@@ -137,6 +138,7 @@ export default function OurCoffee() {
           if (bgNear) gsap.set(bgNear, { y: 10  - progress * 20, x: -5 + progress * 10 }); // drifts
         }
       });
+      } // end if (!isMobile)
     }, sectionRef);
 
     return () => ctx.revert();
@@ -147,9 +149,9 @@ export default function OurCoffee() {
       ref={sectionRef}
       className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
     >
-      {/* Atmospheric depth layers — ultra-slow parallax, creates genuine multi-plane depth */}
-      <div className="parallax-far absolute -top-24 right-[20%] w-[560px] h-[560px] rounded-full bg-coral/[0.06] pointer-events-none blur-[100px]" />
-      <div className="parallax-near absolute -bottom-24 -left-16 w-[440px] h-[440px] rounded-full bg-[#D8C4B3]/30 pointer-events-none blur-[80px]" />
+      {/* Atmospheric depth layers — desktop only (blur filters are expensive on mobile) */}
+      <div className="parallax-far absolute -top-24 right-[20%] w-[560px] h-[560px] rounded-full bg-coral/[0.06] pointer-events-none blur-[100px] hidden lg:block" />
+      <div className="parallax-near absolute -bottom-24 -left-16 w-[440px] h-[440px] rounded-full bg-[#D8C4B3]/30 pointer-events-none blur-[80px] hidden lg:block" />
 
       {/* Decorative beans - right edge */}
       <img
@@ -203,7 +205,7 @@ export default function OurCoffee() {
           <div 
             ref={imageRef}
             className="order-1 lg:order-2 relative"
-            style={{ willChange: 'transform, clip-path' }}
+            style={isMobile ? undefined : { willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img

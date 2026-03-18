@@ -10,10 +10,10 @@ export default function AboutUs() {
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = window.innerWidth < 1024;
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const isMobile = window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
       // Image curtain reveal
@@ -147,7 +147,8 @@ export default function AboutUs() {
         );
       }
 
-      // Parallax — beans + bg depth layers
+      // Parallax — beans + bg depth layers (desktop only)
+      if (!isMobile) {
       const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
       const bgFar = sectionRef.current?.querySelector('.parallax-far');
       const bgNear = sectionRef.current?.querySelector('.parallax-near');
@@ -174,6 +175,7 @@ export default function AboutUs() {
           if (bgNear) gsap.set(bgNear, { y: 8 - progress * 16, x: 4 - progress * 8 });
         }
       });
+      } // end if (!isMobile)
     }, sectionRef);
 
     return () => ctx.revert();
@@ -189,9 +191,9 @@ export default function AboutUs() {
       ref={sectionRef}
       className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
     >
-      {/* Atmospheric depth layers */}
-      <div className="parallax-far absolute top-10 -right-24 w-[500px] h-[500px] rounded-full bg-coral/[0.05] pointer-events-none blur-[90px]" />
-      <div className="parallax-near absolute -bottom-28 left-[15%] w-[480px] h-[480px] rounded-full bg-[#D8C4B3]/28 pointer-events-none blur-[80px]" />
+      {/* Atmospheric depth layers — desktop only (blur filters are expensive on mobile) */}
+      <div className="parallax-far absolute top-10 -right-24 w-[500px] h-[500px] rounded-full bg-coral/[0.05] pointer-events-none blur-[90px] hidden lg:block" />
+      <div className="parallax-near absolute -bottom-28 left-[15%] w-[480px] h-[480px] rounded-full bg-[#D8C4B3]/28 pointer-events-none blur-[80px] hidden lg:block" />
 
       {/* Decorative beans - right edge */}
       <img
@@ -216,7 +218,7 @@ export default function AboutUs() {
           <div 
             ref={imageRef}
             className="relative"
-            style={{ willChange: 'transform, clip-path' }}
+            style={isMobile ? undefined : { willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img
@@ -245,7 +247,7 @@ export default function AboutUs() {
           <div 
             ref={textRef}
             className="lg:pl-8"
-            style={{ willChange: 'transform' }}
+            style={isMobile ? undefined : { willChange: 'transform' }}
           >
             <div className="mb-8 group">
               <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">

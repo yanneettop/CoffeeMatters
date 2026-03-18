@@ -10,10 +10,10 @@ export default function SweetsBrunch() {
 
   const buttonRef = useRef<HTMLAnchorElement>(null);
 
+  const isMobile = window.innerWidth < 1024;
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const isMobile = window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
       // Image reveal
@@ -112,7 +112,8 @@ export default function SweetsBrunch() {
         );
       }
 
-      // Parallax — beans + bg depth layers
+      // Parallax — beans + bg depth layers (desktop only)
+      if (!isMobile) {
       const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
       const bgFar = sectionRef.current?.querySelector('.parallax-far');
       const bgNear = sectionRef.current?.querySelector('.parallax-near');
@@ -144,6 +145,7 @@ export default function SweetsBrunch() {
           if (bgNear) gsap.set(bgNear, { y: -8 + progress * 16 });
         }
       });
+      } // end if (!isMobile)
     }, sectionRef);
 
     return () => ctx.revert();
@@ -154,11 +156,11 @@ export default function SweetsBrunch() {
       id="brunch"
       ref={sectionRef}
       className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
-      style={{ perspective: '1000px' }}
+      style={isMobile ? undefined : { perspective: '1000px' }}
     >
-      {/* Atmospheric depth layers */}
-      <div className="parallax-far absolute -top-20 -left-20 w-[520px] h-[520px] rounded-full bg-coral/[0.05] pointer-events-none blur-[90px]" />
-      <div className="parallax-near absolute -bottom-20 right-[10%] w-[460px] h-[460px] rounded-full bg-[#D8C4B3]/25 pointer-events-none blur-[70px]" />
+      {/* Atmospheric depth layers — desktop only (blur filters are expensive on mobile) */}
+      <div className="parallax-far absolute -top-20 -left-20 w-[520px] h-[520px] rounded-full bg-coral/[0.05] pointer-events-none blur-[90px] hidden lg:block" />
+      <div className="parallax-near absolute -bottom-20 right-[10%] w-[460px] h-[460px] rounded-full bg-[#D8C4B3]/25 pointer-events-none blur-[70px] hidden lg:block" />
 
       {/* Decorative beans - right edge */}
       <img
@@ -183,7 +185,7 @@ export default function SweetsBrunch() {
           <div 
             ref={imageRef}
             className="relative"
-            style={{ 
+            style={isMobile ? undefined : {
               willChange: 'transform',
               transformStyle: 'preserve-3d'
             }}
