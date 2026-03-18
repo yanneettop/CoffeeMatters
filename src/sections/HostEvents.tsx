@@ -118,12 +118,13 @@ export default function HostEvents() {
             {
               opacity: 1,
               y: 0,
-              duration: 1.1,
+              duration: 0.8,
               ease: 'power2.out',
+              force3D: true,
               scrollTrigger: {
                 trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
+                start: 'top 80%',
+                toggleActions: 'play none none none'
               }
             }
           );
@@ -144,22 +145,24 @@ export default function HostEvents() {
         }
       }
 
-      // Parallax effects
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          if (textRef.current) {
-            gsap.set(textRef.current, { y: 20 - progress * 40 });
+      // Parallax — skip on mobile/tablet for smooth scrolling
+      if (!isMobile) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.2,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            if (textRef.current) {
+              gsap.set(textRef.current, { y: 20 - progress * 40, force3D: true });
+            }
+            if (imageRef.current) {
+              gsap.set(imageRef.current, { y: -40 + progress * 80, force3D: true });
+            }
           }
-          if (imageRef.current) {
-            gsap.set(imageRef.current, { y: -40 + progress * 80 });
-          }
-        }
-      });
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

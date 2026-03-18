@@ -87,21 +87,24 @@ export default function NewsletterCTA() {
         );
       }
 
-      // Subtle scale on scroll
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          if (headingRef.current) {
-            gsap.set(headingRef.current, { 
-              scale: 0.98 + progress * 0.04 
-            });
+      // Subtle scale on scroll — desktop only for smooth mobile scrolling
+      if (window.innerWidth >= 768) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.2,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            if (headingRef.current) {
+              gsap.set(headingRef.current, {
+                scale: 0.98 + progress * 0.04,
+                force3D: true
+              });
+            }
           }
-        }
-      });
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

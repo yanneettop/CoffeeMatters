@@ -227,14 +227,14 @@ export default function Hero() {
         }}
       />
 
-      {/* Bokeh particles — white, behind content */}
+      {/* Bokeh particles — white, behind content (reduced on mobile for performance) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(20)].map((_, i) => {
           const size = 5 + (i % 8) * 4;
           return (
             <div
               key={`w-${i}`}
-              className="absolute rounded-full"
+              className={`absolute rounded-full${i >= 8 ? ' hidden sm:block' : ''}`}
               style={{
                 width: `${size}px`,
                 height: `${size}px`,
@@ -243,6 +243,7 @@ export default function Hero() {
                 background: 'radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%)',
                 filter: `blur(${1 + (i % 3)}px)`,
                 animation: `heroBokeh ${7 + (i % 10) * 1.5}s ease-in-out ${-i * 0.6}s infinite`,
+                willChange: 'transform',
               }}
             />
           );
@@ -474,14 +475,14 @@ export default function Hero() {
 
       {/* Terracotta bokeh — desktop only, clustered at heading edges */}
       <div className="hidden sm:block absolute inset-0 z-20 pointer-events-none overflow-hidden">
-        {[...Array(40)].map((_, i) => {
+        {[...Array(20)].map((_, i) => {
           const size = 15 + (i % 6) * 10;
           const colors = [
             'radial-gradient(circle, rgba(194,91,58,0.7) 0%, rgba(194,91,58,0.2) 50%, transparent 70%)',
             'radial-gradient(circle, rgba(210,105,65,0.65) 0%, rgba(210,105,65,0.15) 50%, transparent 70%)',
             'radial-gradient(circle, rgba(180,75,45,0.6) 0%, rgba(180,75,45,0.15) 50%, transparent 70%)',
           ];
-          const isLeft = i < 20;
+          const isLeft = i < 10;
           const baseLeft = isLeft ? 5 + (i * 1.3) % 18 : 72 + (i * 1.1) % 20;
           const baseTop = 35 + (i * 1.7) % 25;
           return (

@@ -26,6 +26,12 @@ const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+// Optimize GSAP for mobile — force GPU layers & limit ScrollTrigger overhead
+if (window.innerWidth < 1024) {
+  gsap.config({ force3D: true });
+  ScrollTrigger.config({ limitCallbacks: true });
+}
+
 type Page = 'home' | 'menu' | 'about' | 'contact' | 'gallery';
 
 /** Hashes that map to dedicated pages (not home-page sections) */
@@ -214,6 +220,8 @@ function App() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (currentPage !== 'home') return;
+    // Skip heavy scrub parallax on mobile/tablet — major perf win
+    if (window.innerWidth < 1024) return;
 
     let ctx: gsap.Context | null = null;
 
@@ -231,6 +239,7 @@ function App() {
             {
               y: -60,
               ease: 'none',
+              force3D: true,
               scrollTrigger: {
                 trigger: section,
                 start: 'top bottom',

@@ -83,12 +83,13 @@ export default function OurCoffee() {
             {
               opacity: 1,
               y: 0,
-              duration: 1.1,
+              duration: 0.8,
               ease: 'power2.out',
+              force3D: true,
               scrollTrigger: {
                 trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
+                start: 'top 80%',
+                toggleActions: 'play none none none'
               }
             }
           );
@@ -111,32 +112,34 @@ export default function OurCoffee() {
         }
       }
 
-      // Parallax — beans + bg depth layers
-      const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
-      const bgFar = sectionRef.current?.querySelector('.parallax-far');
-      const bgNear = sectionRef.current?.querySelector('.parallax-near');
+      // Parallax — skip on mobile/tablet for smooth scrolling
+      if (!isMobile) {
+        const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
+        const bgFar = sectionRef.current?.querySelector('.parallax-far');
+        const bgNear = sectionRef.current?.querySelector('.parallax-near');
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          if (textRef.current) {
-            gsap.set(textRef.current, { y: 30 - progress * 60 });
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.2,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            if (textRef.current) {
+              gsap.set(textRef.current, { y: 30 - progress * 60, force3D: true });
+            }
+            if (imageRef.current) {
+              gsap.set(imageRef.current, { y: -20 + progress * 40, force3D: true });
+            }
+            beansDecos?.forEach((bean, i) => {
+              gsap.set(bean, { y: (i % 2 === 0 ? -20 : 15) + progress * (i % 2 === 0 ? 40 : -30), force3D: true });
+            });
+            // Atmospheric depth — ultra-slow, counter-directional
+            if (bgFar)  gsap.set(bgFar,  { y: -12 + progress * 24, force3D: true });
+            if (bgNear) gsap.set(bgNear, { y: 10  - progress * 20, x: -5 + progress * 10, force3D: true });
           }
-          if (imageRef.current) {
-            gsap.set(imageRef.current, { y: -20 + progress * 40 });
-          }
-          beansDecos?.forEach((bean, i) => {
-            gsap.set(bean, { y: (i % 2 === 0 ? -20 : 15) + progress * (i % 2 === 0 ? 40 : -30) });
-          });
-          // Atmospheric depth — ultra-slow, counter-directional
-          if (bgFar)  gsap.set(bgFar,  { y: -12 + progress * 24 });          // sinks slightly
-          if (bgNear) gsap.set(bgNear, { y: 10  - progress * 20, x: -5 + progress * 10 }); // drifts
-        }
-      });
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
