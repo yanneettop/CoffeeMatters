@@ -185,7 +185,7 @@ export default function NewsletterCTA() {
             href="https://www.instagram.com/coffeematterslondon"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 sm:gap-3 px-6 sm:px-7 py-2.5 sm:py-3 border border-white/80 bg-white/5 text-white rounded-full text-[0.75rem] sm:text-sm font-medium tracking-[0.06em] transition-all duration-300 hover:bg-white hover:text-coral hover:shadow-lg/40 hover:shadow-black/30 hover:-translate-y-[1px]"
+            className="group inline-flex items-center gap-2.5 sm:gap-3 px-6 sm:px-7 py-2.5 sm:py-3 border border-white/80 bg-white/5 text-white rounded-full text-[0.75rem] sm:text-sm font-medium tracking-[0.06em] transition-all duration-300 hover:bg-white hover:text-coral hover:shadow-lg/40 hover:shadow-black/30 hover:-translate-y-[1px] active:scale-95"
             style={{ 
               animation: 'pulse 3s ease-in-out infinite',
             }}

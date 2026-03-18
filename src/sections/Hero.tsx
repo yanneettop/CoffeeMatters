@@ -38,10 +38,27 @@ export default function Hero() {
         const heading = contentRef.current?.querySelector('h1');
         const subheading = contentRef.current?.querySelector('p');
         const buttons = contentRef.current?.querySelectorAll('a');
+        const mobileDivider = contentRef.current?.querySelector('.mobile-divider');
+
+        // Entrance
         const tl = gsap.timeline({ delay: 0.3 });
         if (heading) tl.fromTo(heading, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' });
         if (subheading) tl.fromTo(subheading, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3');
         if (buttons?.length) tl.fromTo(buttons, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.08, ease: 'power2.out' }, '-=0.25');
+
+        // Divider shimmer
+        if (mobileDivider) {
+          gsap.set(mobileDivider, { backgroundSize: '200% 100%' });
+          gsap.to(mobileDivider, { backgroundPosition: '200% center', duration: 3, ease: 'none', repeat: -1, delay: 1 });
+        }
+
+        // Heading glow pulse
+        if (heading) {
+          gsap.to(heading, {
+            textShadow: '0 2px 25px rgba(194,91,58,0.45), 0 0 50px rgba(194,91,58,0.2)',
+            duration: 2.5, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 0.9,
+          });
+        }
       }, heroRef);
 
       const handleScroll = () => {
@@ -302,7 +319,7 @@ export default function Hero() {
 
           {/* Divider */}
           <div
-            className="mb-4 mx-auto"
+            className="mobile-divider mb-4 mx-auto"
             style={{
               width: '48px',
               height: '1px',
