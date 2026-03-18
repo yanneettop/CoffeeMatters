@@ -14,44 +14,26 @@ export default function SweetsBrunch() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (isMobile) return;
 
     const ctx = gsap.context(() => {
       // Image reveal
       if (imageRef.current) {
-        if (isMobile) {
-          // Simpler mobile reveal: fade + slide
-          gsap.fromTo(imageRef.current,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
-              }
+        gsap.fromTo(imageRef.current,
+          { rotateY: -30, opacity: 0, x: -50 },
+          {
+            rotateY: 0,
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 60%',
+              toggleActions: 'play none none reverse'
             }
-          );
-        } else {
-          // Image 3D flip entrance
-          gsap.fromTo(imageRef.current,
-            { rotateY: -30, opacity: 0, x: -50 },
-            {
-              rotateY: 0,
-              opacity: 1,
-              x: 0,
-              duration: 1,
-              ease: 'expo.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 60%',
-                toggleActions: 'play none none reverse'
-              }
-            }
-          );
-        }
+          }
+        );
       }
 
       // Heading animation
@@ -112,8 +94,7 @@ export default function SweetsBrunch() {
         );
       }
 
-      // Parallax — beans + bg depth layers (desktop only)
-      if (!isMobile) {
+      // Parallax — beans + bg depth layers
       const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
       const bgFar = sectionRef.current?.querySelector('.parallax-far');
       const bgNear = sectionRef.current?.querySelector('.parallax-near');
@@ -145,7 +126,6 @@ export default function SweetsBrunch() {
           if (bgNear) gsap.set(bgNear, { y: -8 + progress * 16 });
         }
       });
-      } // end if (!isMobile)
     }, sectionRef);
 
     return () => ctx.revert();

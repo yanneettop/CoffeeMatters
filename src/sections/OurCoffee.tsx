@@ -12,6 +12,7 @@ export default function OurCoffee() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (isMobile) return;
 
     const ctx = gsap.context(() => {
       // Heading animation
@@ -76,43 +77,23 @@ export default function OurCoffee() {
 
       // Image reveal animation
       if (imageRef.current) {
-        if (isMobile) {
-          // Simpler reveal for mobile: fade + slide in (no clip-path)
-          gsap.fromTo(imageRef.current,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
-              }
+        gsap.fromTo(imageRef.current,
+          { clipPath: 'inset(0 100% 0 0)', x: 50 },
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            x: 0,
+            duration: 1,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 60%',
+              toggleActions: 'play none none reverse'
             }
-          );
-        } else {
-          // Desktop: reveal with clip-path + slide
-          gsap.fromTo(imageRef.current,
-            { clipPath: 'inset(0 100% 0 0)', x: 50 },
-            {
-              clipPath: 'inset(0 0% 0 0)',
-              x: 0,
-              duration: 1,
-              ease: 'expo.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 60%',
-                toggleActions: 'play none none reverse'
-              }
-            }
-          );
-        }
+          }
+        );
       }
 
-      // Parallax — beans + bg depth layers (desktop only)
-      if (!isMobile) {
+      // Parallax — beans + bg depth layers
       const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
       const bgFar = sectionRef.current?.querySelector('.parallax-far');
       const bgNear = sectionRef.current?.querySelector('.parallax-near');
@@ -138,7 +119,6 @@ export default function OurCoffee() {
           if (bgNear) gsap.set(bgNear, { y: 10  - progress * 20, x: -5 + progress * 10 }); // drifts
         }
       });
-      } // end if (!isMobile)
     }, sectionRef);
 
     return () => ctx.revert();

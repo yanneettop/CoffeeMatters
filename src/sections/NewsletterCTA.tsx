@@ -11,6 +11,7 @@ export default function NewsletterCTA() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.innerWidth < 1024) return;
 
     const ctx = gsap.context(() => {
       // Background gradient sweep
@@ -142,7 +143,7 @@ export default function NewsletterCTA() {
           <h2 
             ref={headingRef}
             className="font-display text-[1.8rem] sm:text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] text-white font-light leading-snug tracking-[0.01em] mb-4 sm:mb-6 max-w-3xl mx-auto text-balance"
-            style={{ willChange: 'transform' }}
+            style={window.innerWidth >= 1024 ? { willChange: 'transform' } : undefined}
           >
             {headingLines.map((line, lineIndex) => (
               <span

@@ -14,41 +14,24 @@ export default function AboutUs() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (isMobile) return;
 
     const ctx = gsap.context(() => {
       // Image curtain reveal
       if (imageRef.current) {
-        if (isMobile) {
-          // Simpler mobile reveal (fade + slide)
-          gsap.fromTo(imageRef.current,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
-              }
+        gsap.fromTo(imageRef.current,
+          { clipPath: 'inset(0 100% 0 0)' },
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 1.2,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 60%',
+              toggleActions: 'play none none reverse'
             }
-          );
-        } else {
-          gsap.fromTo(imageRef.current,
-            { clipPath: 'inset(0 100% 0 0)' },
-            {
-              clipPath: 'inset(0 0% 0 0)',
-              duration: 1.2,
-              ease: 'expo.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 60%',
-                toggleActions: 'play none none reverse'
-              }
-            }
-          );
-        }
+          }
+        );
       }
 
       // Frame border draw
@@ -147,8 +130,7 @@ export default function AboutUs() {
         );
       }
 
-      // Parallax — beans + bg depth layers (desktop only)
-      if (!isMobile) {
+      // Parallax — beans + bg depth layers
       const beansDecos = sectionRef.current?.querySelectorAll('.beans-deco');
       const bgFar = sectionRef.current?.querySelector('.parallax-far');
       const bgNear = sectionRef.current?.querySelector('.parallax-near');
@@ -175,7 +157,6 @@ export default function AboutUs() {
           if (bgNear) gsap.set(bgNear, { y: 8 - progress * 16, x: 4 - progress * 8 });
         }
       });
-      } // end if (!isMobile)
     }, sectionRef);
 
     return () => ctx.revert();

@@ -13,6 +13,7 @@ export default function HostEvents() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (isMobile) return;
 
     const ctx = gsap.context(() => {
       // Text card glassmorphism reveal
@@ -111,41 +112,22 @@ export default function HostEvents() {
 
       // Image reveal
       if (imageRef.current) {
-        if (isMobile) {
-          // Simpler reveal for mobile: fade + slide
-          gsap.fromTo(imageRef.current,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
-              }
+        gsap.fromTo(imageRef.current,
+          { clipPath: 'circle(0% at 50% 50%)' },
+          {
+            clipPath: 'circle(100% at 50% 50%)',
+            duration: 1.2,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 60%',
+              toggleActions: 'play none none reverse'
             }
-          );
-        } else {
-          gsap.fromTo(imageRef.current,
-            { clipPath: 'circle(0% at 50% 50%)' },
-            {
-              clipPath: 'circle(100% at 50% 50%)',
-              duration: 1.2,
-              ease: 'expo.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 60%',
-                toggleActions: 'play none none reverse'
-              }
-            }
-          );
-        }
+          }
+        );
       }
 
-      // Parallax effects (desktop only)
-      if (!isMobile) {
+      // Parallax effects
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top bottom',
@@ -161,7 +143,6 @@ export default function HostEvents() {
           }
         }
       });
-      } // end if (!isMobile)
     }, sectionRef);
 
     return () => ctx.revert();
