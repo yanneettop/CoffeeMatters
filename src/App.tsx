@@ -272,13 +272,13 @@ function App() {
           <>
             <Hero />
             <SignatureSection />
-            <ScrollMarquee direction={-1} />
+            <div className="hidden lg:block"><ScrollMarquee direction={-1} /></div>
             <OurCoffee />
             <SweetsBrunch />
-            <ScrollMarquee
+            <div className="hidden lg:block"><ScrollMarquee
               direction={1}
               text="SWEETS & PIES  ·  BRUNCH  ·  MEDITERRANEAN  ·  AUTHENTIC RECIPES  ·  BAKED DAILY  ·  "
-            />
+            /></div>
             <HostEvents />
             <GoogleReviews />
             <AboutUs />
