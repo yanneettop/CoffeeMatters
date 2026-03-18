@@ -38,6 +38,7 @@ export default function SignatureSection() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.innerWidth < 1024) return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({

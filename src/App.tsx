@@ -214,6 +214,7 @@ function App() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (currentPage !== 'home') return;
+    if (window.innerWidth < 1024) return; // Skip on mobile/tablet — too expensive
 
     let ctx: gsap.Context | null = null;
 
@@ -271,13 +272,13 @@ function App() {
           <>
             <Hero />
             <SignatureSection />
-            <ScrollMarquee direction={-1} />
+            <div className="hidden lg:block"><ScrollMarquee direction={-1} /></div>
             <OurCoffee />
             <SweetsBrunch />
-            <ScrollMarquee
+            <div className="hidden lg:block"><ScrollMarquee
               direction={1}
               text="SWEETS & PIES  ·  BRUNCH  ·  MEDITERRANEAN  ·  AUTHENTIC RECIPES  ·  BAKED DAILY  ·  "
-            />
+            /></div>
             <HostEvents />
             <GoogleReviews />
             <AboutUs />

@@ -8,10 +8,11 @@ export default function OurCoffee() {
   const textRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = window.innerWidth < 1024;
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
 
     const ctx = gsap.context(() => {
       // Heading animation
@@ -76,39 +77,20 @@ export default function OurCoffee() {
 
       // Image reveal animation
       if (imageRef.current) {
-        if (isMobile) {
-          // Simpler reveal for mobile: fade + slide in (no clip-path)
-          gsap.fromTo(imageRef.current,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
-              }
+        gsap.fromTo(imageRef.current,
+          { clipPath: 'inset(0 100% 0 0)', x: 50 },
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            x: 0,
+            duration: 1,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 60%',
+              toggleActions: 'play none none reverse'
             }
-          );
-        } else {
-          // Desktop: reveal with clip-path + slide
-          gsap.fromTo(imageRef.current,
-            { clipPath: 'inset(0 100% 0 0)', x: 50 },
-            {
-              clipPath: 'inset(0 0% 0 0)',
-              x: 0,
-              duration: 1,
-              ease: 'expo.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 60%',
-                toggleActions: 'play none none reverse'
-              }
-            }
-          );
-        }
+          }
+        );
       }
 
       // Parallax — beans + bg depth layers
@@ -147,9 +129,9 @@ export default function OurCoffee() {
       ref={sectionRef}
       className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
     >
-      {/* Atmospheric depth layers — ultra-slow parallax, creates genuine multi-plane depth */}
-      <div className="parallax-far absolute -top-24 right-[20%] w-[560px] h-[560px] rounded-full bg-coral/[0.06] pointer-events-none blur-[100px]" />
-      <div className="parallax-near absolute -bottom-24 -left-16 w-[440px] h-[440px] rounded-full bg-[#D8C4B3]/30 pointer-events-none blur-[80px]" />
+      {/* Atmospheric depth layers — desktop only (blur filters are expensive on mobile) */}
+      <div className="parallax-far absolute -top-24 right-[20%] w-[560px] h-[560px] rounded-full bg-coral/[0.06] pointer-events-none blur-[100px] hidden lg:block" />
+      <div className="parallax-near absolute -bottom-24 -left-16 w-[440px] h-[440px] rounded-full bg-[#D8C4B3]/30 pointer-events-none blur-[80px] hidden lg:block" />
 
       {/* Decorative beans - right edge */}
       <img
@@ -203,7 +185,7 @@ export default function OurCoffee() {
           <div 
             ref={imageRef}
             className="order-1 lg:order-2 relative"
-            style={{ willChange: 'transform, clip-path' }}
+            style={isMobile ? undefined : { willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img

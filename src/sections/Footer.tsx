@@ -24,6 +24,7 @@ export default function Footer() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.innerWidth < 1024) return;
 
     const ctx = gsap.context(() => {
       // Footer background fade

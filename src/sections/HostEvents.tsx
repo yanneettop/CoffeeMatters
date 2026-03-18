@@ -9,10 +9,11 @@ export default function HostEvents() {
   const imageRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null);
 
+  const isMobile = window.innerWidth < 1024;
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
 
     const ctx = gsap.context(() => {
       // Text card glassmorphism reveal
@@ -111,37 +112,19 @@ export default function HostEvents() {
 
       // Image reveal
       if (imageRef.current) {
-        if (isMobile) {
-          // Simpler reveal for mobile: fade + slide
-          gsap.fromTo(imageRef.current,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 75%',
-                toggleActions: 'play none none reverse'
-              }
+        gsap.fromTo(imageRef.current,
+          { clipPath: 'circle(0% at 50% 50%)' },
+          {
+            clipPath: 'circle(100% at 50% 50%)',
+            duration: 1.2,
+            ease: 'expo.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 60%',
+              toggleActions: 'play none none reverse'
             }
-          );
-        } else {
-          gsap.fromTo(imageRef.current,
-            { clipPath: 'circle(0% at 50% 50%)' },
-            {
-              clipPath: 'circle(100% at 50% 50%)',
-              duration: 1.2,
-              ease: 'expo.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 60%',
-                toggleActions: 'play none none reverse'
-              }
-            }
-          );
-        }
+          }
+        );
       }
 
       // Parallax effects
@@ -182,7 +165,7 @@ export default function HostEvents() {
           <div 
             ref={textRef}
             className="relative z-10"
-            style={{ willChange: 'transform' }}
+            style={isMobile ? undefined : { willChange: 'transform' }}
           >
             {/* Glassmorphism card effect */}
             <div className="relative p-0 sm:p-8 lg:p-12 rounded-none sm:rounded-2xl bg-transparent sm:bg-white/30 backdrop-blur-none sm:backdrop-blur-sm">
@@ -229,7 +212,7 @@ export default function HostEvents() {
           <div 
             ref={imageRef}
             className="relative"
-            style={{ willChange: 'transform, clip-path' }}
+            style={isMobile ? undefined : { willChange: 'transform, clip-path' }}
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover animate-pulse-glow group">
               <img
