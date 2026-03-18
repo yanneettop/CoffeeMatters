@@ -14,7 +14,28 @@ export default function AboutUs() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (isMobile) return;
+
+    if (isMobile) {
+      const ctx = gsap.context(() => {
+        const st = { trigger: sectionRef.current, start: 'top 78%', once: true };
+        if (imageRef.current) {
+          gsap.fromTo(imageRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
+        }
+        const aboutWord = textRef.current?.querySelector('.about-word');
+        const usWord = textRef.current?.querySelector('.us-word');
+        if (aboutWord && usWord) {
+          gsap.fromTo([aboutWord, usWord], { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, delay: 0.1, ease: 'expo.out', scrollTrigger: st });
+        }
+        const paragraph = textRef.current?.querySelector('p');
+        if (paragraph) {
+          gsap.fromTo(paragraph, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, delay: 0.25, ease: 'power2.out', scrollTrigger: st });
+        }
+        if (buttonRef.current) {
+          gsap.fromTo(buttonRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, delay: 0.35, ease: 'power2.out', scrollTrigger: st });
+        }
+      }, sectionRef);
+      return () => ctx.revert();
+    }
 
     const ctx = gsap.context(() => {
       // Image curtain reveal

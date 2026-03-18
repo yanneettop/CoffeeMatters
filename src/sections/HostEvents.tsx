@@ -13,7 +13,26 @@ export default function HostEvents() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (isMobile) return;
+
+    if (isMobile) {
+      const ctx = gsap.context(() => {
+        const st = { trigger: sectionRef.current, start: 'top 78%', once: true };
+        if (textRef.current) {
+          gsap.fromTo(textRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out', scrollTrigger: st });
+        }
+        const bodyText = textRef.current?.querySelector('.body-text');
+        if (bodyText) {
+          gsap.fromTo(bodyText, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, delay: 0.1, ease: 'power2.out', scrollTrigger: st });
+        }
+        if (buttonRef.current) {
+          gsap.fromTo(buttonRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, delay: 0.2, ease: 'power2.out', scrollTrigger: st });
+        }
+        if (imageRef.current) {
+          gsap.fromTo(imageRef.current, { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, delay: 0.15, ease: 'power2.out', scrollTrigger: st });
+        }
+      }, sectionRef);
+      return () => ctx.revert();
+    }
 
     const ctx = gsap.context(() => {
       // Text card glassmorphism reveal

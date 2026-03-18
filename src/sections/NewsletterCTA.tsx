@@ -11,7 +11,20 @@ export default function NewsletterCTA() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.innerWidth < 1024) return;
+
+    if (window.innerWidth < 1024) {
+      const ctx = gsap.context(() => {
+        const st = { trigger: sectionRef.current, start: 'top 80%', once: true };
+        const words = headingRef.current?.querySelectorAll('.word');
+        if (words?.length) {
+          gsap.fromTo(words, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'expo.out', scrollTrigger: st });
+        }
+        if (buttonRef.current) {
+          gsap.fromTo(buttonRef.current, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, delay: 0.2, ease: 'power2.out', scrollTrigger: st });
+        }
+      }, sectionRef);
+      return () => ctx.revert();
+    }
 
     const ctx = gsap.context(() => {
       // Background gradient sweep

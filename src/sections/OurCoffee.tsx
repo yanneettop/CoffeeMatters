@@ -12,7 +12,24 @@ export default function OurCoffee() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (isMobile) return;
+
+    if (isMobile) {
+      const ctx = gsap.context(() => {
+        const st = { trigger: sectionRef.current, start: 'top 78%', once: true };
+        const headingWords = headingRef.current?.querySelectorAll('.heading-word');
+        if (headingWords?.length) {
+          gsap.fromTo(headingWords, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'expo.out', scrollTrigger: st });
+        }
+        if (imageRef.current) {
+          gsap.fromTo(imageRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
+        }
+        const paragraphs = textRef.current?.querySelectorAll('p');
+        if (paragraphs?.length) {
+          gsap.fromTo(paragraphs, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, delay: 0.15, ease: 'power2.out', scrollTrigger: st });
+        }
+      }, sectionRef);
+      return () => ctx.revert();
+    }
 
     const ctx = gsap.context(() => {
       // Heading animation

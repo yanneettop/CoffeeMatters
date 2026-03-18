@@ -14,7 +14,27 @@ export default function SweetsBrunch() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (isMobile) return;
+
+    if (isMobile) {
+      const ctx = gsap.context(() => {
+        const st = { trigger: sectionRef.current, start: 'top 78%', once: true };
+        if (imageRef.current) {
+          gsap.fromTo(imageRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
+        }
+        const headingLines = textRef.current?.querySelectorAll('.heading-line');
+        if (headingLines?.length) {
+          gsap.fromTo(headingLines, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, delay: 0.1, ease: 'expo.out', scrollTrigger: st });
+        }
+        const paragraphs = textRef.current?.querySelectorAll('p');
+        if (paragraphs?.length) {
+          gsap.fromTo(paragraphs, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, delay: 0.2, ease: 'power2.out', scrollTrigger: st });
+        }
+        if (buttonRef.current) {
+          gsap.fromTo(buttonRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, delay: 0.35, ease: 'power2.out', scrollTrigger: st });
+        }
+      }, sectionRef);
+      return () => ctx.revert();
+    }
 
     const ctx = gsap.context(() => {
       // Image reveal
