@@ -33,6 +33,17 @@ export default function Hero() {
         imgRef.current.style.opacity = '1';
       }
 
+      // Entrance animations for mobile hero content
+      const mobileCtx = gsap.context(() => {
+        const heading = contentRef.current?.querySelector('h1');
+        const subheading = contentRef.current?.querySelector('p');
+        const buttons = contentRef.current?.querySelectorAll('a');
+        const tl = gsap.timeline({ delay: 0.3 });
+        if (heading) tl.fromTo(heading, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' });
+        if (subheading) tl.fromTo(subheading, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+        if (buttons?.length) tl.fromTo(buttons, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.08, ease: 'power2.out' }, '-=0.25');
+      }, heroRef);
+
       const handleScroll = () => {
         if (!heroRef.current || !contentRef.current || !bgRef.current) return;
         const rect = heroRef.current.getBoundingClientRect();
@@ -47,6 +58,7 @@ export default function Hero() {
       handleScroll();
 
       return () => {
+        mobileCtx.revert();
         window.removeEventListener('scroll', handleScroll);
       };
     }
