@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Instagram } from 'lucide-react';
 import ButtonWithIcon from '@/components/ui/button-witn-icon';
 import { SparklesCore } from '@/components/ui/sparkles';
 
