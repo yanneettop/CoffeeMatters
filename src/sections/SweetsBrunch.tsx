@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
+import ButtonWithIcon from '@/components/ui/button-witn-icon';
 
 export default function SweetsBrunch() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -235,17 +236,9 @@ export default function SweetsBrunch() {
           </div>
 
           {/* CTA Button */}
-          <a
-            ref={buttonRef}
-            href="#menu"
-            className="order-3 col-span-1 lg:col-span-2 lg:col-start-2 btn-outline group/btn inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
-          >
-            <span>SEE MENU</span>
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover/btn:translate-x-2"
-            />
-          </a>
+          <ButtonWithIcon href="#menu" variant="outline" className="order-3 col-span-1 lg:col-span-2 lg:col-start-2">
+            See Menu
+          </ButtonWithIcon>
         </div>
         </div>
       </div>

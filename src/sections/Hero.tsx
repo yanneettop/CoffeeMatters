@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ButtonWithIcon from '@/components/ui/button-witn-icon';
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -380,38 +381,12 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
-            <a
-              href="#menu"
-              className="hero-cta-primary group/cta relative font-body uppercase tracking-[0.2em] text-white rounded-full transition-all duration-300 active:scale-95 overflow-hidden"
-              style={{
-                fontSize: '10px',
-                padding: '11px 24px',
-                background: 'linear-gradient(135deg, #c25b3a 0%, #d4724f 50%, #c25b3a 100%)',
-                backgroundSize: '200% 200%',
-                boxShadow: '0 4px 20px rgba(194,91,58,0.35)',
-              }}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                View Menu
-                <svg className="w-3 h-3 transition-transform duration-300 group-active/cta:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-              </span>
-            </a>
-            <a
-              href="#contact"
-              className="hero-cta-outline group/cta relative font-body uppercase tracking-[0.2em] text-white/90 rounded-full transition-all duration-300 active:scale-95 overflow-hidden"
-              style={{
-                fontSize: '10px',
-                padding: '10px 24px',
-                border: '1px solid rgba(255,255,255,0.38)',
-                backdropFilter: 'blur(8px)',
-                background: 'rgba(255,255,255,0.05)',
-              }}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                Find Us
-                <svg className="w-3 h-3 transition-transform duration-300 group-active/cta:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-              </span>
-            </a>
+            <ButtonWithIcon href="#menu" className="hero-cta-primary">
+              View Menu
+            </ButtonWithIcon>
+            <ButtonWithIcon href="#contact" variant="outline-light" className="hero-cta-outline">
+              Find Us
+            </ButtonWithIcon>
           </div>
         </div>
 
@@ -511,64 +486,12 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-5">
-          <a
-            href="#menu"
-            className="hero-cta hero-cta-primary group/cta relative font-body uppercase tracking-[0.18em] text-white rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04] hover:tracking-[0.22em] overflow-hidden"
-            style={{
-              fontSize: '11px',
-              padding: '14px 36px',
-              background: 'linear-gradient(135deg, #c25b3a 0%, #d4724f 50%, #c25b3a 100%)',
-              backgroundSize: '200% 200%',
-              boxShadow: '0 4px 24px rgba(194,91,58,0.3)',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.backgroundPosition = '100% 100%';
-              el.style.boxShadow = '0 8px 40px rgba(194,91,58,0.5), 0 0 60px rgba(194,91,58,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.backgroundPosition = '0% 0%';
-              el.style.boxShadow = '0 4px 24px rgba(194,91,58,0.3)';
-            }}
-          >
-            {/* Shimmer sweep */}
-            <span className="absolute inset-0 -translate-x-full group-hover/cta:translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <span className="relative z-10 flex items-center gap-2.5">
-              View Menu
-              <svg className="w-3.5 h-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-            </span>
-          </a>
-          <a
-            href="#contact"
-            className="hero-cta hero-cta-outline group/cta relative font-body uppercase tracking-[0.18em] text-white/90 rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04] hover:text-white hover:tracking-[0.22em] overflow-hidden"
-            style={{
-              fontSize: '11px',
-              padding: '13px 36px',
-              border: '1px solid rgba(255,255,255,0.35)',
-              backdropFilter: 'blur(8px)',
-              background: 'rgba(255,255,255,0.04)',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.borderColor = 'rgba(255,255,255,0.6)';
-              el.style.background = 'rgba(255,255,255,0.12)';
-              el.style.boxShadow = '0 8px 32px rgba(255,255,255,0.08), inset 0 0 20px rgba(255,255,255,0.05)';
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.borderColor = 'rgba(255,255,255,0.35)';
-              el.style.background = 'rgba(255,255,255,0.04)';
-              el.style.boxShadow = 'none';
-            }}
-          >
-            {/* Shimmer sweep */}
-            <span className="absolute inset-0 -translate-x-full group-hover/cta:translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            <span className="relative z-10 flex items-center gap-2.5">
-              Find Us
-              <svg className="w-3.5 h-3.5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-            </span>
-          </a>
+          <ButtonWithIcon href="#menu" className="hero-cta hero-cta-primary">
+            View Menu
+          </ButtonWithIcon>
+          <ButtonWithIcon href="#contact" variant="outline-light" className="hero-cta hero-cta-outline">
+            Find Us
+          </ButtonWithIcon>
         </div>
 
         {/* Desktop scroll indicator */}

@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Instagram } from 'lucide-react';
+import ButtonWithIcon from '@/components/ui/button-witn-icon';
+import { SparklesCore } from '@/components/ui/sparkles';
 
 export default function NewsletterCTA() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -122,8 +124,8 @@ export default function NewsletterCTA() {
   }, []);
 
   const headingLines = [
-    'Follow our daily rituals,',
-    'fresh bakes & East London moments',
+    'Specialty coffee, Greek soul',
+    '& Brick Lane mornings',
   ];
 
   return (
@@ -135,6 +137,19 @@ export default function NewsletterCTA() {
         backgroundSize: '200% 200%',
       }}
     >
+      {/* Sparkles */}
+      <div className="absolute inset-0 pointer-events-none">
+        <SparklesCore
+          background="transparent"
+          minSize={0.4}
+          maxSize={1}
+          particleDensity={30}
+          particleColor="#ffffff"
+          speed={1}
+          className="w-full h-full"
+        />
+      </div>
+
       {/* Decorative Lines */}
       <div ref={decorRef} className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
@@ -176,27 +191,18 @@ export default function NewsletterCTA() {
           </h2>
 
           <p className="text-xs sm:text-sm md:text-base text-white/75 max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed font-body" style={{ fontWeight: 300 }}>
-            Join a community that savours the small things — specialty pours, homemade Greek pastries, and the warmth of Brick Lane mornings.
+            Follow us on Instagram for daily posts from one of East London's favourite independent cafés — fresh bakes, seasonal drinks, and the warmth that keeps people coming back.
           </p>
 
           {/* CTA Button */}
-          <a
-            ref={buttonRef}
+          <ButtonWithIcon
             href="https://www.instagram.com/coffeematterslondon"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 sm:gap-3 px-6 sm:px-7 py-2.5 sm:py-3 border border-white/80 bg-white/5 text-white rounded-full text-[0.75rem] sm:text-sm font-medium tracking-[0.06em] transition-all duration-300 hover:bg-white hover:text-coral hover:shadow-lg/40 hover:shadow-black/30 hover:-translate-y-[1px] active:scale-95"
-            style={{ 
-              animation: 'pulse 3s ease-in-out infinite',
-            }}
+            variant="outline-light"
           >
-            <Instagram size={20} />
-            <span>Follow @coffeematterslondon</span>
-            <ArrowRight 
-              size={18} 
-              className="transition-transform duration-300 group-hover:translate-x-2"
-            />
-          </a>
+            Follow @coffeematterslondon
+          </ButtonWithIcon>
         </div>
       </div>
 

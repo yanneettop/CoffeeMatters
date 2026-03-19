@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
+import ButtonWithIcon from '@/components/ui/button-witn-icon';
 
 export default function HostEvents() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -222,17 +223,9 @@ export default function HostEvents() {
               </p>
 
               {/* CTA Button */}
-              <a
-                ref={buttonRef}
-                href="#contact"
-                className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300 active:scale-95"
-              >
-                <span>HIRE OUR VENUE</span>
-                <ArrowRight 
-                  size={18} 
-                  className="transition-transform duration-300 group-hover:translate-x-2"
-                />
-              </a>
+              <ButtonWithIcon href="#contact" variant="outline">
+                Hire Our Venue
+              </ButtonWithIcon>
             </div>
           </div>
 
