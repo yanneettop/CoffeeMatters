@@ -81,7 +81,7 @@ export default function SignatureSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#EFE6DC] py-12 sm:py-20 md:py-28 overflow-hidden"
+      className="relative bg-[#EFE6DC] py-12 md:py-16 lg:py-20 xl:py-24 overflow-hidden"
       aria-label="Brand highlights"
     >
       {/* Subtle warm texture overlay */}
@@ -92,7 +92,7 @@ export default function SignatureSection() {
         }}
       />
 
-      <div className="relative max-w-sm sm:max-w-2xl mx-auto px-6 text-center">
+      <div className="relative max-w-sm md:max-w-2xl mx-auto px-6 text-center">
 
         {/* Top ornament */}
         <div className="sig-ornament flex items-center justify-center gap-3 sm:gap-4 mb-7 sm:mb-10 origin-center">
@@ -113,13 +113,13 @@ export default function SignatureSection() {
         <div className="sig-statement mb-7 sm:mb-10">
           <p
             className="font-accent text-[#2B2623] leading-[1.2]"
-            style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}
+            style={{ fontSize: 'clamp(1.75rem, 3.2vw, 2.75rem)' }}
           >
             Coffee. Brunch.
           </p>
           <p
             className="font-accent text-[#c25b3a] leading-[1.2]"
-            style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}
+            style={{ fontSize: 'clamp(1.75rem, 3.2vw, 2.75rem)' }}
           >
             Greek touch.
           </p>

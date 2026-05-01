@@ -177,13 +177,13 @@ export default function Menu() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 md:py-32 overflow-hidden"
+      className="relative w-full section-y overflow-hidden"
       style={{ backgroundColor: 'rgba(255,255,255,0.35)' }}
     >
-      <div className="section-padding max-w-6xl mx-auto">
+      <div className="section-padding">
         {/* ── Heading ─────────────────────────────────── */}
         <div ref={headingRef} className="mb-10 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl">
+          <h2 className="section-heading">
             <span className="heading-word inline-block font-display font-light tracking-widest text-[var(--text-secondary)]">
               OUR
             </span>{' '}
@@ -202,14 +202,14 @@ export default function Menu() {
         </div>
 
         {/* ── Tab Buttons ─────────────────────────────── */}
-        <div ref={tabsRef} className="flex justify-center gap-3 mb-6" role="tablist">
+        <div ref={tabsRef} className="flex justify-center gap-2.5 md:gap-3 mb-6 flex-wrap" role="tablist">
           {menuTabs.map((tab, i) => (
             <button
               key={tab.id}
               role="tab"
               aria-selected={activeTabIndex === i}
               onClick={() => switchTab(i)}
-              className={`px-8 py-2.5 rounded-full text-sm font-medium tracking-widest uppercase transition-all duration-300 border ${
+              className={`px-5 md:px-7 lg:px-8 py-2.5 rounded-full text-xs md:text-sm font-medium tracking-widest uppercase transition-all duration-300 border ${
                 activeTabIndex === i
                   ? 'bg-coral text-white border-coral shadow-lg shadow-coral/20'
                   : 'bg-white/50 text-[var(--text-secondary)] border-[var(--sandstone)]/50 hover:bg-white hover:shadow-md'
@@ -240,14 +240,14 @@ export default function Menu() {
         </div>
 
         {/* ── Menu Content ────────────────────────────── */}
-        <div ref={contentRef} className="space-y-12" role="tabpanel">
+        <div ref={contentRef} className="space-y-10 md:space-y-12" role="tabpanel">
           {currentTab.categories.map((category) => (
             <MenuCategoryCard key={category.id} category={category} />
           ))}
         </div>
 
         {/* ── Dietary Key ─────────────────────────────── */}
-        <div className="mt-14 pt-6 border-t border-[var(--sandstone)]/40 flex items-center justify-center gap-6 text-[11px] text-gray-400 font-body tracking-wide">
+        <div className="mt-12 md:mt-14 pt-6 border-t border-[var(--sandstone)]/40 flex flex-wrap items-center justify-center gap-4 md:gap-6 text-[11px] text-gray-400 font-body tracking-wide">
           <span>
             <span className="inline-block w-4 text-center font-semibold text-[var(--olive)]">V</span>{' '}
             Vegetarian

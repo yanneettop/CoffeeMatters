@@ -214,7 +214,7 @@ function App() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (currentPage !== 'home') return;
-    if (window.innerWidth < 1024) return; // Skip on mobile/tablet — too expensive
+    if (window.innerWidth < 1280) return; // Keep tablet and small laptop proportions steady.
 
     let ctx: gsap.Context | null = null;
 
@@ -228,9 +228,9 @@ function App() {
           if (section.id === 'home') return;
 
           gsap.fromTo(section,
-            { y: 120 },
+            { y: 36 },
             {
-              y: -60,
+              y: -24,
               ease: 'none',
               scrollTrigger: {
                 trigger: section,

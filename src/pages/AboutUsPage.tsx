@@ -22,13 +22,13 @@ function OrnamentDivider({ className = '' }: { className?: string }) {
 function PullQuote({ children, className = '' }: { children: string; className?: string }) {
   return (
     <blockquote
-      className={`pull-quote relative py-10 px-6 md:px-16 text-center ${className}`}
+      className={`pull-quote relative py-8 md:py-10 px-6 md:px-10 lg:px-14 text-center ${className}`}
     >
       <span className="absolute top-0 left-1/2 -translate-x-1/2 text-[6rem] leading-none font-display text-coral/15 select-none pointer-events-none">
         &ldquo;
       </span>
       <p
-        className="relative text-xl md:text-2xl lg:text-3xl leading-relaxed text-[var(--text-secondary)]"
+        className="relative text-xl md:text-2xl xl:text-3xl leading-relaxed text-[var(--text-secondary)]"
         style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}
       >
         {children}
@@ -43,9 +43,9 @@ function DropCapParagraph({ text }: { text: string }) {
   const rest = text.slice(1);
 
   return (
-    <p className="story-paragraph text-[var(--text-secondary)] font-body text-base md:text-lg leading-[1.9] tracking-wide">
+    <p className="story-paragraph text-[var(--text-secondary)] font-body body-copy tracking-wide">
       <span
-        className="float-left text-6xl md:text-7xl leading-[0.8] mr-3 mt-1 font-display font-bold text-coral"
+        className="float-left text-6xl lg:text-7xl leading-[0.8] mr-3 mt-1 font-display font-bold text-coral"
         style={{ fontFamily: "'DM Serif Display', serif" }}
       >
         {first}
@@ -231,7 +231,7 @@ export default function AboutUsPage() {
       {/* ═══════════════════════════════════════════════════ */}
       <section
         ref={heroRef}
-        className="relative w-full min-h-[85vh] flex flex-col items-center justify-center bg-dark overflow-hidden pt-24 pb-16"
+        className="relative w-full min-h-[620px] h-[82svh] max-h-[760px] flex flex-col items-center justify-center bg-dark overflow-hidden pt-24 pb-16"
       >
         {/* Grain texture overlay */}
         <div
@@ -243,7 +243,7 @@ export default function AboutUsPage() {
         />
 
         {/* Subtle radial glow behind the logo */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[var(--coral)] opacity-[0.06] blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(70vw,500px)] h-[min(70vw,500px)] rounded-full bg-[var(--coral)] opacity-[0.06] blur-[120px] pointer-events-none" />
 
         {/* Logo illustration */}
         <div className="relative mb-10">
@@ -251,7 +251,7 @@ export default function AboutUsPage() {
             ref={logoRef}
             src="/logo-black.png"
             alt="Coffee Matters storefront illustration"
-            className="relative w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 object-contain"
+            className="relative w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 xl:w-80 xl:h-80 object-contain"
             style={{ filter: 'invert(1) sepia(0.5) saturate(1.2) brightness(0.95) hue-rotate(-10deg)', mixBlendMode: 'lighten' }}
           />
         </div>
@@ -259,7 +259,7 @@ export default function AboutUsPage() {
         {/* Title */}
         <h1
           ref={heroTitleRef}
-          className="relative text-center font-display font-light tracking-[0.35em] text-4xl md:text-5xl lg:text-6xl text-white/90 uppercase"
+          className="relative text-center font-display font-light tracking-[0.28em] md:tracking-[0.35em] text-4xl md:text-5xl xl:text-6xl text-white/90 uppercase"
         >
           {titleLetters.map((char, i) => (
             <span key={i} className="hero-letter inline-block">
@@ -298,7 +298,7 @@ export default function AboutUsPage() {
       {/*  STORY CONTENT                                      */}
       {/* ═══════════════════════════════════════════════════ */}
       <div ref={contentRef} className="bg-cream">
-        <div className="max-w-3xl mx-auto px-6 md:px-8 py-20 md:py-28">
+        <div className="max-w-3xl mx-auto px-6 md:px-8 py-16 md:py-20 lg:py-24 xl:py-28">
 
           {/* ── Chapter 1: The Beginning ──────────────── */}
           <StorySection className="mb-16">
@@ -309,7 +309,7 @@ export default function AboutUsPage() {
 
           {/* ── Chapter 2: Heritage ───────────────────── */}
           <StorySection className="mb-12">
-            <p className="story-paragraph text-[var(--text-secondary)] font-body text-base md:text-lg leading-[1.9] tracking-wide">
+            <p className="story-paragraph text-[var(--text-secondary)] font-body body-copy tracking-wide">
               Growing up surrounded by rich coffee traditions, we always knew there was something special about the way coffee could create moments of joy, spark conversations, and build connections. When we moved to this community, we saw an opportunity to share our love for quality brews and Mediterranean flavors with our new neighbors.
             </p>
           </StorySection>
@@ -323,18 +323,18 @@ export default function AboutUsPage() {
 
           {/* ── Chapter 3: Building ───────────────────── */}
           <StorySection className="mb-16">
-            <p className="story-paragraph text-[var(--text-secondary)] font-body text-base md:text-lg leading-[1.9] tracking-wide">
+            <p className="story-paragraph text-[var(--text-secondary)] font-body body-copy tracking-wide">
               Our independent coffee shop is the result of countless late-night planning sessions, early morning tastings, and a commitment to creating a space that feels like home to everyone who walks through our doors. We've poured our hearts into selecting the finest beans, perfecting our roasts, and crafting a menu that blends our Greek heritage with local tastes.
             </p>
           </StorySection>
 
           {/* ── Full-width image break ────────────────── */}
           <StorySection className="mb-16">
-            <div className="relative -mx-6 md:-mx-12 lg:-mx-24 overflow-hidden rounded-lg shadow-xl img-hover group">
+            <div className="relative -mx-6 md:-mx-8 lg:-mx-16 xl:-mx-24 overflow-hidden rounded-lg shadow-xl img-hover group">
               <img
                 src="/about-storefront.jpg"
                 alt="Inside Coffee Matters"
-                className="img-content w-full h-64 md:h-80 lg:h-96 object-cover"
+                className="img-content w-full h-[clamp(240px,32vw,384px)] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               <p
@@ -349,7 +349,7 @@ export default function AboutUsPage() {
 
           {/* ── Chapter 4: Community ──────────────────── */}
           <StorySection className="mb-12">
-            <p className="story-paragraph text-[var(--text-secondary)] font-body text-base md:text-lg leading-[1.9] tracking-wide">
+            <p className="story-paragraph text-[var(--text-secondary)] font-body body-copy tracking-wide">
               But Coffee Matters is about more than just great coffee and food. It's about the community we're building. Every day, we strive to create a welcoming environment where friends can catch up, strangers can become friends, and everyone can find a moment of peace in their busy day.
             </p>
           </StorySection>
@@ -363,14 +363,14 @@ export default function AboutUsPage() {
 
           {/* ── Chapter 5: Dedication ─────────────────── */}
           <StorySection className="mb-16">
-            <p className="story-paragraph text-[var(--text-secondary)] font-body text-base md:text-lg leading-[1.9] tracking-wide">
+            <p className="story-paragraph text-[var(--text-secondary)] font-body body-copy tracking-wide">
               From our carefully curated coffee selection to our Mediterranean-inspired treats, every aspect of Coffee Matters reflects our dedication to quality and authenticity. We're constantly exploring new flavors, refining our techniques, and listening to our customers to ensure we're always serving up the best experience possible.
             </p>
           </StorySection>
 
           {/* ── Chapter 6: Vision ─────────────────────── */}
           <StorySection className="mb-12">
-            <p className="story-paragraph text-[var(--text-secondary)] font-body text-base md:text-lg leading-[1.9] tracking-wide">
+            <p className="story-paragraph text-[var(--text-secondary)] font-body body-copy tracking-wide">
               As we continue to grow and evolve, our core vision remains the same: to share our passion for excellent coffee and food while fostering a sense of community. Whether you're grabbing a quick espresso on your way to work or settling in for a leisurely brunch with friends, we're honored to be part of your day.
             </p>
           </StorySection>
@@ -380,7 +380,7 @@ export default function AboutUsPage() {
           {/* ── Closing — Thank You ───────────────────── */}
           <StorySection className="mb-20 text-center">
             <p
-              className="text-2xl md:text-3xl lg:text-4xl leading-snug text-[var(--text-primary)] mb-8"
+              className="text-2xl md:text-3xl xl:text-4xl leading-snug text-[var(--text-primary)] mb-8"
               style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}
             >
               Thank you for being part of our story.<br />

@@ -63,24 +63,24 @@ export default function Stats() {
   }, [animated]);
 
   return (
-    <section ref={sectionRef} id="stats" className="relative py-24 bg-gradient-to-b from-cream to-white">
+    <section ref={sectionRef} id="stats" className="relative section-y-compact bg-gradient-to-b from-cream to-white">
       <div className="section-padding">
         {/* Header */}
-        <div className="mb-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+        <div className="mb-12 md:mb-14 lg:mb-16 text-center">
+          <h2 className="section-heading font-bold mb-4 text-gray-900">
             Coffee Matters in Numbers
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="body-copy text-gray-600">
             Join our community of coffee lovers and pastry enthusiasts
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="group relative bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-[#C25B3A]/30"
+              className="group relative bg-white rounded-lg p-6 md:p-7 xl:p-8 text-center shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-[#C25B3A]/30"
             >
               {/* Decorative accent */}
               <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#C25B3A] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -90,7 +90,7 @@ export default function Stats() {
                 ref={(el) => {
                   counterRefs.current[i] = el;
                 }}
-                className="text-5xl md:text-6xl font-bold text-[#C25B3A] mb-3"
+                className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[#C25B3A] mb-3"
               >
                 0{stats[i].suffix}
               </div>

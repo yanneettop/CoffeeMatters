@@ -20,7 +20,7 @@ export default function MenuCategoryCard({ category }: { category: MenuCategory 
       )}
 
       {/* Items Grid — 2 columns on desktop, 1 on mobile */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-1">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 xl:gap-x-12 gap-y-1">
         {category.items.map((item) => (
           <MenuItem key={item.name} item={item} />
         ))}

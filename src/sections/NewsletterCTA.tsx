@@ -130,7 +130,7 @@ export default function NewsletterCTA() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full py-20 md:py-32 lg:py-36 overflow-hidden"
+      className="relative w-full section-y-compact overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #c25b3a 0%, #a34b30 50%, #c25b3a 100%)',
         backgroundSize: '200% 200%',
@@ -169,13 +169,13 @@ export default function NewsletterCTA() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 
             ref={headingRef}
-            className="font-display text-[1.8rem] sm:text-[2.2rem] md:text-[2.8rem] lg:text-[3.2rem] text-white font-light leading-snug tracking-[0.01em] mb-4 sm:mb-6 max-w-3xl mx-auto text-balance"
+            className="font-display text-[clamp(1.8rem,3.4vw,3.2rem)] text-white font-light leading-snug tracking-[0.01em] mb-4 sm:mb-6 max-w-3xl mx-auto text-balance"
             style={window.innerWidth >= 1024 ? { willChange: 'transform' } : undefined}
           >
             {headingLines.map((line, lineIndex) => (
               <span
                 key={lineIndex}
-                className="block md:whitespace-nowrap"
+                className="block xl:whitespace-nowrap"
               >
                 {line.split(' ').map((word, wordIndex) => (
                   <span
@@ -189,7 +189,7 @@ export default function NewsletterCTA() {
             ))}
           </h2>
 
-          <p className="text-xs sm:text-sm md:text-base text-white/75 max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed font-body" style={{ fontWeight: 300 }}>
+          <p className="text-xs sm:text-sm lg:text-base text-white/75 max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed font-body" style={{ fontWeight: 300 }}>
             Follow us on Instagram for daily posts from one of East London's favourite independent cafés — fresh bakes, seasonal drinks, and the warmth that keeps people coming back.
           </p>
 

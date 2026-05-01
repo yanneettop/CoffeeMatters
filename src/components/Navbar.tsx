@@ -96,33 +96,33 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
     <nav
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        navScrolled ? 'glass shadow-lg py-3' : 'bg-transparent py-6'
+        navScrolled ? 'glass shadow-lg py-2.5 lg:py-3' : 'bg-transparent py-4 lg:py-5 xl:py-6'
       }`}
     >
       <div className="section-padding flex items-center justify-between">
         {/* Logo */}
         <a
           href="#home"
-          className="group relative transition-transform duration-300 hover:scale-105 h-12"
+          className="group relative transition-transform duration-300 hover:scale-105 h-10 lg:h-11 xl:h-12"
         >
           <img
             src="/minimal-logowhite.png"
             alt="Coffee Matters"
-            className={`h-12 w-auto object-contain transition-opacity duration-500 ${
+            className={`h-10 lg:h-11 xl:h-12 w-auto object-contain transition-opacity duration-500 ${
               navScrolled ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
             }`}
           />
           <img
             src="/minimal-logowhiteracota.png"
             alt="Coffee Matters"
-            className={`h-12 w-auto object-contain absolute top-0 left-0 transition-opacity duration-500 ${
+            className={`h-10 lg:h-11 xl:h-12 w-auto object-contain absolute top-0 left-0 transition-opacity duration-500 ${
               navScrolled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
             }`}
           />
         </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8 relative">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-8 relative">
           {navLinks.map((link) => {
             const sectionId = link.href.slice(1); // Remove # from href
             const isActive = activeSection === sectionId;
@@ -143,7 +143,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
                     });
                   }
                 }}
-                className={`relative text-sm font-normal tracking-widest uppercase group transition-colors duration-300 ${
+                className={`relative text-[13px] xl:text-sm font-normal tracking-widest uppercase group transition-colors duration-300 ${
                   isActive
                     ? navScrolled
                       ? 'text-[#C25B3A]'
@@ -170,7 +170,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`md:hidden p-2 transition-colors ${
+          className={`lg:hidden p-2 transition-colors ${
             navScrolled ? 'text-black' : 'text-white'
           }`}
         >
@@ -180,7 +180,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden glass absolute top-full left-0 right-0 py-4 px-6 shadow-lg">
+        <div className="lg:hidden glass absolute top-full left-0 right-0 py-4 px-6 shadow-lg">
           {navLinks.map((link) => (
             <a
               key={link.name}

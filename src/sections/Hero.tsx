@@ -221,7 +221,7 @@ export default function Hero() {
     <section
       id="home"
       ref={heroRef}
-      className="relative w-full h-[100dvh] sm:h-screen overflow-hidden"
+      className="relative w-full min-h-[640px] h-[88svh] max-h-[760px] sm:min-h-[660px] md:min-h-[680px] lg:min-h-[700px] overflow-hidden"
     >
       {/* Background Image — oversized for parallax + Ken Burns */}
       <div
@@ -408,11 +408,11 @@ export default function Hero() {
 
       {/* ── DESKTOP CONTENT ──────────────────────────────────────── */}
       <div
-        className="hidden sm:flex relative z-10 h-full flex-col items-center justify-center text-center section-padding pb-16"
+        className="hidden sm:flex relative z-10 h-full flex-col items-center justify-center text-center section-padding pb-12 md:pb-14 lg:pb-16 translate-y-8 md:translate-y-10 lg:translate-y-8 xl:translate-y-6"
         style={{ willChange: 'transform' }}
       >
         {/* Location tag */}
-        <div className="absolute top-28 left-1/2 -translate-x-1/2 flex items-center gap-3">
+        <div className="absolute top-24 md:top-[6.5rem] lg:top-28 left-1/2 -translate-x-1/2 flex items-center gap-3">
           <div className="w-8 h-px bg-white/25" />
           <span className="font-body text-white/40 uppercase tracking-[0.35em]" style={{ fontSize: '10px' }}>
             Est. Brick Lane, London
@@ -423,7 +423,7 @@ export default function Hero() {
         {/* Animated per-letter heading */}
         <h1
           ref={headingRef}
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold text-white mb-5 tracking-wide"
+          className="font-display text-[clamp(3rem,5.2vw,4.8rem)] xl:text-[clamp(4.8rem,5vw,5.8rem)] 2xl:text-[6.2rem] font-bold text-white mb-4 md:mb-5 tracking-wide leading-[0.96]"
         >
           {'COFFEE MATTERS'.split('').map((char, i) => (
             <span
@@ -462,7 +462,7 @@ export default function Hero() {
 
         <p
           ref={subheadingRef}
-          className="max-w-lg text-base md:text-lg text-white/80 font-body leading-relaxed px-4 mb-9 relative"
+          className="max-w-lg text-[clamp(0.95rem,1.2vw,1.1rem)] text-white/80 font-body leading-relaxed px-4 mb-7 md:mb-8 lg:mb-9 relative"
           style={{ fontWeight: 300 }}
         >
           {'Specialty coffee, homemade bakes & Greek warmth in the heart of Brick Lane.'.split(' ').map((word, i) => (
@@ -485,7 +485,7 @@ export default function Hero() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 lg:gap-5">
           <ButtonWithIcon href="#menu" className="hero-cta hero-cta-primary">
             View Menu
           </ButtonWithIcon>

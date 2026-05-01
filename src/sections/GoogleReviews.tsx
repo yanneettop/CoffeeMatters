@@ -154,7 +154,7 @@ export default function GoogleReviews() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 sm:py-24 md:py-32 bg-cream overflow-hidden"
+      className="relative section-y-compact bg-cream overflow-hidden"
     >
       {/* Subtle warm gradient */}
       <div
@@ -166,7 +166,7 @@ export default function GoogleReviews() {
 
       <div className="section-padding relative">
         {/* Header */}
-        <div className="reviews-header text-center mb-14 sm:mb-20">
+        <div className="reviews-header text-center mb-12 md:mb-14 lg:mb-16">
           {/* Google G icon */}
           <div className="flex items-center justify-center gap-2.5 mb-5">
             <svg width="24" height="24" viewBox="0 0 24 24" className="flex-shrink-0">
@@ -182,7 +182,7 @@ export default function GoogleReviews() {
 
           {/* Rating display */}
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="font-display text-4xl sm:text-5xl text-[#2B2623]" style={{ fontWeight: 600 }}>4.8</span>
+            <span className="font-display text-4xl md:text-5xl text-[#2B2623]" style={{ fontWeight: 600 }}>4.8</span>
             <div className="flex flex-col items-start gap-1">
               <div className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -204,12 +204,12 @@ export default function GoogleReviews() {
         {/* Reviews Grid */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 max-w-6xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6 xl:gap-8 max-w-[1120px] mx-auto"
         >
           {reviews.map((review, i) => (
             <div
               key={i}
-              className="review-card group relative bg-white/70 backdrop-blur-sm rounded-2xl p-6 sm:p-7 lg:p-8 transition-all duration-500 hover:bg-white hover:shadow-lg hover:shadow-[#c25b3a]/[0.04] border border-white/80 hover:border-[#c25b3a]/10"
+              className="review-card group relative bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-7 xl:p-8 transition-all duration-500 hover:bg-white hover:shadow-lg hover:shadow-[#c25b3a]/[0.04] border border-white/80 hover:border-[#c25b3a]/10"
             >
               {/* Quote mark */}
               <div

@@ -132,11 +132,11 @@ export default function ContactPage() {
   return (
     <div ref={pageRef} className="pt-20">
       {/* ── Hero section ──────────────────────────────────── */}
-      <section ref={heroRef} className="section-padding py-16 md:py-24 text-center max-w-4xl mx-auto">
+      <section ref={heroRef} className="section-padding py-14 md:py-[4.5rem] lg:py-20 xl:py-24 text-center">
         <p className="hero-anim font-body text-sm tracking-[0.3em] uppercase text-coral mb-4">
           Get in Touch
         </p>
-        <h1 className="hero-anim font-display text-4xl md:text-5xl lg:text-6xl text-[var(--text-primary)] mb-6">
+        <h1 className="hero-anim font-display section-heading text-[var(--text-primary)] mb-6">
           We'd Love to{' '}
           <span
             className="text-coral"
@@ -145,14 +145,14 @@ export default function ContactPage() {
             Hear From You
           </span>
         </h1>
-        <p className="hero-anim font-body text-[var(--text-secondary)] text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="hero-anim font-body text-[var(--text-secondary)] body-copy max-w-2xl mx-auto">
           Whether you have a question, want to book an event, or simply want to say hello — drop us a message and we'll get back to you as soon as we can.
         </p>
       </section>
 
       {/* ── Main content: info + form ─────────────────────── */}
-      <section className="section-padding pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+      <section className="section-padding pb-16 md:pb-20 lg:pb-24 xl:pb-28">
+        <div className="max-w-[1120px] mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 xl:gap-16">
 
           {/* ── Left: Contact info ──────────────────────── */}
           <div ref={infoRef} className="lg:col-span-2 space-y-6">
@@ -212,7 +212,7 @@ export default function ContactPage() {
             </div>
 
             {/* Map embed */}
-            <div className="info-card overflow-hidden rounded-2xl border border-[var(--sandstone)]/40 h-52 lg:h-64">
+            <div className="info-card overflow-hidden rounded-2xl border border-[var(--sandstone)]/40 h-52 xl:h-64">
               <iframe
                 title="Coffee Matters location"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.0!2d-0.0754082!3d51.5255596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761d72a577c8a1%3A0x94b1e30154f9ca7e!2sCoffee%20Matters!5e0!3m2!1sen!2suk!4v1700000000000"
@@ -225,7 +225,7 @@ export default function ContactPage() {
 
           {/* ── Right: Contact form ─────────────────────── */}
           <div ref={formRef} className="lg:col-span-3">
-            <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-[var(--sandstone)]/40">
+            <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 xl:p-10 border border-[var(--sandstone)]/40">
               <h2 className="font-display text-2xl md:text-3xl text-[var(--text-primary)] mb-2">
                 Send a Message
               </h2>

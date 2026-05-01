@@ -153,7 +153,7 @@ export default function OurCoffee() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
+      className="relative w-full section-y bg-cream overflow-hidden"
     >
       {/* Atmospheric depth layers — desktop only (blur filters are expensive on mobile) */}
       <div className="parallax-far absolute -top-24 right-[20%] w-[560px] h-[560px] rounded-full bg-coral/[0.06] pointer-events-none blur-[100px] hidden lg:block" />
@@ -163,25 +163,25 @@ export default function OurCoffee() {
       <img
         src="/beans2.png"
         alt=""
-        className="beans-deco absolute -right-10 top-1/4 w-36 lg:w-48 opacity-80 pointer-events-none hidden md:block"
+        className="beans-deco absolute -right-10 top-1/4 w-28 xl:w-40 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(15deg)' }}
         loading="lazy"
       />
       <img
         src="/beans2.png"
         alt=""
-        className="beans-deco absolute -left-16 bottom-8 w-28 lg:w-36 opacity-80 pointer-events-none hidden lg:block"
+        className="beans-deco absolute -left-16 bottom-8 w-24 xl:w-32 opacity-80 pointer-events-none hidden xl:block"
         style={{ transform: 'rotate(-160deg) scaleX(-1)' }}
         loading="lazy"
       />
 
       <div className="section-padding">
         <div className="content-card">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-[1200px] mx-auto">
           {/* Text Content */}
           <div ref={textRef} className="order-1">
             <div ref={headingRef} className="mb-8 lg:mb-10 group">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <h2 className="section-heading">
                 <span className="heading-word inline-block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">OUR</span>
                 <br />
                 <span className="heading-word inline-block text-coral transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>COFFEE</span>
@@ -189,7 +189,7 @@ export default function OurCoffee() {
               <div className="heading-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
             </div>
             
-            <div className="space-y-6 text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85]">
+            <div className="space-y-5 md:space-y-6 text-gray-700 font-body body-copy">
               <p>
                 At Coffee Matters, we take pride in our expertly crafted brews. Our signature blend features double-origin beans from Brazil and Peru, delivering a rich, complex flavor profile.
               </p>
@@ -217,7 +217,7 @@ export default function OurCoffee() {
               <img
                 src="/coffee-drinks.jpg"
                 alt="Freddo Espresso and specialty iced coffee drinks at Coffee Matters"
-                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
+                className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
               />
               {/* Subtle overlay gradient */}

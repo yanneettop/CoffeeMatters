@@ -108,15 +108,15 @@ export default function Footer() {
   return (
     <footer 
       ref={footerRef}
-      className="relative w-full bg-dark text-white py-16 md:py-20"
+      className="relative w-full bg-dark text-white py-14 md:py-16 lg:py-[4.5rem] xl:py-20"
     >
       <div className="section-padding">
         <div 
           ref={columnsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 max-w-7xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-10 xl:gap-8 max-w-[1200px] mx-auto"
         >
           {/* Brand Column */}
-          <div className="footer-column sm:col-span-2 lg:col-span-1">
+          <div className="footer-column md:col-span-2 xl:col-span-1">
             <div ref={logoRef} className="mb-6 group/logo cursor-default">
               <h3 className="text-2xl tracking-wide" style={{ transition: 'color 0.4s ease, text-shadow 0.4s ease' }}>
                 <span className="font-display font-bold tracking-wider group-hover/logo:text-[#C25B3A] transition-colors duration-400">COFFEE</span>
@@ -201,11 +201,24 @@ export default function Footer() {
         {/* Divider */}
         <div 
           ref={dividerRef}
-          className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 origin-left"
+          className="max-w-[1200px] mx-auto mt-10 md:mt-12 pt-8 border-t border-white/10 origin-left"
         >
-          <p className="text-center text-gray-500 text-sm">
-            © {new Date().getFullYear()} Coffee Matters. All rights reserved.
-          </p>
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3 text-center md:text-left">
+            <p className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} Coffee Matters. All rights reserved.
+            </p>
+            <p className="font-body text-xs text-gray-500 tracking-wide">
+              Website crafted by{' '}
+              <a
+                href="https://pixelrebels.space"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors duration-300 hover:text-white"
+              >
+                Pixel Rebels
+              </a>
+            </p>
+          </div>
         </div>
       </div>
 

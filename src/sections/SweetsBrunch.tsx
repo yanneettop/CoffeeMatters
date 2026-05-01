@@ -164,7 +164,7 @@ export default function SweetsBrunch() {
     <section 
       id="brunch"
       ref={sectionRef}
-      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
+      className="relative w-full section-y bg-cream overflow-hidden"
       style={isMobile ? undefined : { perspective: '1000px' }}
     >
       {/* Atmospheric depth layers — desktop only (blur filters are expensive on mobile) */}
@@ -175,32 +175,32 @@ export default function SweetsBrunch() {
       <img
         src="/beans2.png"
         alt=""
-        className="beans-deco absolute -right-12 bottom-16 w-32 lg:w-44 opacity-80 pointer-events-none hidden md:block"
+        className="beans-deco absolute -right-12 bottom-16 w-28 xl:w-40 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(-25deg) scaleX(-1)' }}
         loading="lazy"
       />
       <img
         src="/beans2.png"
         alt=""
-        className="beans-deco absolute -left-10 top-12 w-24 lg:w-32 opacity-80 pointer-events-none hidden lg:block"
+        className="beans-deco absolute -left-10 top-12 w-24 xl:w-32 opacity-80 pointer-events-none hidden xl:block"
         style={{ transform: 'rotate(30deg)' }}
         loading="lazy"
       />
 
       <div className="section-padding">
         <div className="content-card">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-[1200px] mx-auto">
           {/* Text Content */}
-          <div ref={textRef} className="order-1 lg:order-2 lg:pl-8">
+          <div ref={textRef} className="order-1 lg:order-2 lg:pl-6 xl:pl-8">
             <div className="mb-8 lg:mb-10 group/heading">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <h2 className="section-heading">
                 <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
                 <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover/heading:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
               </h2>
               <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover/heading:w-24" />
             </div>
 
-            <div className="space-y-6 text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
+            <div className="space-y-5 md:space-y-6 text-gray-700 font-body body-copy mb-8">
               <p>
                 Tired of the same old brunch? Come discover our new Mediterranean-inspired menu. We use authentic ingredients to bring you true flavors from across the sea.
               </p>
@@ -223,11 +223,11 @@ export default function SweetsBrunch() {
               <img
                 src="/pastries-display.jpg"
                 alt="Freshly baked Greek pastries and sweets at Coffee Matters, Brick Lane"
-                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
+                className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
               />
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-coral/0 group-hover:bg-coral/10 transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+              <div className="absolute inset-0 bg-coral/0 group-hover:bg-coral/10 transition-colors duration-700 ease-out" />
             </div>
 
             {/* Decorative glow */}

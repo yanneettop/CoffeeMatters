@@ -200,7 +200,7 @@ export default function AboutUs() {
     <section
       id="about-preview"
       ref={sectionRef}
-      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
+      className="relative w-full section-y bg-cream overflow-hidden"
     >
       {/* Atmospheric depth layers — desktop only (blur filters are expensive on mobile) */}
       <div className="parallax-far absolute top-10 -right-24 w-[500px] h-[500px] rounded-full bg-coral/[0.05] pointer-events-none blur-[90px] hidden lg:block" />
@@ -210,36 +210,36 @@ export default function AboutUs() {
       <img
         src="/beans2.png"
         alt=""
-        className="beans-deco absolute -right-16 top-20 w-32 lg:w-40 opacity-80 pointer-events-none hidden md:block"
+        className="beans-deco absolute -right-16 top-20 w-28 xl:w-36 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(10deg)' }}
         loading="lazy"
       />
       <img
         src="/beans2.png"
         alt=""
-        className="beans-deco absolute -left-14 bottom-24 w-24 lg:w-32 opacity-80 pointer-events-none hidden lg:block"
+        className="beans-deco absolute -left-14 bottom-24 w-24 xl:w-32 opacity-80 pointer-events-none hidden xl:block"
         style={{ transform: 'rotate(170deg) scaleX(-1)' }}
         loading="lazy"
       />
 
       <div className="section-padding">
         <div className="content-card">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-[1200px] mx-auto">
           {/* Text Content */}
           <div
             ref={textRef}
-            className="order-1 lg:order-2 lg:pl-8"
+            className="order-1 lg:order-2 lg:pl-6 xl:pl-8"
             style={isMobile ? undefined : { willChange: 'transform' }}
           >
             <div className="mb-8 group">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <h2 className="section-heading">
                 <span className="about-word block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">ABOUT</span>
                 <span className="us-word block text-coral mt-1 transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>US</span>
               </h2>
               <div className="about-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
             </div>
 
-            <p className="text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
+            <p className="text-gray-700 font-body body-copy mb-8">
               {words.map((word, i) => (
                 <span key={i} className="word-reveal inline-block mr-[0.3em]">
                   {word}
@@ -258,7 +258,7 @@ export default function AboutUs() {
               <img
                 src="/about-storefront.jpg"
                 alt="Coffee Matters café storefront on Brick Lane, London"
-                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
+                className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
               />
             </div>

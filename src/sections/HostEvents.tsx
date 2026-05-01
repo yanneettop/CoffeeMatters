@@ -184,11 +184,11 @@ export default function HostEvents() {
     <section 
       id="events"
       ref={sectionRef}
-      className="relative w-full py-8 sm:py-24 md:py-36 bg-cream overflow-hidden"
+      className="relative w-full section-y bg-cream overflow-hidden"
     >
       <div className="section-padding">
         <div className="content-card">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-16 lg:gap-24 items-center max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-[1200px] mx-auto">
           {/* Text Content */}
           <div 
             ref={textRef}
@@ -196,9 +196,9 @@ export default function HostEvents() {
             style={isMobile ? undefined : { willChange: 'transform' }}
           >
             {/* Glassmorphism card effect */}
-            <div className="relative p-5 sm:p-8 lg:p-12 rounded-2xl bg-white/20 sm:bg-white/30 backdrop-blur-sm">
+            <div className="relative p-5 sm:p-7 lg:p-9 xl:p-12 rounded-2xl bg-white/20 sm:bg-white/30 backdrop-blur-sm">
               <div className="mb-8 group">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                <h2 className="section-heading">
                   <span className="block font-display font-light tracking-widest text-[var(--text-secondary)]">
                     {chars.map((char, i) => (
                       <span
@@ -217,7 +217,7 @@ export default function HostEvents() {
                 <div className="w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
               </div>
               
-              <p className="body-text text-gray-700 font-body leading-relaxed lg:text-[1.05rem] lg:leading-[1.85] mb-8">
+              <p className="body-text text-gray-700 font-body body-copy mb-8">
                 Make Coffee Matters the canvas for your next special event. Our versatile venue transforms to suit your vision, whether you're planning an intimate gathering or a lively celebration.
               </p>
 
@@ -238,7 +238,7 @@ export default function HostEvents() {
               <img
                 src="/events-gathering.jpg"
                 alt="Private event gathering hosted at Coffee Matters café venue, London"
-                className="img-content w-full h-auto object-cover aspect-square lg:aspect-[4/5]"
+                className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
               />
             </div>

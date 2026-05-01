@@ -182,11 +182,11 @@ export default function GalleryPage() {
   return (
     <div ref={pageRef} className="pt-20">
       {/* ── Hero ──────────────────────────────────────────── */}
-      <section ref={heroRef} className="section-padding py-16 md:py-24 text-center max-w-4xl mx-auto">
+      <section ref={heroRef} className="section-padding py-14 md:py-[4.5rem] lg:py-20 xl:py-24 text-center">
         <p className="hero-anim font-body text-sm tracking-[0.3em] uppercase text-coral mb-4">
           Our Space
         </p>
-        <h1 className="hero-anim font-display text-4xl md:text-5xl lg:text-6xl text-[var(--text-primary)] mb-6">
+        <h1 className="hero-anim font-display section-heading text-[var(--text-primary)] mb-6">
           A Glimpse Inside{' '}
           <span
             className="text-coral"
@@ -195,17 +195,17 @@ export default function GalleryPage() {
             Coffee Matters
           </span>
         </h1>
-        <p className="hero-anim font-body text-[var(--text-secondary)] text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="hero-anim font-body text-[var(--text-secondary)] body-copy max-w-2xl mx-auto">
           Plants, art, warm light and the aroma of freshly brewed coffee — step inside our
           Bethnal Green hideaway and see why people keep coming back.
         </p>
       </section>
 
       {/* ── Masonry gallery grid ──────────────────────────── */}
-      <section className="section-padding pb-20 md:pb-28">
+      <section className="section-padding pb-16 md:pb-20 lg:pb-24 xl:pb-28">
         <div
           ref={gridRef}
-          className="max-w-7xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-5"
+          className="max-w-[1200px] mx-auto columns-1 md:columns-2 xl:columns-3 gap-4 md:gap-5"
         >
           {galleryImages.map((image, index) => (
             <button
