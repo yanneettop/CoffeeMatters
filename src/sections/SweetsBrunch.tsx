@@ -192,21 +192,29 @@ export default function SweetsBrunch() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-[1200px] mx-auto">
           {/* Text Content */}
           <div ref={textRef} className="order-2 lg:pl-6 xl:pl-8">
-            <div className="mb-8 lg:mb-10 group/heading">
-              <h2 className="section-heading">
-                <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
-                <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover/heading:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
-              </h2>
-              <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover/heading:w-24" />
-            </div>
+            {/* Content card */}
+            <div className="relative p-5 sm:p-7 lg:p-9 xl:p-12 rounded-2xl bg-white/20 sm:bg-white/30 backdrop-blur-sm">
+              <div className="mb-8 lg:mb-10 group/heading">
+                <h2 className="section-heading">
+                  <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
+                  <span className="heading-line block text-coral transition-[filter] duration-700 ease-out group-hover/heading:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>&amp; BRUNCH</span>
+                </h2>
+                <div className="heading-line w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover/heading:w-24" />
+              </div>
 
-            <div className="space-y-5 md:space-y-6 text-gray-700 font-body body-copy mb-8">
-              <p>
-                Tired of the same old brunch? Come discover our new Mediterranean-inspired menu. We use authentic ingredients to bring you true flavors from across the sea.
-              </p>
-              <p>
-                We've given classic brunch foods a fresh Greek twist. Our menu blends time-honored recipes with creative new ideas to create something truly special.
-              </p>
+              <div className="space-y-5 md:space-y-6 text-gray-700 font-body body-copy mb-8">
+                <p>
+                  Tired of the same old brunch? Come discover our new Mediterranean-inspired menu. We use authentic ingredients to bring you true flavors from across the sea.
+                </p>
+                <p>
+                  We've given classic brunch foods a fresh Greek twist. Our menu blends time-honored recipes with creative new ideas to create something truly special.
+                </p>
+              </div>
+
+              {/* CTA Button */}
+              <ButtonWithIcon href="#menu" variant="outline">
+                See Menu
+              </ButtonWithIcon>
             </div>
           </div>
 
@@ -233,11 +241,6 @@ export default function SweetsBrunch() {
             {/* Decorative glow */}
             <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-coral/15 rounded-full blur-3xl" />
           </div>
-
-          {/* CTA Button */}
-          <ButtonWithIcon href="#menu" variant="outline" className="order-3 col-span-1 lg:col-span-2 lg:col-start-2">
-            See Menu
-          </ButtonWithIcon>
         </div>
         </div>
       </div>

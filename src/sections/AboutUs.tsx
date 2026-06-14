@@ -231,21 +231,29 @@ export default function AboutUs() {
             className="order-1 lg:order-2 lg:pl-6 xl:pl-8"
             style={isMobile ? undefined : { willChange: 'transform' }}
           >
-            <div className="mb-8 group">
-              <h2 className="section-heading">
-                <span className="about-word block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">ABOUT</span>
-                <span className="us-word block text-coral mt-1 transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>US</span>
-              </h2>
-              <div className="about-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
-            </div>
+            {/* Content card */}
+            <div className="relative p-5 sm:p-7 lg:p-9 xl:p-12 rounded-2xl bg-white/20 sm:bg-white/30 backdrop-blur-sm">
+              <div className="mb-8 group">
+                <h2 className="section-heading">
+                  <span className="about-word block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">ABOUT</span>
+                  <span className="us-word block text-coral mt-1 transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>US</span>
+                </h2>
+                <div className="about-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
+              </div>
 
-            <p className="text-gray-700 font-body body-copy mb-8">
-              {words.map((word, i) => (
-                <span key={i} className="word-reveal inline-block mr-[0.3em]">
-                  {word}
-                </span>
-              ))}
-            </p>
+              <p className="text-gray-700 font-body body-copy mb-8">
+                {words.map((word, i) => (
+                  <span key={i} className="word-reveal inline-block mr-[0.3em]">
+                    {word}
+                  </span>
+                ))}
+              </p>
+
+              {/* CTA Button */}
+              <ButtonWithIcon href="#about" variant="outline">
+                Read Our Story
+              </ButtonWithIcon>
+            </div>
           </div>
 
           {/* Image */}
@@ -276,11 +284,6 @@ export default function AboutUs() {
             {/* Decorative glow */}
             <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-coral/15 rounded-full blur-3xl" />
           </div>
-
-          {/* CTA Button */}
-          <ButtonWithIcon href="#about" variant="outline" className="order-3 col-span-1 lg:col-span-2 lg:col-start-2">
-            Read Our Story
-          </ButtonWithIcon>
         </div>
         </div>
       </div>

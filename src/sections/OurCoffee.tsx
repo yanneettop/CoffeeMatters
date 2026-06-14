@@ -180,30 +180,33 @@ export default function OurCoffee() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-[1200px] mx-auto">
           {/* Text Content */}
           <div ref={textRef} className="order-2 lg:order-1">
-            <div ref={headingRef} className="mb-8 lg:mb-10 group">
-              <h2 className="section-heading">
-                <span className="heading-word inline-block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">OUR</span>
-                <br />
-                <span className="heading-word inline-block text-coral transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>COFFEE</span>
-              </h2>
-              <div className="heading-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
-            </div>
-            
-            <div className="space-y-5 md:space-y-6 text-gray-700 font-body body-copy">
-              <p>
-                At Coffee Matters, we take pride in our expertly crafted brews. Our signature blend features double-origin beans from Brazil and Peru, delivering a rich, complex flavor profile.
-              </p>
-              <p>
-                What truly sets us apart is our exclusive Greek-style{' '}
-                <span className="highlight font-semibold text-coral inline-block transition-opacity duration-300 hover:opacity-75">
-                  Freddo Espresso
-                </span>
-                {' '}and{' '}
-                <span className="highlight font-semibold text-coral inline-block transition-opacity duration-300 hover:opacity-75">
-                  Freddo Cappuccino
-                </span>
-                . These refreshing iced coffee creations offer a perfect balance of bold espresso and velvety smoothness.
-              </p>
+            {/* Content card */}
+            <div className="relative p-5 sm:p-7 lg:p-9 xl:p-12 rounded-2xl bg-white/20 sm:bg-white/30 backdrop-blur-sm">
+              <div ref={headingRef} className="mb-8 lg:mb-10 group">
+                <h2 className="section-heading">
+                  <span className="heading-word inline-block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover:tracking-[0.13em]">OUR</span>
+                  <br />
+                  <span className="heading-word inline-block text-coral transition-[filter] duration-700 ease-out group-hover:brightness-[1.2]" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>COFFEE</span>
+                </h2>
+                <div className="heading-word w-16 h-0.5 bg-coral/60 mt-4 transition-[width] duration-700 ease-out group-hover:w-24" />
+              </div>
+
+              <div className="space-y-5 md:space-y-6 text-gray-700 font-body body-copy">
+                <p>
+                  At Coffee Matters, we take pride in our expertly crafted brews. Our signature blend features double-origin beans from Brazil and Peru, delivering a rich, complex flavor profile.
+                </p>
+                <p>
+                  What truly sets us apart is our exclusive Greek-style{' '}
+                  <span className="highlight font-semibold text-coral inline-block transition-opacity duration-300 hover:opacity-75">
+                    Freddo Espresso
+                  </span>
+                  {' '}and{' '}
+                  <span className="highlight font-semibold text-coral inline-block transition-opacity duration-300 hover:opacity-75">
+                    Freddo Cappuccino
+                  </span>
+                  . These refreshing iced coffee creations offer a perfect balance of bold espresso and velvety smoothness.
+                </p>
+              </div>
             </div>
           </div>
 
