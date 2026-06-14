@@ -1,7 +1,10 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MapPin } from 'lucide-react';
 import ButtonWithIcon from '@/components/ui/button-witn-icon';
+
+const DIRECTIONS_URL = 'https://maps.google.com/?q=Coffee+Matters+London+Brick+Lane';
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -310,9 +313,14 @@ export default function Hero() {
         {/* Main content — pushed toward bottom */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
 
+          {/* Readability backdrop + headline group */}
+          <div className="relative">
+            {/* Semi-transparent dark overlay behind headline text */}
+            <div aria-hidden className="absolute -inset-x-6 -inset-y-4 -z-10 rounded-[2rem] bg-black/30 blur-2xl" />
+
           {/* Brand title — per-letter interactive */}
           <h1
-            className="font-display text-[2.8rem] text-white tracking-[0.04em] leading-none mb-4"
+            className="font-display text-[clamp(2rem,9vw,2.8rem)] text-white tracking-[0.04em] leading-none mb-4"
           >
             {['COFFEE', 'MATTERS'].map((word, wi) => (
               <span key={wi} className="inline-block whitespace-nowrap">
@@ -378,14 +386,22 @@ export default function Hero() {
               </span>
             ))}
           </p>
+          </div>
 
-          {/* CTA Buttons */}
-          <div className="flex items-center gap-3">
-            <ButtonWithIcon href="#menu" className="hero-cta-primary">
+          {/* CTA Buttons — stacked full-width on mobile */}
+          <div className="flex flex-col w-full max-w-[300px] gap-3">
+            <ButtonWithIcon href="#menu" variant="solid" className="hero-cta-primary !w-full">
               View Menu
             </ButtonWithIcon>
-            <ButtonWithIcon href="#contact" variant="outline-light" className="hero-cta-outline">
-              Find Us
+            <ButtonWithIcon
+              href={DIRECTIONS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline-light"
+              icon={MapPin}
+              className="hero-cta-outline !w-full"
+            >
+              Get Directions
             </ButtonWithIcon>
           </div>
         </div>
@@ -488,11 +504,18 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-4 lg:gap-5">
-          <ButtonWithIcon href="#menu" className="hero-cta hero-cta-primary">
+          <ButtonWithIcon href="#menu" variant="solid" className="hero-cta hero-cta-primary">
             View Menu
           </ButtonWithIcon>
-          <ButtonWithIcon href="#contact" variant="outline-light" className="hero-cta hero-cta-outline">
-            Find Us
+          <ButtonWithIcon
+            href={DIRECTIONS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="outline-light"
+            icon={MapPin}
+            className="hero-cta hero-cta-outline"
+          >
+            Get Directions
           </ButtonWithIcon>
         </div>
 

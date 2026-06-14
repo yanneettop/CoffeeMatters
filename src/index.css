@@ -53,7 +53,7 @@
     --type-hero: clamp(2.5rem, 5vw, 4.75rem);
     --type-section: clamp(1.875rem, 3.5vw, 3.25rem);
     --type-subheading: clamp(1.25rem, 2vw, 1.875rem);
-    --type-body: clamp(0.9375rem, 1.1vw, 1.0625rem);
+    --type-body: clamp(1rem, 1.1vw, 1.0625rem);
   }
 }
 

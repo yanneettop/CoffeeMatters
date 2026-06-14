@@ -191,7 +191,7 @@ export default function SweetsBrunch() {
         <div className="content-card">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-[1200px] mx-auto">
           {/* Text Content */}
-          <div ref={textRef} className="order-1 lg:order-2 lg:pl-6 xl:pl-8">
+          <div ref={textRef} className="order-2 lg:pl-6 xl:pl-8">
             <div className="mb-8 lg:mb-10 group/heading">
               <h2 className="section-heading">
                 <span className="heading-line block font-display font-light tracking-widest text-[var(--text-secondary)] transition-[letter-spacing] duration-700 ease-out group-hover/heading:tracking-[0.13em]">SWEETS & PIES</span>
@@ -213,7 +213,7 @@ export default function SweetsBrunch() {
           {/* Image */}
           <div
             ref={imageRef}
-            className="order-2 lg:order-1 relative"
+            className="order-1 relative"
             style={isMobile ? undefined : {
               willChange: 'transform',
               transformStyle: 'preserve-3d'
