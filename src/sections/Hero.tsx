@@ -221,7 +221,7 @@ export default function Hero() {
     <section
       id="home"
       ref={heroRef}
-      className="relative w-full min-h-[640px] h-[88svh] max-h-[760px] sm:min-h-[660px] md:min-h-[680px] lg:min-h-[700px] overflow-hidden"
+      className="relative w-full min-h-[640px] h-[100svh] sm:min-h-[660px] md:min-h-[680px] lg:min-h-[700px] overflow-hidden"
     >
       {/* Background Image — oversized for parallax + Ken Burns */}
       <div
