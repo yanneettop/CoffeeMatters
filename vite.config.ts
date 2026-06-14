@@ -9,6 +9,13 @@ export default defineConfig({
   plugins: [inspectAttr(), react()],
   server: {
     host: true,
+    port: parseInt(process.env.PORT || '5173'),
+    strictPort: true,
+  },
+  preview: {
+    host: true,
+    port: parseInt(process.env.PORT || '4173'),
+    strictPort: true,
   },
   resolve: {
     alias: {
