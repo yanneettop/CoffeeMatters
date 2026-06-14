@@ -14,7 +14,7 @@ export default function MenuCategoryCard({ category }: { category: MenuCategory 
 
       {/* Subtitle */}
       {category.subtitle && (
-        <p className="text-[13px] text-gray-500 font-body italic mb-4 -mt-2">
+        <p className="text-[13px] text-[var(--text-muted)] font-body italic mb-4 -mt-2">
           {category.subtitle}
         </p>
       )}
@@ -29,13 +29,13 @@ export default function MenuCategoryCard({ category }: { category: MenuCategory 
       {/* Add-ons */}
       {category.addOns && category.addOns.length > 0 && (
         <div className="mt-5 pt-4 border-t border-dashed border-[var(--sandstone)]/60">
-          <span className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3 block">
+          <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-medium mb-3 block">
             Add-ons
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-1">
             {category.addOns.map((addon) => (
               <div key={addon.name} className="flex items-baseline gap-1 text-sm py-0.5">
-                <span className="text-gray-500 font-body text-[13px]">{addon.name}</span>
+                <span className="text-[var(--text-muted)] font-body text-[13px]">{addon.name}</span>
                 <div className="flex-1 border-b border-dotted border-gray-200 mb-[3px] min-w-[10px]" />
                 <span className="text-coral text-[13px] font-medium">{addon.price}</span>
               </div>

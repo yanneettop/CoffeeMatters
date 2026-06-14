@@ -87,7 +87,7 @@ export default function OurCoffee() {
         gsap.fromTo(highlights,
           { color: '#333', scale: 1 },
           {
-            color: '#c25b3a',
+            color: '#A94A2F',
             scale: 1.02,
             duration: 0.4,
             stagger: 0.1,

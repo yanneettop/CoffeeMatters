@@ -11,7 +11,7 @@ export default function Hero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const subheadingRef = useRef<HTMLParagraphElement>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const mouseTarget = useRef({ x: 0, y: 0 });
   const mouseCurrent = useRef({ x: 0, y: 0 });
@@ -231,7 +231,7 @@ export default function Hero() {
       >
         <img
           ref={imgRef}
-          src="/hero-bg.webp"
+          src="/hero-bg-polished.webp"
           alt="Coffee Matters café interior at Brick Lane, London"
           className="img-content w-full h-full object-cover object-[50%_30%] sm:object-center animate-fade-in sm:animate-none"
           fetchPriority="high"
@@ -298,7 +298,7 @@ export default function Hero() {
           <div className="flex items-center gap-2">
             <div className="w-4 h-px bg-white/30" />
             <span
-              className="font-body text-white/45 uppercase tracking-[0.32em]"
+              className="font-body text-white/70 uppercase tracking-[0.32em]"
               style={{ fontSize: '9px' }}
             >
               Est. Brick Lane, London
@@ -320,7 +320,7 @@ export default function Hero() {
                 {word.split('').map((char, ci) => (
                   <span
                     key={ci}
-                    className="inline-block cursor-default select-none transition-all duration-300 ease-out hover:-translate-y-[2px] hover:text-[#c25b3a]"
+                    className="inline-block cursor-default select-none transition-all duration-300 ease-out hover:-translate-y-[2px] hover:text-[var(--coral-on-dark)]"
                     style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)', transitionDelay: '0ms' }}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget;
@@ -391,10 +391,12 @@ export default function Hero() {
         </div>
 
         {/* Scroll indicator */}
-        <div
+        <button
+          type="button"
           ref={scrollIndicatorRef}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/50 cursor-pointer"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/50 cursor-pointer bg-transparent border-0 p-0"
           onClick={handleScrollIndicatorClick}
+          aria-label="Scroll to next section"
         >
           <span style={{ fontSize: '8px' }} className="tracking-[0.32em] uppercase font-body">Scroll</span>
           <div className="relative w-4 h-7 border border-white/30 rounded-full flex justify-center overflow-hidden">
@@ -403,7 +405,7 @@ export default function Hero() {
               style={{ animation: 'scrollDot 2s ease-in-out infinite' }}
             />
           </div>
-        </div>
+        </button>
       </div>
 
       {/* ── DESKTOP CONTENT ──────────────────────────────────────── */}
@@ -414,7 +416,7 @@ export default function Hero() {
         {/* Location tag */}
         <div className="absolute top-24 md:top-[6.5rem] lg:top-28 left-1/2 -translate-x-1/2 flex items-center gap-3">
           <div className="w-8 h-px bg-white/25" />
-          <span className="font-body text-white/40 uppercase tracking-[0.35em]" style={{ fontSize: '10px' }}>
+          <span className="font-body text-white/70 uppercase tracking-[0.35em]" style={{ fontSize: '10px' }}>
             Est. Brick Lane, London
           </span>
           <div className="w-8 h-px bg-white/25" />
@@ -428,7 +430,7 @@ export default function Hero() {
           {'COFFEE MATTERS'.split('').map((char, i) => (
             <span
               key={i}
-              className={`word inline-block cursor-default select-none transition-all duration-300 ease-out hover:-translate-y-[2px] hover:text-[#c25b3a] ${char === ' ' ? 'w-[0.3em]' : ''}`}
+              className={`word inline-block cursor-default select-none transition-all duration-300 ease-out hover:-translate-y-[2px] hover:text-[var(--coral-on-dark)] ${char === ' ' ? 'w-[0.3em]' : ''}`}
               style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)', transitionDelay: '0ms' }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget;
@@ -495,9 +497,11 @@ export default function Hero() {
         </div>
 
         {/* Desktop scroll indicator */}
-        <div
-          className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/45 cursor-pointer"
+        <button
+          type="button"
+          className="absolute bottom-14 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70 cursor-pointer bg-transparent border-0 p-0"
           onClick={handleScrollIndicatorClick}
+          aria-label="Scroll to next section"
         >
           <span className="text-[9px] tracking-[0.3em] uppercase font-body">Scroll</span>
           <div className="relative w-[18px] h-8 border border-white/25 rounded-full flex justify-center overflow-hidden">
@@ -506,7 +510,7 @@ export default function Hero() {
               style={{ animation: 'scrollDot 2s ease-in-out infinite' }}
             />
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Terracotta bokeh — desktop only, clustered at heading edges */}

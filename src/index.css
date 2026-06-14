@@ -10,30 +10,32 @@
     --card-foreground: 23 10% 15%;
     --popover: 32 37% 90%;
     --popover-foreground: 23 10% 15%;
-    --primary: 15 55% 50%;
+    --primary: 13 56% 42%;
     --primary-foreground: 0 0% 100%;
     --secondary: 23 10% 15%;
     --secondary-foreground: 0 0% 100%;
     --muted: 30 25% 82%;
     --muted-foreground: 23 15% 35%;
-    --accent: 15 55% 50%;
+    --accent: 13 56% 42%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 0% / 0.1;
     --input: 0 0% 0% / 0.1;
-    --ring: 15 55% 50%;
+    --ring: 13 56% 42%;
     --radius: 0.5rem;
 
     /* Custom Coffee Matters Colors */
     --cream: #EFE6DC;
-    --coral: #c25b3a;
-    --soft-clay: #B9896B;
+    --coral: #A94A2F;
+    --coral-on-dark: #D97856;
+    --soft-clay: #704D3B;
     --sandstone: #D8C4B3;
     --dark: #2B2623;
-    --olive: #6F7F63;
+    --olive: #4F5C45;
     --text-primary: #2B2623;
     --text-secondary: #5a4a3f;
+    --text-muted: #766559;
     
     /* Animation Easings */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -98,6 +100,10 @@
   
   .text-coral {
     color: var(--coral);
+  }
+
+  .text-coral-on-dark {
+    color: var(--coral-on-dark);
   }
 
   .bg-coral {

@@ -80,17 +80,17 @@ export default function Stats() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="group relative bg-white rounded-lg p-6 md:p-7 xl:p-8 text-center shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-[#C25B3A]/30"
+              className="group relative bg-white rounded-lg p-6 md:p-7 xl:p-8 text-center shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-[#A94A2F]/30"
             >
               {/* Decorative accent */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#C25B3A] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[var(--coral)] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Counter value */}
               <div
                 ref={(el) => {
                   counterRefs.current[i] = el;
                 }}
-                className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[#C25B3A] mb-3"
+                className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[var(--coral)] mb-3"
               >
                 0{stats[i].suffix}
               </div>
@@ -101,7 +101,7 @@ export default function Stats() {
               </p>
 
               {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 w-0 h-1 bg-[#C25B3A] group-hover:w-full transition-all duration-500" />
+              <div className="absolute bottom-0 left-0 w-0 h-1 bg-[var(--coral)] group-hover:w-full transition-all duration-500" />
             </div>
           ))}
         </div>

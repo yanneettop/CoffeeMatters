@@ -119,9 +119,9 @@ export default function Footer() {
           <div className="footer-column md:col-span-2 xl:col-span-1">
             <div ref={logoRef} className="mb-6 group/logo cursor-default">
               <h3 className="text-2xl tracking-wide" style={{ transition: 'color 0.4s ease, text-shadow 0.4s ease' }}>
-                <span className="font-display font-bold tracking-wider group-hover/logo:text-[#C25B3A] transition-colors duration-400">COFFEE</span>
+                <span className="font-display font-bold tracking-wider group-hover/logo:text-coral-on-dark transition-colors duration-400">COFFEE</span>
                 <br />
-                <span className="group-hover/logo:text-[#C25B3A] transition-colors duration-400" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>MATTERS</span>
+                <span className="group-hover/logo:text-coral-on-dark transition-colors duration-400" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>MATTERS</span>
               </h3>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
@@ -156,7 +156,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-coral mt-0.5 flex-shrink-0" />
+                <MapPin size={18} className="text-coral-on-dark mt-0.5 flex-shrink-0" />
                 <a
                   href="https://www.google.com/maps?ll=51.52556,-0.070537&z=15&t=m&hl=en-US&gl=US&mapclient=embed&cid=10714594583351249534"
                   target="_blank"
@@ -168,7 +168,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={18} className="text-coral flex-shrink-0" />
+                <Mail size={18} className="text-coral-on-dark flex-shrink-0" />
                 <a 
                   href="mailto:info@coffeematterslondon.com"
                   className="text-gray-400 text-sm hover:text-white transition-colors duration-300"
@@ -187,7 +187,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {openingHours.map((item) => (
                 <li key={item.day} className="flex items-start gap-3">
-                  <Clock size={18} className="text-coral mt-0.5 flex-shrink-0" />
+                  <Clock size={18} className="text-coral-on-dark mt-0.5 flex-shrink-0" />
                   <div>
                     <span className="text-gray-300 text-sm block">{item.day}</span>
                     <span className="text-gray-400 text-sm">{item.hours}</span>
@@ -204,10 +204,10 @@ export default function Footer() {
           className="max-w-[1200px] mx-auto mt-10 md:mt-12 pt-8 border-t border-white/10 origin-left"
         >
           <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3 text-center md:text-left">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} Coffee Matters. All rights reserved.
             </p>
-            <p className="font-body text-xs text-gray-500 tracking-wide">
+            <p className="font-body text-xs text-gray-400 tracking-wide">
               Website crafted by{' '}
               <a
                 href="https://pixelrebels.space"

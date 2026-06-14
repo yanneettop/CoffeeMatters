@@ -39,9 +39,10 @@ export default function BackToTop() {
 
   return (
     <button
+      type="button"
       ref={btnRef}
       onClick={scrollToTop}
-      className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full bg-[#C25B3A] text-white shadow-lg flex items-center justify-center cursor-pointer group"
+      className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full bg-[var(--coral)] text-white shadow-lg flex items-center justify-center cursor-pointer group"
       style={{
         opacity: 0,
         pointerEvents: 'none',
@@ -52,7 +53,7 @@ export default function BackToTop() {
         e.currentTarget.style.boxShadow = '0 4px 20px rgba(194,91,58,0.4)';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = '#C25B3A';
+        e.currentTarget.style.backgroundColor = '#A94A2F';
         e.currentTarget.style.boxShadow = '';
       }}
       aria-label="Back to top"

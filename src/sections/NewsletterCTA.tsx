@@ -132,7 +132,7 @@ export default function NewsletterCTA() {
       ref={sectionRef}
       className="relative w-full section-y-compact overflow-hidden"
       style={{
-        background: 'linear-gradient(135deg, #c25b3a 0%, #a34b30 50%, #c25b3a 100%)',
+        background: 'linear-gradient(135deg, #A94A2F 0%, #8F3E28 50%, #A94A2F 100%)',
         backgroundSize: '200% 200%',
       }}
     >

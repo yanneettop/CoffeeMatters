@@ -70,7 +70,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         {/* Subtle loading bar */}
         <div className="w-20 h-[2px] bg-white/10 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#C25B3A] rounded-full"
+            className="h-full bg-[var(--coral)] rounded-full"
             style={{
               animation: 'loadingBar 1.5s ease-in-out infinite',
             }}

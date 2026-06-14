@@ -209,11 +209,11 @@ export default function GoogleReviews() {
           {reviews.map((review, i) => (
             <div
               key={i}
-              className="review-card group relative bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-7 xl:p-8 transition-all duration-500 hover:bg-white hover:shadow-lg hover:shadow-[#c25b3a]/[0.04] border border-white/80 hover:border-[#c25b3a]/10"
+              className="review-card group relative bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-7 xl:p-8 transition-all duration-500 hover:bg-white hover:shadow-lg hover:shadow-[#A94A2F]/[0.04] border border-white/80 hover:border-[#A94A2F]/10"
             >
               {/* Quote mark */}
               <div
-                className="absolute top-4 right-5 font-display text-[#c25b3a]/[0.08] select-none pointer-events-none leading-none"
+                className="absolute top-4 right-5 font-display text-[#A94A2F]/[0.08] select-none pointer-events-none leading-none"
                 style={{ fontSize: '4rem' }}
               >
                 "
@@ -256,7 +256,7 @@ export default function GoogleReviews() {
             href="https://www.google.com/search?q=Coffee+Matters+157+Bethnal+Green+Road+Reviews"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 font-body text-[#5a4a3f]/70 hover:text-[#c25b3a] transition-colors duration-300 group"
+            className="inline-flex items-center gap-2.5 font-body text-[#5a4a3f] hover:text-[var(--coral)] transition-colors duration-300 group"
             style={{ fontSize: '13px', fontWeight: 400 }}
           >
             <span className="uppercase tracking-[0.15em]">Read all reviews on Google</span>

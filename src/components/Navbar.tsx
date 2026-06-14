@@ -146,11 +146,11 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
                 className={`relative text-[13px] xl:text-sm font-normal tracking-widest uppercase group transition-colors duration-300 ${
                   isActive
                     ? navScrolled
-                      ? 'text-[#C25B3A]'
-                      : 'text-[#C25B3A]'
+                      ? 'text-[var(--coral)]'
+                      : 'text-[var(--coral)]'
                     : navScrolled
-                    ? 'text-gray-800 hover:text-[#C25B3A]'
-                    : 'text-white/90 hover:text-[#C25B3A]'
+                    ? 'text-gray-800 hover:text-[var(--coral)]'
+                    : 'text-white/90 hover:text-[var(--coral-on-dark)]'
                 }`}
                 style={{ transition: 'color 0.3s ease, letter-spacing 0.4s cubic-bezier(0.22,1,0.36,1)' }}
                 onMouseEnter={(e) => { e.currentTarget.style.letterSpacing = '0.2em'; }}
@@ -158,7 +158,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
               >
                 {link.name}
                 <span
-                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-[#C25B3A] transform origin-center transition-transform duration-300 ${
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-[var(--coral)] transform origin-center transition-transform duration-300 ${
                     isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                   }`}
                 />
@@ -169,10 +169,13 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
 
         {/* Mobile Menu Button */}
         <button
+          type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className={`lg:hidden p-2 transition-colors ${
             navScrolled ? 'text-black' : 'text-white'
           }`}
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -197,7 +200,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
                   });
                 }
               }}
-              className="block py-3 text-gray-800 hover:text-[#C25B3A] font-normal tracking-widest uppercase text-sm border-b border-gray-200 last:border-0"
+              className="block py-3 text-gray-800 hover:text-[var(--coral)] font-normal tracking-widest uppercase text-sm border-b border-gray-200 last:border-0"
             >
               {link.name}
             </a>

@@ -27,7 +27,7 @@ export default function MenuItem({ item }: { item: MenuItemData }) {
               {item.prices.map((p, i) => (
                 <span key={i} className="whitespace-nowrap text-coral">
                   {p.label && (
-                    <span className="text-[10px] text-gray-400 uppercase tracking-wide mr-0.5">
+                    <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wide mr-0.5">
                       {p.label}{' '}
                     </span>
                   )}
@@ -45,7 +45,7 @@ export default function MenuItem({ item }: { item: MenuItemData }) {
 
       {/* Description */}
       {item.description && (
-        <p className="mt-0.5 text-[12px] text-gray-400 font-body leading-relaxed max-w-md">
+        <p className="mt-0.5 text-[12px] text-[var(--text-muted)] font-body leading-relaxed max-w-md">
           {item.description}
         </p>
       )}

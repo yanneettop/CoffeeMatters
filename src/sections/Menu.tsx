@@ -205,6 +205,7 @@ export default function Menu() {
         <div ref={tabsRef} className="flex justify-center gap-2.5 md:gap-3 mb-6 flex-wrap" role="tablist">
           {menuTabs.map((tab, i) => (
             <button
+              type="button"
               key={tab.id}
               role="tab"
               aria-selected={activeTabIndex === i}
@@ -225,6 +226,7 @@ export default function Menu() {
           <div className="flex gap-2 justify-center flex-wrap">
             {currentTab.categories.map((cat) => (
               <button
+                type="button"
                 key={cat.id}
                 onClick={() => scrollToCategory(cat.id)}
                 className={`px-4 py-1.5 rounded-full text-[11px] tracking-wider uppercase transition-all duration-200 whitespace-nowrap ${
@@ -247,7 +249,7 @@ export default function Menu() {
         </div>
 
         {/* ── Dietary Key ─────────────────────────────── */}
-        <div className="mt-12 md:mt-14 pt-6 border-t border-[var(--sandstone)]/40 flex flex-wrap items-center justify-center gap-4 md:gap-6 text-[11px] text-gray-400 font-body tracking-wide">
+        <div className="mt-12 md:mt-14 pt-6 border-t border-[var(--sandstone)]/40 flex flex-wrap items-center justify-center gap-4 md:gap-6 text-[11px] text-[var(--text-muted)] font-body tracking-wide">
           <span>
             <span className="inline-block w-4 text-center font-semibold text-[var(--olive)]">V</span>{' '}
             Vegetarian

@@ -79,6 +79,7 @@ function Lightbox({
     >
       {/* Close button */}
       <button
+        type="button"
         onClick={onClose}
         className="absolute top-6 right-6 z-10 text-white/70 hover:text-white transition-colors duration-200"
         aria-label="Close lightbox"
@@ -93,6 +94,7 @@ function Lightbox({
 
       {/* Previous */}
       <button
+        type="button"
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
         className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-all duration-200"
         aria-label="Previous image"
@@ -111,6 +113,7 @@ function Lightbox({
 
       {/* Next */}
       <button
+        type="button"
         onClick={(e) => { e.stopPropagation(); onNext(); }}
         className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-all duration-200"
         aria-label="Next image"
@@ -209,9 +212,11 @@ export default function GalleryPage() {
         >
           {galleryImages.map((image, index) => (
             <button
+              type="button"
               key={image.src}
               onClick={() => openLightbox(index)}
-              className="gallery-item group relative w-full mb-4 md:mb-5 break-inside-avoid block overflow-hidden rounded-xl border border-[var(--sandstone)]/30 bg-white/30 img-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-coral"
+              className="gallery-item group relative w-full mb-4 md:mb-5 break-inside-avoid block overflow-hidden rounded-xl border border-[var(--sandstone)]/30 bg-white/30 img-hover focus-visible:ring-2 focus-visible:ring-coral"
+              aria-label={`Open image: ${image.alt}`}
             >
               <img
                 src={image.src}

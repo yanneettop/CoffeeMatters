@@ -12,9 +12,17 @@ html {
 }
 
 /* Focus styles */
-*:focus-visible {
-  outline: 2px solid #c25b3a;
-  outline-offset: 2px;
+:where(a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid #D85A30;
+  outline-offset: 3px;
+}
+
+:where(a, button, [role="button"]):not([class*="rounded"]):focus-visible {
+  border-radius: 0.25rem;
+}
+
+:where(.rounded-full):focus-visible {
+  border-radius: 9999px;
 }
 
 /* Image loading placeholder — only for content images (photos, hero, etc.) */

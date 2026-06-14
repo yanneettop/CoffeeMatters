@@ -96,9 +96,9 @@ export default function SignatureSection() {
 
         {/* Top ornament */}
         <div className="sig-ornament flex items-center justify-center gap-3 sm:gap-4 mb-7 sm:mb-10 origin-center">
-          <div className="h-px bg-gradient-to-r from-transparent to-[#c25b3a]/35" style={{ width: '36px' }} />
-          <div className="w-1 h-1 rounded-full bg-[#c25b3a]/55" />
-          <div className="h-px bg-gradient-to-l from-transparent to-[#c25b3a]/35" style={{ width: '36px' }} />
+          <div className="h-px bg-gradient-to-r from-transparent to-[#A94A2F]/35" style={{ width: '36px' }} />
+          <div className="w-1 h-1 rounded-full bg-[#A94A2F]/55" />
+          <div className="h-px bg-gradient-to-l from-transparent to-[#A94A2F]/35" style={{ width: '36px' }} />
         </div>
 
         {/* Eyebrow */}
@@ -118,7 +118,7 @@ export default function SignatureSection() {
             Coffee. Brunch.
           </p>
           <p
-            className="font-accent text-[#c25b3a] leading-[1.2]"
+            className="font-accent text-[var(--coral)] leading-[1.2]"
             style={{ fontSize: 'clamp(1.75rem, 3.2vw, 2.75rem)' }}
           >
             Greek touch.
@@ -141,7 +141,7 @@ export default function SignatureSection() {
             <div key={item.label} className="flex items-center">
               {/* Badge */}
               <div className="sig-badge flex flex-col items-center gap-2.5 sm:gap-3 px-4 sm:px-8">
-                <span className="text-[#c25b3a]/80">{item.icon}</span>
+                <span className="text-[#A94A2F]">{item.icon}</span>
                 <span
                   className="font-body uppercase tracking-[0.18em] sm:tracking-[0.22em] text-[#5a4a3f]/80 leading-tight"
                   style={{ fontSize: '9px' }}
@@ -166,9 +166,9 @@ export default function SignatureSection() {
 
         {/* Bottom ornament */}
         <div className="sig-ornament flex items-center justify-center gap-3 sm:gap-4 mt-7 sm:mt-10 origin-center">
-          <div className="h-px bg-gradient-to-r from-transparent to-[#c25b3a]/35" style={{ width: '36px' }} />
-          <div className="w-1 h-1 rounded-full bg-[#c25b3a]/55" />
-          <div className="h-px bg-gradient-to-l from-transparent to-[#c25b3a]/35" style={{ width: '36px' }} />
+          <div className="h-px bg-gradient-to-r from-transparent to-[#A94A2F]/35" style={{ width: '36px' }} />
+          <div className="w-1 h-1 rounded-full bg-[#A94A2F]/55" />
+          <div className="h-px bg-gradient-to-l from-transparent to-[#A94A2F]/35" style={{ width: '36px' }} />
         </div>
       </div>
     </section>

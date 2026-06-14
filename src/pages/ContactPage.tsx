@@ -127,7 +127,7 @@ export default function ContactPage() {
 
   /* ── Shared input classes ─────────────────────────────── */
   const inputBase =
-    'w-full bg-white/60 backdrop-blur-sm border border-[var(--sandstone)] rounded-lg px-4 py-3 text-sm font-body text-[var(--text-primary)] placeholder:text-[var(--soft-clay)] outline-none transition-all duration-300 focus:border-[var(--coral)] focus:ring-2 focus:ring-[var(--coral)]/20';
+    'w-full bg-white/60 backdrop-blur-sm border border-[var(--sandstone)] rounded-lg px-4 py-3 text-sm font-body text-[var(--text-primary)] placeholder:text-[var(--soft-clay)] transition-all duration-300 focus-visible:border-[var(--coral)] focus-visible:ring-2 focus-visible:ring-[var(--coral)]/20';
 
   return (
     <div ref={pageRef} className="pt-20">
@@ -243,7 +243,7 @@ export default function ContactPage() {
                     id="name"
                     type="text"
                     placeholder="Your full name"
-                    className={`${inputBase} ${errors.name ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : ''}`}
+                    className={`${inputBase} ${errors.name ? 'border-red-400 focus-visible:border-red-400 focus-visible:ring-red-400/20' : ''}`}
                     {...register('name')}
                   />
                   {errors.name && (
@@ -260,7 +260,7 @@ export default function ContactPage() {
                     id="email"
                     type="email"
                     placeholder="your@email.com"
-                    className={`${inputBase} ${errors.email ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : ''}`}
+                    className={`${inputBase} ${errors.email ? 'border-red-400 focus-visible:border-red-400 focus-visible:ring-red-400/20' : ''}`}
                     {...register('email')}
                   />
                   {errors.email && (
@@ -275,7 +275,7 @@ export default function ContactPage() {
                   </label>
                   <select
                     id="subject"
-                    className={`${inputBase} ${errors.subject ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : ''} ${!errors.subject ? 'text-[var(--text-primary)]' : ''}`}
+                    className={`${inputBase} ${errors.subject ? 'border-red-400 focus-visible:border-red-400 focus-visible:ring-red-400/20' : ''} ${!errors.subject ? 'text-[var(--text-primary)]' : ''}`}
                     {...register('subject')}
                   >
                     <option value="" disabled>Select a subject</option>
@@ -298,7 +298,7 @@ export default function ContactPage() {
                     id="message"
                     rows={5}
                     placeholder="Tell us what's on your mind..."
-                    className={`${inputBase} resize-none ${errors.message ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : ''}`}
+                    className={`${inputBase} resize-none ${errors.message ? 'border-red-400 focus-visible:border-red-400 focus-visible:ring-red-400/20' : ''}`}
                     {...register('message')}
                   />
                   {errors.message && (
