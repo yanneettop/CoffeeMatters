@@ -236,10 +236,15 @@ export default function HostEvents() {
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover animate-pulse-glow group">
               <img
-                src="/events-gathering.jpg"
+                src="/responsive/events-gathering-800.webp"
+                srcSet="/responsive/events-gathering-400.webp 400w, /responsive/events-gathering-800.webp 800w, /responsive/events-gathering-1200.webp 1200w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                width={1024}
+                height={1024}
                 alt="Private event gathering hosted at Coffee Matters café venue, London"
                 className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             

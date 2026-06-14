@@ -161,18 +161,28 @@ export default function OurCoffee() {
 
       {/* Decorative beans - right edge */}
       <img
-        src="/beans2.png"
+        src="/responsive/beans2-400.webp"
+        srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
+        sizes="(max-width: 768px) 112px, 160px"
         alt=""
+        width={400}
+        height={400}
         className="beans-deco absolute -right-10 top-1/4 w-28 xl:w-40 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(15deg)' }}
         loading="lazy"
+        decoding="async"
       />
       <img
-        src="/beans2.png"
+        src="/responsive/beans2-400.webp"
+        srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
+        sizes="(max-width: 768px) 96px, 128px"
         alt=""
+        width={400}
+        height={400}
         className="beans-deco absolute -left-16 bottom-8 w-24 xl:w-32 opacity-80 pointer-events-none hidden xl:block"
         style={{ transform: 'rotate(-160deg) scaleX(-1)' }}
         loading="lazy"
+        decoding="async"
       />
 
       <div className="section-padding">
@@ -218,10 +228,15 @@ export default function OurCoffee() {
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img
-                src="/coffee-drinks.jpg"
+                src="/responsive/coffee-drinks-800.webp"
+                srcSet="/responsive/coffee-drinks-400.webp 400w, /responsive/coffee-drinks-800.webp 800w, /responsive/coffee-drinks-1200.webp 1200w"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 alt="Freddo Espresso and specialty iced coffee drinks at Coffee Matters"
+                width={1024}
+                height={1024}
                 className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
+                decoding="async"
               />
               {/* Subtle overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />

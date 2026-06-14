@@ -13,7 +13,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   // Preload hero image
   useEffect(() => {
     const img = new Image();
-    img.src = '/hero-bg.webp';
+    img.src = '/responsive/hero-bg-vivid-1200.webp';
     img.onload = () => setImageLoaded(true);
     img.onerror = () => setImageLoaded(true); // Don't block on error
 
@@ -62,8 +62,14 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       <div className="flex flex-col items-center gap-6">
         <img
           ref={logoRef}
-          src="/minimal-logowhiteracota.png"
+          src="/responsive/minimal-logowhiteracota-400.webp"
+          srcSet="/responsive/minimal-logowhiteracota-400.webp 400w, /responsive/minimal-logowhiteracota-800.webp 800w, /responsive/minimal-logowhiteracota-1200.webp 1200w"
+          sizes="64px"
           alt="Coffee Matters"
+          width={403}
+          height={403}
+          loading="eager"
+          decoding="async"
           className="h-16 w-auto object-contain"
           style={{ opacity: 0 }}
         />

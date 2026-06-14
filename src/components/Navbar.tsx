@@ -106,15 +106,27 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
           className="group relative transition-transform duration-300 hover:scale-105 h-10 lg:h-11 xl:h-12"
         >
           <img
-            src="/minimal-logowhite.png"
+            src="/responsive/minimal-logowhite-400.webp"
+            srcSet="/responsive/minimal-logowhite-400.webp 400w, /responsive/minimal-logowhite-800.webp 800w, /responsive/minimal-logowhite-1200.webp 1200w"
+            sizes="(max-width: 768px) 40px, 48px"
             alt="Coffee Matters"
+            width={403}
+            height={403}
+            loading="eager"
+            decoding="async"
             className={`h-10 lg:h-11 xl:h-12 w-auto object-contain transition-opacity duration-500 ${
               navScrolled ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
             }`}
           />
           <img
-            src="/minimal-logowhiteracota.png"
+            src="/responsive/minimal-logowhiteracota-400.webp"
+            srcSet="/responsive/minimal-logowhiteracota-400.webp 400w, /responsive/minimal-logowhiteracota-800.webp 800w, /responsive/minimal-logowhiteracota-1200.webp 1200w"
+            sizes="(max-width: 768px) 40px, 48px"
             alt="Coffee Matters"
+            width={403}
+            height={403}
+            loading="eager"
+            decoding="async"
             className={`h-10 lg:h-11 xl:h-12 w-auto object-contain absolute top-0 left-0 transition-opacity duration-500 ${
               navScrolled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
             }`}

@@ -249,8 +249,14 @@ export default function AboutUsPage() {
         <div className="relative mb-10">
           <img
             ref={logoRef}
-            src="/logo-black.png"
+            src="/responsive/logo-black-400.webp"
+            srcSet="/responsive/logo-black-400.webp 400w, /responsive/logo-black-800.webp 800w, /responsive/logo-black-1200.webp 1200w"
+            sizes="(max-width: 768px) 208px, 320px"
             alt="Coffee Matters storefront illustration"
+            width={403}
+            height={403}
+            loading="eager"
+            decoding="async"
             className="relative w-52 h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 xl:w-80 xl:h-80 object-contain"
             style={{ filter: 'invert(1) sepia(0.5) saturate(1.2) brightness(0.95) hue-rotate(-10deg)', mixBlendMode: 'lighten' }}
           />
@@ -332,8 +338,14 @@ export default function AboutUsPage() {
           <StorySection className="mb-16">
             <div className="relative -mx-6 md:-mx-8 lg:-mx-16 xl:-mx-24 overflow-hidden rounded-lg shadow-xl img-hover group">
               <img
-                src="/about-storefront.jpg"
-                alt="Inside Coffee Matters"
+                src="/responsive/about-storefront-800.webp"
+                srcSet="/responsive/about-storefront-400.webp 400w, /responsive/about-storefront-800.webp 800w, /responsive/about-storefront-1200.webp 1200w"
+                sizes="(max-width: 768px) 100vw, 768px"
+                alt="Inside Coffee Matters cafe on Bethnal Green Road"
+                width={1024}
+                height={1024}
+                loading="lazy"
+                decoding="async"
                 className="img-content w-full h-[clamp(240px,32vw,384px)] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />

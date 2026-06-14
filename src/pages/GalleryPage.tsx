@@ -7,18 +7,28 @@ import Footer from '@/sections/Footer';
 
 /* ── Gallery data ─────────────────────────────────────────── */
 const galleryImages = [
-  { src: '/gallery/storefront-1.jpg', alt: 'Coffee Matters storefront on Bethnal Green Road', aspect: 'tall' },
-  { src: '/gallery/wide-interior.jpg', alt: 'Wide view of the cafe interior with skylights', aspect: 'wide' },
-  { src: '/gallery/storefront-2.jpg', alt: 'Close-up of the cafe entrance and outdoor seating', aspect: 'tall' },
-  { src: '/gallery/booth-seating.jpg', alt: 'Booth seating area with artwork and plants', aspect: 'wide' },
-  { src: '/gallery/interior-garden.jpg', alt: 'Lush green corridor filled with plants', aspect: 'tall' },
-  { src: '/gallery/full-cafe.jpg', alt: 'Panoramic view of the full cafe space', aspect: 'wide' },
-  { src: '/gallery/art-corridor.jpg', alt: 'Art-lined corridor with hanging plants', aspect: 'tall' },
-  { src: '/gallery/basement-lounge.jpg', alt: 'Cozy basement lounge with sofas and warm lighting', aspect: 'wide' },
-  { src: '/gallery/main-room.jpg', alt: 'Main seating area with string lights and art', aspect: 'wide' },
-  { src: '/gallery/cozy-corner.jpg', alt: 'Cozy corner with clock and trailing plants', aspect: 'tall' },
-  { src: '/gallery/wall-art.jpg', alt: 'Wall art display with fairy lights and plants', aspect: 'wide' },
+  { src: '/gallery/storefront-1.jpg', alt: 'Coffee Matters storefront on Bethnal Green Road', aspect: 'tall', width: 1330, height: 2364 },
+  { src: '/gallery/wide-interior.jpg', alt: 'Wide view of the cafe interior with skylights', aspect: 'wide', width: 2364, height: 1330 },
+  { src: '/gallery/storefront-2.jpg', alt: 'Close-up of the cafe entrance and outdoor seating', aspect: 'tall', width: 1330, height: 2364 },
+  { src: '/gallery/booth-seating.jpg', alt: 'Booth seating area with artwork and plants', aspect: 'wide', width: 2364, height: 1330 },
+  { src: '/gallery/interior-garden.jpg', alt: 'Lush green corridor filled with plants', aspect: 'tall', width: 1330, height: 2364 },
+  { src: '/gallery/full-cafe.jpg', alt: 'Panoramic view of the full cafe space', aspect: 'wide', width: 2136, height: 1472 },
+  { src: '/gallery/art-corridor.jpg', alt: 'Art-lined corridor with hanging plants', aspect: 'tall', width: 1330, height: 2364 },
+  { src: '/gallery/basement-lounge.jpg', alt: 'Cozy basement lounge with sofas and warm lighting', aspect: 'wide', width: 2364, height: 1330 },
+  { src: '/gallery/main-room.jpg', alt: 'Main seating area with string lights and art', aspect: 'wide', width: 2364, height: 1330 },
+  { src: '/gallery/cozy-corner.jpg', alt: 'Cozy corner with clock and trailing plants', aspect: 'tall', width: 1330, height: 2364 },
+  { src: '/gallery/wall-art.jpg', alt: 'Wall art display with fairy lights and plants', aspect: 'wide', width: 2364, height: 1330 },
 ];
+
+const galleryResponsiveBase = (src: string) => {
+  const fileName = src.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
+  return `/responsive/gallery-${fileName}`;
+};
+
+const gallerySrcSet = (src: string) => {
+  const base = galleryResponsiveBase(src);
+  return `${base}-400.webp 400w, ${base}-800.webp 800w, ${base}-1200.webp 1200w`;
+};
 
 /* ── Lightbox ─────────────────────────────────────────────── */
 function Lightbox({
@@ -105,8 +115,14 @@ function Lightbox({
       {/* Image */}
       <img
         ref={imgRef}
-        src={image.src}
+        src={`${galleryResponsiveBase(image.src)}-1200.webp`}
+        srcSet={gallerySrcSet(image.src)}
+        sizes="85vw"
+        width={image.width}
+        height={image.height}
         alt={image.alt}
+        loading="lazy"
+        decoding="async"
         className="max-h-[80vh] max-w-[85vw] object-contain rounded-lg shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       />
@@ -219,9 +235,14 @@ export default function GalleryPage() {
               aria-label={`Open image: ${image.alt}`}
             >
               <img
-                src={image.src}
+                src={`${galleryResponsiveBase(image.src)}-800.webp`}
+                srcSet={gallerySrcSet(image.src)}
+                sizes="(max-width: 768px) 100vw, 33vw"
+                width={image.width}
+                height={image.height}
                 alt={image.alt}
                 loading="lazy"
+                decoding="async"
                 className="img-content w-full h-auto object-cover"
               />
               {/* Hover overlay */}

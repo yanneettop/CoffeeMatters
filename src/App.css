@@ -26,6 +26,10 @@ html {
 }
 
 /* Image loading placeholder — only for content images (photos, hero, etc.) */
+img {
+  max-width: 100%;
+}
+
 img.img-content {
   background-color: #f3efe6;
 }

@@ -208,18 +208,28 @@ export default function AboutUs() {
 
       {/* Decorative beans - right edge */}
       <img
-        src="/beans2.png"
+        src="/responsive/beans2-400.webp"
+        srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
+        sizes="(max-width: 768px) 112px, 144px"
         alt=""
+        width={400}
+        height={400}
         className="beans-deco absolute -right-16 top-20 w-28 xl:w-36 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(10deg)' }}
         loading="lazy"
+        decoding="async"
       />
       <img
-        src="/beans2.png"
+        src="/responsive/beans2-400.webp"
+        srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
+        sizes="(max-width: 768px) 96px, 128px"
         alt=""
+        width={400}
+        height={400}
         className="beans-deco absolute -left-14 bottom-24 w-24 xl:w-32 opacity-80 pointer-events-none hidden xl:block"
         style={{ transform: 'rotate(170deg) scaleX(-1)' }}
         loading="lazy"
+        decoding="async"
       />
 
       <div className="section-padding">
@@ -264,10 +274,15 @@ export default function AboutUs() {
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img
-                src="/about-storefront.jpg"
-                alt="Coffee Matters café storefront on Brick Lane, London"
+                src="/responsive/about-storefront-800.webp"
+                srcSet="/responsive/about-storefront-400.webp 400w, /responsive/about-storefront-800.webp 800w, /responsive/about-storefront-1200.webp 1200w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                width={1024}
+                height={1024}
+                alt="Coffee Matters cafe storefront on Brick Lane, London"
                 className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
+                decoding="async"
               />
             </div>
 

@@ -17,7 +17,7 @@
     <meta property="og:title" content="Coffee Matters | Specialty Coffee &amp; Café in Brick Lane, London" />
     <meta property="og:description" content="Specialty coffee, authentic Greek pies, pastries &amp; brunch in the heart of Brick Lane, London. Host your events with us." />
     <meta property="og:url" content="https://coffeematters.london/" />
-    <meta property="og:image" content="https://coffeematters.london/hero-bg.webp" />
+    <meta property="og:image" content="https://coffeematters.london/hero-bg-vivid.webp" />
     <meta property="og:image:alt" content="Coffee Matters café interior at Brick Lane, London" />
     <meta property="og:locale" content="en_GB" />
 
@@ -29,7 +29,7 @@
       "name": "Coffee Matters",
       "description": "Specialty coffee café in the heart of Brick Lane, London. Greek-style coffee, homemade pies, pastries and brunch.",
       "url": "https://coffeematters.london/",
-      "image": "https://coffeematters.london/hero-bg.webp",
+      "image": "https://coffeematters.london/hero-bg-vivid.webp",
       "servesCuisine": ["Specialty Coffee", "Greek", "Pastries", "Brunch"],
       "address": {
         "@type": "PostalAddress",
@@ -45,7 +45,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" />
-    <link rel="preload" href="/hero-bg.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/responsive/hero-bg-vivid-1200.webp"
+      imagesrcset="/responsive/hero-bg-vivid-400.webp 400w, /responsive/hero-bg-vivid-800.webp 800w, /responsive/hero-bg-vivid-1200.webp 1200w"
+      imagesizes="100vw"
+      type="image/webp"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <div id="root"></div>

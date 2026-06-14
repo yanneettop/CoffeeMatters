@@ -234,10 +234,15 @@ export default function Hero() {
       >
         <img
           ref={imgRef}
-          src="/hero-bg-polished.webp"
-          alt="Coffee Matters café interior at Brick Lane, London"
+          src="/responsive/hero-bg-vivid-1200.webp"
+          srcSet="/responsive/hero-bg-vivid-400.webp 400w, /responsive/hero-bg-vivid-800.webp 800w, /responsive/hero-bg-vivid-1200.webp 1200w"
+          sizes="100vw"
+          width={1871}
+          height={841}
+          alt="Coffee Matters cafe interior at Brick Lane, London"
           className="img-content w-full h-full object-cover object-[50%_30%] sm:object-center animate-fade-in sm:animate-none"
           fetchPriority="high"
+          loading="eager"
           decoding="async"
         />
       </div>

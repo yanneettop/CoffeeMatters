@@ -173,18 +173,28 @@ export default function SweetsBrunch() {
 
       {/* Decorative beans - right edge */}
       <img
-        src="/beans2.png"
+        src="/responsive/beans2-400.webp"
+        srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
+        sizes="(max-width: 768px) 112px, 160px"
         alt=""
+        width={400}
+        height={400}
         className="beans-deco absolute -right-12 bottom-16 w-28 xl:w-40 opacity-80 pointer-events-none hidden md:block"
         style={{ transform: 'rotate(-25deg) scaleX(-1)' }}
         loading="lazy"
+        decoding="async"
       />
       <img
-        src="/beans2.png"
+        src="/responsive/beans2-400.webp"
+        srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
+        sizes="(max-width: 768px) 96px, 128px"
         alt=""
+        width={400}
+        height={400}
         className="beans-deco absolute -left-10 top-12 w-24 xl:w-32 opacity-80 pointer-events-none hidden xl:block"
         style={{ transform: 'rotate(30deg)' }}
         loading="lazy"
+        decoding="async"
       />
 
       <div className="section-padding">
@@ -229,10 +239,15 @@ export default function SweetsBrunch() {
           >
             <div className="relative overflow-hidden rounded-lg shadow-2xl img-hover group">
               <img
-                src="/pastries-display.jpg"
+                src="/responsive/pastries-display-800.webp"
+                srcSet="/responsive/pastries-display-400.webp 400w, /responsive/pastries-display-800.webp 800w, /responsive/pastries-display-1200.webp 1200w"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 alt="Freshly baked Greek pastries and sweets at Coffee Matters, Brick Lane"
+                width={800}
+                height={800}
                 className="img-content w-full h-auto object-cover aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/5]"
                 loading="lazy"
+                decoding="async"
               />
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-coral/0 group-hover:bg-coral/10 transition-colors duration-700 ease-out" />
