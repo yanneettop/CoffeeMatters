@@ -379,6 +379,19 @@ export default function Hero() {
             ))}
           </p>
 
+          {/* Location & Hours */}
+          <div className="flex flex-col items-center gap-1 font-body text-white/55 mb-6" style={{ fontSize: '0.72rem' }}>
+            <a
+              href="https://maps.google.com/?q=Coffee+Matters+London+Brick+Lane"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:text-white/85 transition-colors duration-200"
+            >
+              📍 Brick Lane, London E1
+            </a>
+            <span>⏰ Mon–Fri 7am–6pm · Sat 7:30am–6pm · Sun 8am–6pm</span>
+          </div>
+
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
             <ButtonWithIcon href="#menu" className="hero-cta-primary">
@@ -485,6 +498,20 @@ export default function Hero() {
             </span>
           ))}
         </p>
+
+        {/* Location & Hours */}
+        <div className="flex items-center gap-2 font-body text-white/55 mb-7 md:mb-8" style={{ fontSize: '0.78rem' }}>
+          <a
+            href="https://maps.google.com/?q=Coffee+Matters+London+Brick+Lane"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 hover:text-white/85 transition-colors duration-200"
+          >
+            📍 Brick Lane, London E1
+          </a>
+          <span className="text-white/25">·</span>
+          <span>⏰ Mon–Fri 7am–6pm · Sat 7:30am–6pm · Sun 8am–6pm</span>
+        </div>
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-4 lg:gap-5">
