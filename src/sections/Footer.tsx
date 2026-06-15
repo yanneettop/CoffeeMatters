@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { MapPin, Mail, Clock } from 'lucide-react';
+import { openCookieSettings } from '@/components/CookieConsent';
 
 const quickLinks = [
   { name: 'Home', href: '#home' },
@@ -207,17 +208,27 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} Coffee Matters. All rights reserved.
             </p>
-            <p className="font-body text-xs text-gray-400 tracking-wide">
-              Website crafted by{' '}
-              <a
-                href="https://pixelrebels.space"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 transition-colors duration-300 hover:text-white"
+            <div className="flex flex-col items-center gap-2 font-body text-xs text-gray-400 tracking-wide sm:flex-row">
+              <button
+                type="button"
+                className="text-gray-400 underline-offset-4 transition-colors duration-300 hover:text-white hover:underline"
+                onClick={openCookieSettings}
               >
-                Pixel Rebels
-              </a>
-            </p>
+                Cookie settings
+              </button>
+              <span className="hidden sm:inline text-gray-600">/</span>
+              <p>
+                Website crafted by{' '}
+                <a
+                  href="https://pixelrebels.space"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 transition-colors duration-300 hover:text-white"
+                >
+                  Pixel Rebels
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

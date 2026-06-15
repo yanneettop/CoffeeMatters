@@ -15,6 +15,8 @@ import Footer from './sections/Footer';
 import ScrollMarquee from './components/ScrollMarquee';
 import BackToTop from './components/BackToTop';
 import LoadingScreen from './components/LoadingScreen';
+import CookieConsent, { hasAnalyticsConsent } from './components/CookieConsent';
+import { initializeAnalytics, sendPageView, trackCafeLinkClick } from './lib/analytics';
 
 import { Toaster } from 'sonner';
 import './App.css';
@@ -145,6 +147,28 @@ function App() {
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, [navigateTo]);
+
+  /* Track important cafe actions on existing links */
+  useEffect(() => {
+    const handleTrackedClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a[href]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+
+      trackCafeLinkClick(anchor);
+    };
+
+    document.addEventListener('click', handleTrackedClick);
+    return () => document.removeEventListener('click', handleTrackedClick);
+  }, []);
+
+  /* GA4 page views, gated by stored analytics consent */
+  useEffect(() => {
+    if (!hasAnalyticsConsent()) return;
+
+    initializeAnalytics();
+    sendPageView();
+  }, [currentPage]);
 
   /* ── Browser back / forward ───────────────────────────── */
   useEffect(() => {
@@ -288,6 +312,7 @@ function App() {
         )}
       </main>
       <BackToTop />
+      <CookieConsent />
     </>
   );
 }
