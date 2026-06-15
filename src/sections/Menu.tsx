@@ -1,8 +1,17 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { menuTabs } from '@/data/menuData';
-import type { MenuTab } from '@/data/menuData';
+import type { DietaryTag, MenuCategory, MenuTab } from '@/data/menuData';
 import MenuCategoryCard from '@/components/menu/MenuCategoryCard';
+
+type DietaryFilter = 'all' | DietaryTag;
+
+const dietaryFilters: { id: DietaryFilter; label: string; tagLabel?: string }[] = [
+  { id: 'all', label: 'All food' },
+  { id: 'V', label: 'Vegan', tagLabel: 'V' },
+  { id: 'VG', label: 'Vegetarian', tagLabel: 'VG' },
+  { id: 'GF', label: 'Gluten Free', tagLabel: 'GF' },
+];
 
 export default function Menu() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -12,10 +21,29 @@ export default function Menu() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [activePillId, setActivePillId] = useState<string | null>(null);
+  const [activeDietaryFilter, setActiveDietaryFilter] = useState<DietaryFilter>('all');
   const isFirstRender = useRef(true);
   const isAnimating = useRef(false);
 
   const currentTab: MenuTab = menuTabs[activeTabIndex];
+  const showDietaryFilters = currentTab.id === 'food';
+  const displayedCategories: MenuCategory[] = useMemo(() => {
+    if (!showDietaryFilters || activeDietaryFilter === 'all') {
+      return currentTab.categories;
+    }
+
+    return currentTab.categories
+      .map((category) => ({
+        ...category,
+        items: category.items.filter((item) =>
+          item.dietaryTags?.includes(activeDietaryFilter),
+        ),
+        addOns: undefined,
+      }))
+      .filter((category) => category.items.length > 0);
+  }, [activeDietaryFilter, currentTab, showDietaryFilters]);
+  const activeDietaryFilterLabel =
+    dietaryFilters.find((filter) => filter.id === activeDietaryFilter)?.label ?? '';
 
   /* ── Tab switch with GSAP crossfade ───────────────────── */
   const switchTab = useCallback(
@@ -32,6 +60,7 @@ export default function Menu() {
           onComplete: () => {
             setActiveTabIndex(index);
             setActivePillId(null);
+            setActiveDietaryFilter('all');
             if (contentRef.current) {
               gsap.set(contentRef.current, { opacity: 1, y: 0 });
             }
@@ -40,6 +69,7 @@ export default function Menu() {
       } else {
         setActiveTabIndex(index);
         setActivePillId(null);
+        setActiveDietaryFilter('all');
         isAnimating.current = false;
       }
     },
@@ -71,7 +101,11 @@ export default function Menu() {
     } else {
       isAnimating.current = false;
     }
-  }, [activeTabIndex]);
+  }, [activeTabIndex, activeDietaryFilter]);
+
+  useEffect(() => {
+    setActivePillId(null);
+  }, [activeDietaryFilter]);
 
   /* ── Quick-jump pill ──────────────────────────────────── */
   const scrollToCategory = useCallback((categoryId: string) => {
@@ -222,9 +256,51 @@ export default function Menu() {
         </div>
 
         {/* ── Category Quick-Jump Pills ───────────────── */}
+        {showDietaryFilters && (
+          <div className="mb-6 flex justify-center">
+            <div
+              className="inline-flex max-w-full flex-wrap justify-center gap-2 rounded-full border border-[var(--sandstone)]/45 bg-white/55 p-1.5 shadow-sm"
+              aria-label="Food dietary filter"
+            >
+              {dietaryFilters.map((filter) => {
+                const isActive = activeDietaryFilter === filter.id;
+
+                return (
+                  <button
+                    type="button"
+                    key={filter.id}
+                    aria-pressed={isActive}
+                    onClick={() => setActiveDietaryFilter(filter.id)}
+                    className={`inline-flex min-h-9 items-center gap-2 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--coral)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)] ${
+                      isActive
+                        ? 'bg-[var(--dark)] text-white shadow-md'
+                        : 'text-[var(--text-secondary)] hover:bg-white/80 hover:text-[var(--coral)]'
+                    }`}
+                  >
+                    {filter.tagLabel && (
+                      <span
+                        className={`inline-flex size-5 items-center justify-center rounded text-[10px] font-semibold ${
+                          isActive
+                            ? 'bg-white/15 text-white'
+                            : filter.id === 'GF'
+                            ? 'bg-[var(--soft-clay)]/20 text-[var(--soft-clay)]'
+                            : 'bg-[var(--olive)]/15 text-[var(--olive)]'
+                        }`}
+                      >
+                        {filter.tagLabel}
+                      </span>
+                    )}
+                    {filter.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <div ref={pillsRef} className="mb-12">
           <div className="flex gap-2 justify-center flex-wrap">
-            {currentTab.categories.map((cat) => (
+            {displayedCategories.map((cat) => (
               <button
                 type="button"
                 key={cat.id}
@@ -243,9 +319,20 @@ export default function Menu() {
 
         {/* ── Menu Content ────────────────────────────── */}
         <div ref={contentRef} className="space-y-10 md:space-y-12" role="tabpanel">
-          {currentTab.categories.map((category) => (
-            <MenuCategoryCard key={category.id} category={category} />
-          ))}
+          {displayedCategories.length > 0 ? (
+            displayedCategories.map((category) => (
+              <MenuCategoryCard key={category.id} category={category} />
+            ))
+          ) : (
+            <div className="mx-auto max-w-xl rounded-lg border border-[var(--sandstone)]/55 bg-white/45 px-6 py-8 text-center shadow-sm">
+              <p className="font-display text-xl tracking-[0.12em] text-[var(--text-primary)]">
+                No {activeDietaryFilterLabel} options listed yet
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
+                Please ask the staff for today&apos;s suitable dishes.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* ── Dietary Key ─────────────────────────────── */}

@@ -233,7 +233,7 @@ export const menuTabs: MenuTab[] = [
         title: 'AVOCADO ON TOAST',
         subtitle: 'All dishes come with 2 slices of sourdough bread with mashed avocado & salad.',
         items: [
-          { name: 'Avocado on Toast', prices: [{ price: '£7.00' }], dietaryTags: ['VG'] },
+          { name: 'Avocado on Toast', prices: [{ price: '£7.00' }], dietaryTags: ['VG', 'GF'] },
         ],
         addOns: [
           { name: 'Poached / Scrambled Eggs', price: '+£3.00' },
@@ -295,9 +295,10 @@ export const menuTabs: MenuTab[] = [
       {
         id: 'toasties',
         title: 'MAKE YOUR OWN TOASTIE',
+        subtitle: 'Gluten-free bread available.',
         items: [
-          { name: 'Ham & Cheese', prices: [{ price: '£6.50' }] },
-          { name: 'Cheese & Tomato', prices: [{ price: '£6.50' }] },
+          { name: 'Ham & Cheese', prices: [{ price: '£6.50' }], dietaryTags: ['GF'] },
+          { name: 'Cheese & Tomato', prices: [{ price: '£6.50' }], dietaryTags: ['GF'] },
         ],
         addOns: [
           { name: 'Fried / Scrambled / Poached Eggs', price: '+£2.50' },
