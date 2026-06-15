@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.coffeematterslondon.com/</loc>
+    <loc>https://coffeematterslondon.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.coffeematterslondon.com/#menu</loc>
+    <loc>https://coffeematterslondon.com/#menu</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.coffeematterslondon.com/#gallery</loc>
+    <loc>https://coffeematterslondon.com/#gallery</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.coffeematterslondon.com/#about</loc>
+    <loc>https://coffeematterslondon.com/#about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.coffeematterslondon.com/#contact</loc>
+    <loc>https://coffeematterslondon.com/#contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
