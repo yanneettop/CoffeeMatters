@@ -323,6 +323,19 @@ export default function Hero() {
             {/* Semi-transparent dark overlay behind headline text */}
             <div aria-hidden className="absolute -inset-x-6 -inset-y-4 -z-10 rounded-[2rem] bg-black/30 blur-2xl" />
 
+          <img
+            src="/responsive/logo-building-terracotta-280.webp"
+            srcSet="/responsive/logo-building-terracotta-280.webp 280w, /responsive/logo-building-terracotta-560.webp 560w"
+            sizes="116px"
+            width={3665}
+            height={3893}
+            alt="Coffee Matters storefront illustration"
+            className="mx-auto mb-4 w-[116px] h-auto object-contain opacity-78"
+            style={{ filter: 'brightness(0) invert(1) drop-shadow(0 3px 14px rgba(255,255,255,0.14))' }}
+            loading="eager"
+            decoding="async"
+          />
+
           {/* Brand title — per-letter interactive */}
           <h1
             className="font-display text-[clamp(2rem,9vw,2.8rem)] text-white tracking-[0.04em] leading-none mb-4"
@@ -370,26 +383,10 @@ export default function Hero() {
 
           {/* Subheading — per-word interactive */}
           <p
-            className="font-body text-white/70 leading-relaxed mb-8"
-            style={{ fontSize: '0.84rem', maxWidth: '270px' }}
+            className="font-body text-center text-white/75 leading-relaxed mb-8 mx-auto [text-wrap:balance]"
+            style={{ fontSize: 'clamp(1rem, 4vw, 1.15rem)', maxWidth: '340px' }}
           >
-            {'Specialty coffee, homemade bakes & Greek warmth in the heart of Brick Lane.'.split(' ').map((word, i) => (
-              <span
-                key={i}
-                className="inline-block mr-[0.3em] cursor-default"
-                style={{ transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1), color 0.3s ease' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.color = '#fff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = '';
-                  e.currentTarget.style.color = '';
-                }}
-              >
-                {word}
-              </span>
-            ))}
+            Specialty coffee, homemade bakes & Greek warmth in the heart of Brick Lane.
           </p>
           </div>
 
@@ -442,6 +439,19 @@ export default function Hero() {
           </span>
           <div className="w-8 h-px bg-white/25" />
         </div>
+
+        <img
+          src="/responsive/logo-building-terracotta-280.webp"
+          srcSet="/responsive/logo-building-terracotta-280.webp 280w, /responsive/logo-building-terracotta-560.webp 560w, /responsive/logo-building-terracotta-900.webp 900w"
+          sizes="168px"
+          width={3665}
+          height={3893}
+          alt="Coffee Matters storefront illustration"
+          className="mb-5 w-[168px] h-auto object-contain opacity-80"
+          style={{ filter: 'brightness(0) invert(1) drop-shadow(0 4px 18px rgba(255,255,255,0.12))' }}
+          loading="eager"
+          decoding="async"
+        />
 
         {/* Animated per-letter heading */}
         <h1
@@ -542,7 +552,7 @@ export default function Hero() {
       </div>
 
       {/* Location & Hours — bottom-left corner overlay */}
-      <div className="absolute bottom-[3.25rem] sm:bottom-[3.5rem] left-5 sm:left-8 lg:left-12 z-10 flex flex-col gap-[3px] font-body" style={{ fontSize: '0.7rem' }}>
+      <div className="hidden sm:flex absolute bottom-[3.25rem] sm:bottom-[3.5rem] left-5 sm:left-8 lg:left-12 z-10 flex-col gap-[3px] font-body" style={{ fontSize: '0.7rem' }}>
         <a
           href="https://maps.google.com/?q=Coffee+Matters+London+Brick+Lane"
           target="_blank"
