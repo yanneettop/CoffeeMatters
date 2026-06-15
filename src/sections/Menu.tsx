@@ -217,7 +217,7 @@ export default function Menu() {
       <div className="section-padding">
         {/* ── Heading ─────────────────────────────────── */}
         <div ref={headingRef} className="mb-10 text-center">
-          <h2 className="section-heading">
+          <h1 className="section-heading">
             <span className="heading-word inline-block font-display font-light tracking-widest text-[var(--text-secondary)]">
               OUR
             </span>{' '}
@@ -231,7 +231,8 @@ export default function Menu() {
             >
               MENU
             </span>
-          </h2>
+            <span className="sr-only"> — Coffee, Pastries &amp; Brunch Menu in Brick Lane, East London</span>
+          </h1>
           <div className="heading-word w-16 h-0.5 bg-coral/60 mt-4 mx-auto" />
         </div>
 

@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 import NewsletterCTA from '@/sections/NewsletterCTA';
 import Footer from '@/sections/Footer';
+import Seo from '@/components/Seo';
 
 /* ── Ornamental divider (SVG) ─────────────────────────────── */
 function OrnamentDivider({ className = '' }: { className?: string }) {
@@ -226,6 +227,11 @@ export default function AboutUsPage() {
 
   return (
     <div ref={pageRef}>
+      <Seo
+        title="About | Coffee Matters London — Independent Café in Brick Lane"
+        description="The story behind Coffee Matters — an independent, family-run Greek coffee shop in Brick Lane, East London, serving specialty coffee, homemade pies and Mediterranean warmth."
+        path="/about"
+      />
       {/* ═══════════════════════════════════════════════════ */}
       {/*  HERO — Dark background with logo                  */}
       {/* ═══════════════════════════════════════════════════ */}
@@ -401,7 +407,7 @@ export default function AboutUsPage() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
               <a
-                href="#menu"
+                href="/menu"
                 className="btn-outline group inline-flex items-center gap-3 text-coral border-coral hover:bg-coral hover:text-white transition-all duration-300"
               >
                 <span>SEE OUR MENU</span>
@@ -411,7 +417,7 @@ export default function AboutUsPage() {
                 />
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="btn-outline group inline-flex items-center gap-3 text-[var(--text-secondary)] border-[var(--text-secondary)] hover:bg-[var(--dark)] hover:border-[var(--dark)] hover:text-white transition-all duration-300"
               >
                 <span>VISIT US</span>

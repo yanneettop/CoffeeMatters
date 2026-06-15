@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, type LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type ButtonVariant = "primary" | "solid" | "outline" | "outline-light";
 
@@ -48,6 +49,10 @@ const ButtonWithIcon = ({
 }: ButtonWithIconProps) => {
   const styles = variantStyles[variant];
 
+  // Internal route links (start with "/") use the router for client-side nav;
+  // external links and hashes fall back to a plain anchor.
+  const isInternal = !!href && href.startsWith("/") && target !== "_blank";
+
   const inner = (
     <>
       <span className="relative z-10 transition-all duration-500 tracking-[0.18em] uppercase font-body" style={{ fontSize: '11px' }}>
@@ -67,7 +72,11 @@ const ButtonWithIcon = ({
       aria-label={ariaLabel}
     >
       {href ? (
-        <a href={href} target={target} rel={rel}>{inner}</a>
+        isInternal ? (
+          <Link to={href}>{inner}</Link>
+        ) : (
+          <a href={href} target={target} rel={rel}>{inner}</a>
+        )
       ) : (
         <>{inner}</>
       )}

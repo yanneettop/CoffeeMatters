@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { MapPin, Mail, Clock, Instagram } from 'lucide-react';
 import { openCookieSettings } from '@/components/CookieConsent';
 
 const quickLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'Menu', href: '#menu' },
-  { name: 'Gallery', href: '#gallery' },
-  { name: 'About us', href: '#about' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', to: '/' },
+  { name: 'Menu', to: '/menu' },
+  { name: 'Gallery', to: '/gallery' },
+  { name: 'About us', to: '/about' },
+  { name: 'Contact', to: '/contact' },
 ];
 
 const openingHours = [
@@ -160,13 +161,13 @@ export default function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a 
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className="text-gray-400 text-sm hover:text-white transition-colors duration-300 relative group"
                   >
                     {link.name}
                     <span className="absolute -bottom-0.5 left-0 w-full h-px bg-white transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import Menu from '@/sections/Menu';
 import NewsletterCTA from '@/sections/NewsletterCTA';
 import Footer from '@/sections/Footer';
+import Seo from '@/components/Seo';
 
 export default function MenuPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -21,6 +22,11 @@ export default function MenuPage() {
 
   return (
     <div ref={pageRef} className="pt-20">
+      <Seo
+        title="Menu | Coffee, Pastries & Brunch — Coffee Matters London"
+        description="Explore our menu of specialty coffee, Greek pastries, homemade pies and all-day brunch in Brick Lane, East London. Dine in or take away."
+        path="/menu"
+      />
       <Menu />
       <NewsletterCTA />
       <Footer />

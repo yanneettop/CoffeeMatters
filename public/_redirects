@@ -1,2 +1,5 @@
 http://coffeematterslondon.com/* https://www.coffeematterslondon.com/:splat 301
 http://www.coffeematterslondon.com/* https://www.coffeematterslondon.com/:splat 301
+
+# SPA fallback — serve index.html for client-side routes (must stay last)
+/* /index.html 200

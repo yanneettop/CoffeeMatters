@@ -1,17 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-
-gsap.registerPlugin(ScrollToPlugin);
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'Menu', href: '#menu' },
-  { name: 'Gallery', href: '#gallery' },
-  { name: 'About us', href: '#about' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', to: '/' },
+  { name: 'Menu', to: '/menu' },
+  { name: 'Gallery', to: '/gallery' },
+  { name: 'About us', to: '/about' },
+  { name: 'Contact', to: '/contact' },
 ];
 
 interface NavbarProps {
@@ -23,9 +21,9 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
   const navRef = useRef<HTMLElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(forceGlass);
-  const [activeSection, setActiveSection] = useState<string>('home');
+  const { pathname } = useLocation();
 
-  // Scroll-based glassmorphism (only on home page)
+  // Scroll-based glassmorphism (only on home page where the transparent hero sits behind the nav)
   useEffect(() => {
     if (forceGlass) {
       setNavScrolled(true);
@@ -48,30 +46,6 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
 
     return () => {
       trigger.kill();
-    };
-  }, [forceGlass]);
-
-  // Track active section for nav indicator
-  useEffect(() => {
-    if (forceGlass) return; // Only on home page
-
-    const sectionIds = ['home', 'menu', 'gallery', 'about', 'contact'];
-    
-    const triggers = sectionIds.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-
-      return ScrollTrigger.create({
-        trigger: el,
-        start: 'top 50%',
-        end: 'bottom 50%',
-        onEnter: () => setActiveSection(id),
-        onEnterBack: () => setActiveSection(id),
-      });
-    }).filter(Boolean) as ScrollTrigger[];
-
-    return () => {
-      triggers.forEach(t => t.kill());
     };
   }, [forceGlass]);
 
@@ -101,8 +75,9 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
     >
       <div className="section-padding flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#home"
+        <Link
+          to="/"
+          aria-label="Coffee Matters London — home"
           className="group relative transition-transform duration-300 hover:scale-105 h-10 lg:h-11 xl:h-12"
         >
           <img
@@ -131,35 +106,21 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
               navScrolled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
             }`}
           />
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-5 xl:gap-8 relative">
           {navLinks.map((link) => {
-            const sectionId = link.href.slice(1); // Remove # from href
-            const isActive = activeSection === sectionId;
-            
+            const isActive = pathname === link.to;
+
             return (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  const target = document.querySelector(link.href);
-                  if (target) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    gsap.to(window, {
-                      scrollTo: { y: target, offsetY: 0 },
-                      duration: 1,
-                      ease: 'power3.inOut',
-                    });
-                  }
-                }}
+                to={link.to}
+                aria-current={isActive ? 'page' : undefined}
                 className={`relative text-[13px] xl:text-sm font-normal tracking-widest uppercase group transition-colors duration-300 ${
                   isActive
-                    ? navScrolled
-                      ? 'text-[var(--coral)]'
-                      : 'text-[var(--coral)]'
+                    ? 'text-[var(--coral)]'
                     : navScrolled
                     ? 'text-gray-800 hover:text-[var(--coral)]'
                     : 'text-white/90 hover:text-[var(--coral-on-dark)]'
@@ -174,7 +135,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
                     isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                   }`}
                 />
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -197,25 +158,15 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden glass absolute top-full left-0 right-0 py-4 px-6 shadow-lg">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleLinkClick();
-                const target = document.querySelector(link.href);
-                if (target) {
-                  gsap.to(window, {
-                    scrollTo: { y: target, offsetY: 0 },
-                    duration: 1,
-                    ease: 'power3.inOut',
-                  });
-                }
-              }}
+              to={link.to}
+              aria-current={pathname === link.to ? 'page' : undefined}
+              onClick={handleLinkClick}
               className="block py-3 text-gray-800 hover:text-[var(--coral)] font-normal tracking-widest uppercase text-sm border-b border-gray-200 last:border-0"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
       )}
