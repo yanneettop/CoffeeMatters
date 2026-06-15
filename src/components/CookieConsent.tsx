@@ -7,6 +7,11 @@ type ConsentChoice = 'accepted' | 'rejected';
 const STORAGE_KEY = 'coffee-matters-cookie-consent';
 const OPEN_SETTINGS_EVENT = 'coffee-matters:open-cookie-settings';
 
+const devLog = (message: string, details?: unknown) => {
+  if (!import.meta.env.DEV) return;
+  console.info(`[analytics consent] ${message}`, details ?? '');
+};
+
 export const hasAnalyticsConsent = () =>
   localStorage.getItem(STORAGE_KEY) === 'accepted';
 
@@ -32,6 +37,7 @@ export default function CookieConsent() {
     localStorage.setItem(STORAGE_KEY, nextChoice);
     setChoice(nextChoice);
     setIsManaging(false);
+    devLog('Stored consent choice', nextChoice);
 
     if (nextChoice === 'accepted') {
       initializeAnalytics();

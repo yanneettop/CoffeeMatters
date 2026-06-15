@@ -16,10 +16,18 @@ let lastPageViewPath: string | null = null;
 const getCurrentPagePath = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`;
 
+const devLog = (message: string, details?: unknown) => {
+  if (!import.meta.env.DEV) return;
+  console.info(`[analytics] ${message}`, details ?? '');
+};
+
 export const getGaMeasurementId = () => GA_MEASUREMENT_ID;
 
 export const initializeAnalytics = () => {
-  if (!GA_MEASUREMENT_ID) return false;
+  if (!GA_MEASUREMENT_ID) {
+    devLog('GA measurement ID is missing');
+    return false;
+  }
 
   window.dataLayer = window.dataLayer ?? [];
   window.gtag = window.gtag ?? function gtag(...args) {
@@ -31,18 +39,23 @@ export const initializeAnalytics = () => {
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
     document.head.appendChild(script);
+    devLog('Loaded gtag.js', script.src);
   }
 
   if (!isLoaded) {
     window.gtag('js', new Date());
     isLoaded = true;
+    devLog('Initialized GA4', GA_MEASUREMENT_ID);
   }
 
   return true;
 };
 
 export const sendPageView = (pagePath = getCurrentPagePath()) => {
-  if (pagePath === lastPageViewPath) return;
+  if (pagePath === lastPageViewPath) {
+    devLog('Skipped duplicate page_view', pagePath);
+    return;
+  }
   if (!initializeAnalytics() || !window.gtag) return;
 
   window.gtag('config', GA_MEASUREMENT_ID, {
@@ -51,12 +64,14 @@ export const sendPageView = (pagePath = getCurrentPagePath()) => {
     page_path: pagePath,
   });
   lastPageViewPath = pagePath;
+  devLog('Sent page_view', { measurementId: GA_MEASUREMENT_ID, pagePath });
 };
 
 export const trackEvent = (eventName: string, params: GtagParams = {}) => {
   if (!isLoaded || !window.gtag) return;
 
   window.gtag('event', eventName, params);
+  devLog('Sent event', { eventName, params });
 };
 
 const getTrackedEventForLink = (anchor: HTMLAnchorElement) => {
