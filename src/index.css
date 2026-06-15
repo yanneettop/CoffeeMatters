@@ -391,6 +391,21 @@
   }
 }
 
+@keyframes mobileHeroPan {
+  0% {
+    object-position: 30% 30%;
+  }
+  100% {
+    object-position: 74% 30%;
+  }
+}
+
+@media (max-width: 639px) {
+  .mobile-hero-pan {
+    animation: fadeIn 0.6s var(--ease-smooth) forwards, mobileHeroPan 34s ease-in-out 0.8s infinite alternate;
+  }
+}
+
 @keyframes subtitleShimmer {
   0%, 100% {
     background-position: -50% center;

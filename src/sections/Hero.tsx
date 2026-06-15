@@ -232,25 +232,28 @@ export default function Hero() {
         className="absolute inset-[-20px] w-[calc(100%+40px)] h-[calc(100%+40px)]"
         style={{ willChange: 'transform' }}
       >
-        <img
-          ref={imgRef}
-          src="/hero-bg-vivid.webp"
-          srcSet="/responsive/hero-bg-vivid-400.webp 400w, /responsive/hero-bg-vivid-800.webp 800w, /responsive/hero-bg-vivid-1200.webp 1200w, /hero-bg-vivid.webp 1871w"
-          sizes="100vw"
-          width={1871}
-          height={841}
-          alt="Coffee Matters cafe interior at Brick Lane, London"
-          className="img-content w-full h-full object-cover object-[50%_30%] sm:object-center animate-fade-in sm:animate-none"
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-        />
+        <picture className="block w-full h-full">
+          <source media="(max-width: 639px)" srcSet="/hero-bg.jpg" />
+          <img
+            ref={imgRef}
+            src="/hero-bg-vivid.webp"
+            srcSet="/responsive/hero-bg-vivid-400.webp 400w, /responsive/hero-bg-vivid-800.webp 800w, /responsive/hero-bg-vivid-1200.webp 1200w, /hero-bg-vivid.webp 1871w"
+            sizes="100vw"
+            width={1871}
+            height={841}
+            alt="Coffee Matters cafe interior at Brick Lane, London"
+            className="img-content mobile-hero-pan w-full h-full object-cover object-[30%_30%] sm:object-center animate-fade-in sm:animate-none"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
       </div>
 
       {/* Base overlay — shared desktop breathing animation */}
       <div
         ref={overlayRef}
-        className="absolute inset-0 pointer-events-none"
+        className="hidden sm:block absolute inset-0 pointer-events-none"
         style={{
           background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.5) 100%)',
           opacity: 0.85,
@@ -261,7 +264,7 @@ export default function Hero() {
       <div
         className="sm:hidden absolute inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(to top, rgba(12,8,6,0.88) 0%, rgba(12,8,6,0.65) 30%, rgba(12,8,6,0.25) 60%, rgba(12,8,6,0.15) 100%)',
+          background: 'linear-gradient(to top, rgba(12,8,6,0.72) 0%, rgba(12,8,6,0.48) 30%, rgba(12,8,6,0.16) 62%, rgba(12,8,6,0.08) 100%)',
         }}
       />
 
@@ -302,7 +305,7 @@ export default function Hero() {
         style={{ willChange: 'transform' }}
       >
         {/* Top area — subtle location tag */}
-        <div className="flex justify-center pt-[calc(env(safe-area-inset-top,0px)+80px)]">
+        <div className="flex justify-center pt-[calc(env(safe-area-inset-top,0px)+72px)]">
           <div className="flex items-center gap-2">
             <div className="w-4 h-px bg-white/30" />
             <span
@@ -316,7 +319,7 @@ export default function Hero() {
         </div>
 
         {/* Main content — pushed toward bottom */}
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center -translate-y-8">
 
           {/* Readability backdrop + headline group */}
           <div className="relative">
@@ -391,7 +394,7 @@ export default function Hero() {
           </div>
 
           {/* CTA Buttons — stacked full-width on mobile */}
-          <div className="flex flex-col w-full max-w-[300px] gap-3">
+          <div className="flex flex-col w-full max-w-[300px] gap-4">
             <ButtonWithIcon href="#menu" variant="solid" className="hero-cta-primary !w-full">
               View Menu
             </ButtonWithIcon>
