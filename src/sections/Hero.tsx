@@ -39,7 +39,7 @@ export default function Hero() {
 
       // Entrance animations for mobile hero content
       const mobileCtx = gsap.context(() => {
-        const heading = contentRef.current?.querySelector('h1');
+        const heading = contentRef.current?.querySelector('.hero-heading');
         const subheading = contentRef.current?.querySelector('p');
         const buttons = contentRef.current?.querySelectorAll('a');
         const mobileDivider = contentRef.current?.querySelector('.mobile-divider');
@@ -339,9 +339,11 @@ export default function Hero() {
             decoding="async"
           />
 
-          {/* Brand title — per-letter interactive */}
-          <h1
-            className="font-display text-[clamp(2rem,9vw,2.8rem)] text-white tracking-[0.04em] leading-none mb-4"
+          {/* Brand title — per-letter interactive (visual only; single document H1 lives in the desktop block) */}
+          <div
+            role="heading"
+            aria-level={1}
+            className="hero-heading font-display text-[clamp(2rem,9vw,2.8rem)] text-white tracking-[0.04em] leading-none mb-4"
           >
             {['COFFEE', 'MATTERS'].map((word, wi) => (
               <span key={wi} className="inline-block whitespace-nowrap">
@@ -371,8 +373,8 @@ export default function Hero() {
                 ))}
               </span>
             ))}
-            <span className="sr-only"> — Specialty Coffee Shop in Brick Lane, London</span>
-          </h1>
+            <span className="sr-only"> — Specialty Coffee &amp; Greek Brunch in Brick Lane, London</span>
+          </div>
 
           {/* Divider */}
           <div
@@ -484,7 +486,7 @@ export default function Hero() {
               }}
             >{char === ' ' ? '\u00A0' : char}</span>
           ))}
-          <span className="sr-only"> — Specialty Coffee Shop in Brick Lane, London</span>
+          <span className="sr-only"> — Specialty Coffee &amp; Greek Brunch in Brick Lane, London</span>
         </h1>
 
         <div

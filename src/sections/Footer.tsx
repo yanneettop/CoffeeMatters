@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { MapPin, Mail, Clock } from 'lucide-react';
+import { MapPin, Mail, Clock, Instagram } from 'lucide-react';
 import { openCookieSettings } from '@/components/CookieConsent';
 
 const quickLinks = [
@@ -126,8 +126,30 @@ export default function Footer() {
               </h3>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Where passion meets community. Your local spot for exceptional brews and Mediterranean-inspired treats.
+              Where passion meets community. Your local spot for specialty coffee, Greek bakes and Mediterranean-inspired brunch in Brick Lane, East London.
             </p>
+
+            {/* Social / map links */}
+            <div className="mt-6 flex items-center gap-4">
+              <a
+                href="https://www.instagram.com/coffeematterslondon"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow Coffee Matters London on Instagram"
+                className="text-gray-400 transition-colors duration-300 hover:text-white"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://www.google.com/maps?ll=51.52556,-0.070537&z=15&t=m&hl=en-US&gl=US&mapclient=embed&cid=10714594583351249534"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Find Coffee Matters London on Google Maps"
+                className="text-gray-400 transition-colors duration-300 hover:text-white"
+              >
+                <MapPin size={20} />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
