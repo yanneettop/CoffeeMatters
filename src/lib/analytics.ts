@@ -11,6 +11,7 @@ declare global {
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
 let isLoaded = false;
+let lastPageViewPath: string | null = null;
 
 const getCurrentPagePath = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`;
@@ -18,34 +19,38 @@ const getCurrentPagePath = () =>
 export const getGaMeasurementId = () => GA_MEASUREMENT_ID;
 
 export const initializeAnalytics = () => {
-  if (!GA_MEASUREMENT_ID || isLoaded) return;
+  if (!GA_MEASUREMENT_ID) return false;
 
   window.dataLayer = window.dataLayer ?? [];
-  window.gtag = function gtag(...args) {
+  window.gtag = window.gtag ?? function gtag(...args) {
     window.dataLayer?.push(args);
   };
 
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  document.head.appendChild(script);
+  if (!document.querySelector(`script[src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"]`)) {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+  }
 
-  window.gtag('js', new Date());
-  window.gtag('config', GA_MEASUREMENT_ID, {
-    send_page_view: false,
-  });
+  if (!isLoaded) {
+    window.gtag('js', new Date());
+    isLoaded = true;
+  }
 
-  isLoaded = true;
+  return true;
 };
 
 export const sendPageView = (pagePath = getCurrentPagePath()) => {
-  if (!isLoaded || !window.gtag) return;
+  if (pagePath === lastPageViewPath) return;
+  if (!initializeAnalytics() || !window.gtag) return;
 
-  window.gtag('event', 'page_view', {
+  window.gtag('config', GA_MEASUREMENT_ID, {
     page_title: document.title,
     page_location: window.location.href,
     page_path: pagePath,
   });
+  lastPageViewPath = pagePath;
 };
 
 export const trackEvent = (eventName: string, params: GtagParams = {}) => {
