@@ -71,7 +71,7 @@ export const menuTabs: MenuTab[] = [
           { name: 'Dark or White Mocha', prices: [{ label: '8oz', price: '£3.80' }, { label: '12oz', price: '£4.00' }] },
           { name: 'Dark or White Chocolate', prices: [{ label: '8oz', price: '£3.60' }, { label: '12oz', price: '£3.80' }] },
           { name: 'Matcha Latte', prices: [{ label: '8oz', price: '£3.80' }, { label: '12oz', price: '£4.00' }] },
-          { name: 'Lavender Honey Matcha Latte', prices: [{ label: '8oz', price: '£4.10' }, { label: '12oz', price: '£4.40' }] },
+          { name: 'Lavender Honey Matcha', prices: [{ label: '8oz', price: '£4.10' }, { label: '12oz', price: '£4.40' }] },
           { name: 'Strawberry Matcha Latte', prices: [{ label: '8oz', price: '£4.10' }, { label: '12oz', price: '£4.40' }] },
           { name: 'Dirty Matcha Latte', prices: [{ label: '8oz', price: '£4.10' }, { label: '12oz', price: '£4.40' }] },
           { name: 'Chai Latte', prices: [{ label: '8oz', price: '£3.60' }, { label: '12oz', price: '£3.90' }] },
@@ -111,7 +111,7 @@ export const menuTabs: MenuTab[] = [
         items: [
           { name: 'Soya-free Oat / Coconut / Almond', prices: [{ price: '£0.40' }] },
           { name: 'Extra Shot', prices: [{ price: '£0.40' }] },
-          { name: 'Vanilla / Caramel / Hazelnut / Strawberry Syrup', prices: [{ price: '£0.40' }] },
+          { name: 'Vanilla / Caramel / Hazelnut Syrup', prices: [{ price: '£0.40' }] },
           { name: 'Honey', prices: [{ price: 'Free' }] },
           { name: 'Decaf', prices: [{ price: '£0.50' }] },
         ],
@@ -231,7 +231,7 @@ export const menuTabs: MenuTab[] = [
       {
         id: 'avocado-toast',
         title: 'AVOCADO ON TOAST',
-        subtitle: 'All dishes come with 2 slices of sourdough bread with mashed avocado & salad.',
+        subtitle: 'All dishes come with 2 slices of sourdough bread with mashed avocado & salad. Gluten-free bread available.',
         items: [
           { name: 'Avocado on Toast', prices: [{ price: '£7.00' }], dietaryTags: ['VG', 'GF'] },
         ],
