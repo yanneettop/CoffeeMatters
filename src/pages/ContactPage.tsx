@@ -132,11 +132,7 @@ export default function ContactPage() {
 
   return (
     <div ref={pageRef} className="pt-20">
-      <Seo
-        title="Contact & Find Us | Coffee Matters London — Brick Lane"
-        description="Visit Coffee Matters at 157 Bethnal Green Road, Brick Lane, London E2 7DG. Opening hours, directions and our contact form for events and enquiries."
-        path="/contact"
-      />
+      <Seo path="/contact" />
       {/* ── Hero section ──────────────────────────────────── */}
       <section ref={heroRef} className="section-padding py-14 md:py-[4.5rem] lg:py-20 xl:py-24 text-center">
         <p className="hero-anim font-body text-sm tracking-[0.3em] uppercase text-coral mb-4">

@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
+import seoConfig from '@/seo/routes.json';
 
-const SITE_URL = 'https://www.coffeematterslondon.com';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/hero-bg-vivid.webp`;
+interface RouteMeta {
+  path: string;
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const SITE_URL = seoConfig.siteUrl;
+const DEFAULT_IMAGE = seoConfig.defaultImage;
+const ROUTES = seoConfig.routes as RouteMeta[];
 
 export interface SeoProps {
-  /** Document <title> */
-  title: string;
-  /** Meta description */
-  description: string;
-  /** Route path beginning with "/" (e.g. "/menu"). Used for canonical + og:url. */
+  /** Route path beginning with "/" (e.g. "/menu"). Looked up in seo/routes.json. */
   path: string;
-  /** Absolute Open Graph image URL. Defaults to the hero image. */
-  image?: string;
 }
 
 /** Upsert a <meta> tag matched by name or property attribute. */
@@ -26,20 +29,23 @@ function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
 }
 
 /**
- * Client-side per-route SEO head manager.
+ * Client-side per-route SEO head manager (runtime backup).
  *
- * Keeps title, description, canonical, Open Graph and Twitter tags in sync with
- * the active route. The static tags in index.html act as the crawl-time default
- * for "/"; this component overrides them once React hydrates and on every route
- * change. (For crawlers without JS rendering, see the prerender note in README.)
+ * The authoritative per-route head tags are baked into static HTML at build
+ * time by scripts/prerender.mjs (same seo/routes.json source). This component
+ * keeps the tags correct during client-side navigation between routes.
  */
-export default function Seo({ title, description, path, image = DEFAULT_OG_IMAGE }: SeoProps) {
+export default function Seo({ path }: SeoProps) {
   useEffect(() => {
-    const canonical = `${SITE_URL}${path === '/' ? '/' : path}`;
+    const route = ROUTES.find((r) => r.path === path);
+    if (!route) return;
 
-    document.title = title;
+    const canonical = `${SITE_URL}${route.path === '/' ? '/' : route.path}`;
+    const image = route.image ?? DEFAULT_IMAGE;
 
-    upsertMeta('name', 'description', description);
+    document.title = route.title;
+
+    upsertMeta('name', 'description', route.description);
 
     // Canonical
     let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -51,16 +57,16 @@ export default function Seo({ title, description, path, image = DEFAULT_OG_IMAGE
     link.setAttribute('href', canonical);
 
     // Open Graph
-    upsertMeta('property', 'og:title', title);
-    upsertMeta('property', 'og:description', description);
+    upsertMeta('property', 'og:title', route.title);
+    upsertMeta('property', 'og:description', route.description);
     upsertMeta('property', 'og:url', canonical);
     upsertMeta('property', 'og:image', image);
 
     // Twitter / X
-    upsertMeta('name', 'twitter:title', title);
-    upsertMeta('name', 'twitter:description', description);
+    upsertMeta('name', 'twitter:title', route.title);
+    upsertMeta('name', 'twitter:description', route.description);
     upsertMeta('name', 'twitter:image', image);
-  }, [title, description, path, image]);
+  }, [path]);
 
   return null;
 }

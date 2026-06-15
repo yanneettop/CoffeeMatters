@@ -60,11 +60,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Seo
-        title="Coffee Matters London | Specialty Coffee & Greek Brunch in Brick Lane"
-        description="Specialty coffee, authentic Greek pies, pastries & brunch in the heart of Brick Lane, East London. Dine in, host events or grab a takeaway."
-        path="/"
-      />
+      <Seo path="/" />
       <Hero />
       <SignatureSection />
       <div className="hidden lg:block"><ScrollMarquee direction={-1} /></div>

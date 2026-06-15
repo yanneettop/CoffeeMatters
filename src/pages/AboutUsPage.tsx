@@ -227,11 +227,7 @@ export default function AboutUsPage() {
 
   return (
     <div ref={pageRef}>
-      <Seo
-        title="About | Coffee Matters London — Independent Café in Brick Lane"
-        description="The story behind Coffee Matters — an independent, family-run Greek coffee shop in Brick Lane, East London, serving specialty coffee, homemade pies and Mediterranean warmth."
-        path="/about"
-      />
+      <Seo path="/about" />
       {/* ═══════════════════════════════════════════════════ */}
       {/*  HERO — Dark background with logo                  */}
       {/* ═══════════════════════════════════════════════════ */}

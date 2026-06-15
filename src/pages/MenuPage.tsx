@@ -22,11 +22,7 @@ export default function MenuPage() {
 
   return (
     <div ref={pageRef} className="pt-20">
-      <Seo
-        title="Menu | Coffee, Pastries & Brunch — Coffee Matters London"
-        description="Explore our menu of specialty coffee, Greek pastries, homemade pies and all-day brunch in Brick Lane, East London. Dine in or take away."
-        path="/menu"
-      />
+      <Seo path="/menu" />
       <Menu />
       <NewsletterCTA />
       <Footer />
