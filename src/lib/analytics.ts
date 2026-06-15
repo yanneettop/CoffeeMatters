@@ -1,20 +1,22 @@
-type GtagCommand = 'js' | 'config' | 'event';
+type GtagCommand = 'js' | 'config' | 'consent' | 'event';
 type GtagParams = Record<string, unknown>;
 
 declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (command: GtagCommand, target: string | Date, params?: GtagParams) => void;
+    testGA4?: () => void;
   }
 }
 
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
-let isLoaded = false;
+let isBootstrapped = false;
+let isInitialized = false;
 let lastPageViewPath: string | null = null;
 
 const getCurrentPagePath = () =>
-  `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  `${window.location.pathname}${window.location.search}`;
 
 const devLog = (message: string, details?: unknown) => {
   if (!import.meta.env.DEV) return;
@@ -23,16 +25,42 @@ const devLog = (message: string, details?: unknown) => {
 
 export const getGaMeasurementId = () => GA_MEASUREMENT_ID;
 
+const bootstrapGtag = () => {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag() {
+    window.dataLayer?.push(arguments);
+  };
+};
+
+export const initializeAnalyticsConsent = () => {
+  if (isBootstrapped) return;
+
+  bootstrapGtag();
+  window.gtag?.('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  });
+  isBootstrapped = true;
+  devLog('Initialized default consent mode');
+};
+
 export const initializeAnalytics = () => {
   if (!GA_MEASUREMENT_ID) {
     devLog('GA measurement ID is missing');
     return false;
   }
 
-  window.dataLayer = window.dataLayer ?? [];
-  window.gtag = window.gtag ?? function gtag(...args) {
-    window.dataLayer?.push(args);
-  };
+  initializeAnalyticsConsent();
+  bootstrapGtag();
+  window.gtag?.('consent', 'update', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  });
+  devLog('Updated consent mode after analytics acceptance');
 
   if (!document.querySelector(`script[src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"]`)) {
     const script = document.createElement('script');
@@ -42,9 +70,9 @@ export const initializeAnalytics = () => {
     devLog('Loaded gtag.js', script.src);
   }
 
-  if (!isLoaded) {
-    window.gtag('js', new Date());
-    isLoaded = true;
+  if (!isInitialized) {
+    window.gtag?.('js', new Date());
+    isInitialized = true;
     devLog('Initialized GA4', GA_MEASUREMENT_ID);
   }
 
@@ -59,20 +87,31 @@ export const sendPageView = (pagePath = getCurrentPagePath()) => {
   if (!initializeAnalytics() || !window.gtag) return;
 
   window.gtag('config', GA_MEASUREMENT_ID, {
-    page_title: document.title,
-    page_location: window.location.href,
     page_path: pagePath,
+    page_location: window.location.href,
+    page_title: document.title,
   });
   lastPageViewPath = pagePath;
   devLog('Sent page_view', { measurementId: GA_MEASUREMENT_ID, pagePath });
 };
 
 export const trackEvent = (eventName: string, params: GtagParams = {}) => {
-  if (!isLoaded || !window.gtag) return;
+  if (!isInitialized || !window.gtag) return;
 
   window.gtag('event', eventName, params);
   devLog('Sent event', { eventName, params });
 };
+
+if (import.meta.env.DEV) {
+  window.testGA4 = () => {
+    initializeAnalytics();
+    window.gtag?.('event', 'manual_test_event', {
+      event_category: 'debug',
+      event_label: 'coffee_matters_manual_test',
+    });
+    devLog('Sent manual_test_event');
+  };
+}
 
 const getTrackedEventForLink = (anchor: HTMLAnchorElement) => {
   const explicitEvent = anchor.dataset.analyticsEvent;

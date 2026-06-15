@@ -16,7 +16,7 @@ import ScrollMarquee from './components/ScrollMarquee';
 import BackToTop from './components/BackToTop';
 import LoadingScreen from './components/LoadingScreen';
 import CookieConsent, { hasAnalyticsConsent } from './components/CookieConsent';
-import { initializeAnalytics, sendPageView, trackCafeLinkClick } from './lib/analytics';
+import { initializeAnalytics, initializeAnalyticsConsent, sendPageView, trackCafeLinkClick } from './lib/analytics';
 
 import { Toaster } from 'sonner';
 import './App.css';
@@ -160,6 +160,11 @@ function App() {
 
     document.addEventListener('click', handleTrackedClick);
     return () => document.removeEventListener('click', handleTrackedClick);
+  }, []);
+
+  /* Queue default denied consent mode before analytics is accepted */
+  useEffect(() => {
+    initializeAnalyticsConsent();
   }, []);
 
   /* GA4 page views, gated by stored analytics consent */
