@@ -252,11 +252,11 @@ export default function Menu() {
         <div className="mt-12 md:mt-14 pt-6 border-t border-[var(--sandstone)]/40 flex flex-wrap items-center justify-center gap-4 md:gap-6 text-[11px] text-[var(--text-muted)] font-body tracking-wide">
           <span>
             <span className="inline-block w-4 text-center font-semibold text-[var(--olive)]">V</span>{' '}
-            Vegetarian
+            Vegan
           </span>
           <span>
             <span className="inline-block w-5 text-center font-semibold text-[var(--olive)]">VG</span>{' '}
-            Vegan
+            Vegetarian
           </span>
           <span>
             <span className="inline-block w-5 text-center font-semibold text-[var(--soft-clay)]">GF</span>{' '}
