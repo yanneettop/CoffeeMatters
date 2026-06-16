@@ -149,10 +149,10 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`lg:hidden inline-flex size-11 items-center justify-center rounded-xl border-2 transition-all duration-300 ${
+          className={`lg:hidden inline-flex size-11 items-center justify-center rounded-full transition-colors duration-300 ${
             showSolidNav
-              ? 'border-[var(--coral)] bg-white/65 text-[var(--dark)] shadow-[0_8px_24px_rgba(169,74,47,0.16)]'
-              : 'border-white/70 bg-black/10 text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)]'
+              ? 'text-[var(--coral)] hover:bg-[var(--coral)]/10'
+              : 'text-white hover:bg-white/10'
           }`}
           aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={mobileMenuOpen}
