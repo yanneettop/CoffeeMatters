@@ -324,7 +324,13 @@ export default function Hero() {
           {/* Readability backdrop + headline group */}
           <div className="relative">
             {/* Semi-transparent dark overlay behind headline text */}
-            <div aria-hidden className="absolute -inset-x-6 -inset-y-4 -z-10 rounded-[2rem] bg-black/30 blur-2xl" />
+            <div
+              aria-hidden
+              className="absolute -inset-x-8 -inset-y-6 -z-10 pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.18) 42%, transparent 72%)',
+              }}
+            />
 
           <img
             src="/responsive/logo-building-terracotta-280.webp"

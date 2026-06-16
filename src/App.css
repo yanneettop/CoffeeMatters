@@ -82,6 +82,10 @@ section {
   .img-hover:hover {
     transform: none;
   }
+
+  .img-hover .img-content {
+    transition-duration: 0.01ms;
+  }
   
   .btn-outline:hover {
     background-color: transparent;

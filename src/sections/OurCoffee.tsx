@@ -22,15 +22,6 @@ export default function OurCoffee() {
         }
         if (imageRef.current) {
           gsap.fromTo(imageRef.current, { y: 20, opacity: 0, rotateZ: 1.5 }, { y: 0, opacity: 1, rotateZ: 0, duration: 0.55, ease: 'power2.out', scrollTrigger: st });
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-            onUpdate: (self) => {
-              if (imageRef.current) gsap.set(imageRef.current, { scale: 0.97 + self.progress * 0.06 });
-            }
-          });
         }
         const paragraphs = textRef.current?.querySelectorAll('p');
         if (paragraphs?.length) {
