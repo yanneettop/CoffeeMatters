@@ -22,6 +22,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(forceGlass);
   const { pathname } = useLocation();
+  const showSolidNav = navScrolled || mobileMenuOpen;
 
   // Scroll-based glassmorphism (only on home page where the transparent hero sits behind the nav)
   useEffect(() => {
@@ -62,7 +63,10 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
   }, []);
 
   // Close mobile menu on any link click
-  const handleLinkClick = () => {
+  const handleLinkClick = (to?: string) => {
+    if (to && to === pathname) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
     setMobileMenuOpen(false);
   };
 
@@ -70,7 +74,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
     <nav
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        navScrolled ? 'glass shadow-lg py-2.5 lg:py-3' : 'bg-transparent py-4 lg:py-5 xl:py-6'
+        showSolidNav ? 'bg-[var(--cream)]/95 shadow-lg py-2.5 lg:py-3' : 'bg-transparent py-4 lg:py-5 xl:py-6'
       }`}
     >
       <div className="section-padding flex items-center justify-between">
@@ -90,7 +94,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
             loading="eager"
             decoding="async"
             className={`h-10 lg:h-11 xl:h-12 w-auto object-contain transition-opacity duration-500 ${
-              navScrolled ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+              showSolidNav ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
             }`}
           />
           <img
@@ -103,7 +107,7 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
             loading="eager"
             decoding="async"
             className={`h-10 lg:h-11 xl:h-12 w-auto object-contain absolute top-0 left-0 transition-opacity duration-500 ${
-              navScrolled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              showSolidNav ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
             }`}
           />
         </Link>
@@ -118,10 +122,11 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
                 key={link.name}
                 to={link.to}
                 aria-current={isActive ? 'page' : undefined}
+                onClick={() => handleLinkClick(link.to)}
                 className={`relative text-[13px] xl:text-sm font-normal tracking-widest uppercase group transition-colors duration-300 ${
                   isActive
                     ? 'text-[var(--coral)]'
-                    : navScrolled
+                    : showSolidNav
                     ? 'text-gray-800 hover:text-[var(--coral)]'
                     : 'text-white/90 hover:text-[var(--coral-on-dark)]'
                 }`}
@@ -144,8 +149,10 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`lg:hidden p-2 transition-colors ${
-            navScrolled ? 'text-black' : 'text-white'
+          className={`lg:hidden inline-flex size-11 items-center justify-center rounded-xl border-2 transition-all duration-300 ${
+            showSolidNav
+              ? 'border-[var(--coral)] bg-white/65 text-[var(--dark)] shadow-[0_8px_24px_rgba(169,74,47,0.16)]'
+              : 'border-white/70 bg-black/10 text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)]'
           }`}
           aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={mobileMenuOpen}
@@ -156,18 +163,25 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden glass absolute top-full left-0 right-0 py-4 px-6 shadow-lg">
+        <div className="lg:hidden absolute left-4 right-4 top-[calc(100%+0.4rem)] overflow-hidden rounded-xl border border-[var(--sandstone)]/70 bg-[var(--cream)] shadow-[0_18px_50px_rgba(43,38,35,0.18)]">
+          <div className="h-1 bg-[linear-gradient(90deg,var(--coral),var(--coral-on-dark),var(--olive))]" />
+          <div className="p-2">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.to}
               aria-current={pathname === link.to ? 'page' : undefined}
-              onClick={handleLinkClick}
-              className="block py-3 text-gray-800 hover:text-[var(--coral)] font-normal tracking-widest uppercase text-sm border-b border-gray-200 last:border-0"
+              onClick={() => handleLinkClick(link.to)}
+              className={`block rounded-lg px-4 py-2.5 font-body text-xs uppercase tracking-[0.18em] transition-colors duration-300 ${
+                pathname === link.to
+                  ? 'bg-[var(--coral)]/10 text-[var(--coral)]'
+                  : 'text-[var(--dark)] hover:bg-white/55 hover:text-[var(--coral)]'
+              }`}
             >
               {link.name}
             </Link>
           ))}
+          </div>
         </div>
       )}
     </nav>

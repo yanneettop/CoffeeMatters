@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -46,12 +46,39 @@ function LegacyHashRedirect() {
 
 /** Scroll to top and refresh scroll triggers on every route change. */
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const location = useLocation();
+
   useEffect(() => {
-    window.scrollTo({ top: 0 });
-    const timeout = setTimeout(() => ScrollTrigger.refresh(), 300);
-    return () => clearTimeout(timeout);
-  }, [pathname]);
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    const scrollToPageTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    scrollToPageTop();
+
+    const frameOne = requestAnimationFrame(() => {
+      scrollToPageTop();
+      requestAnimationFrame(scrollToPageTop);
+    });
+
+    const timeout = setTimeout(() => {
+      scrollToPageTop();
+      ScrollTrigger.refresh();
+    }, 300);
+
+    return () => {
+      cancelAnimationFrame(frameOne);
+      clearTimeout(timeout);
+    };
+  }, [location.key, location.pathname]);
+
   return null;
 }
 
