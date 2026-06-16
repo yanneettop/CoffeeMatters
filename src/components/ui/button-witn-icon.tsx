@@ -23,7 +23,7 @@ const variantStyles: Record<ButtonVariant, { button: string; icon: string }> = {
   },
   // Solid filled brand button — high-contrast primary CTA
   solid: {
-    button: "border-0 bg-[#D85A30] text-white hover:bg-[#bf4a24] hover:scale-[1.02] shadow-[0_4px_24px_rgba(216,90,48,0.35)] hover:shadow-[0_8px_40px_rgba(216,90,48,0.55)]",
+    button: "border-0 bg-[#D85A30] text-white hover:bg-[#bf4a24] shadow-[0_4px_24px_rgba(216,90,48,0.35)] hover:shadow-[0_8px_40px_rgba(216,90,48,0.55)]",
     icon: "bg-white/20 text-white",
   },
   outline: {
@@ -31,7 +31,7 @@ const variantStyles: Record<ButtonVariant, { button: string; icon: string }> = {
     icon: "bg-[#c25b3a]/10 text-[#c25b3a] group-hover:bg-white/20 group-hover:text-white",
   },
   "outline-light": {
-    button: "border-2 border-white/70 bg-white/5 text-white hover:bg-white/15 hover:border-white hover:scale-[1.02] shadow-none hover:shadow-[0_8px_32px_rgba(255,255,255,0.12)] backdrop-blur-sm",
+    button: "border-2 border-white/70 bg-white/5 text-white hover:bg-white/15 hover:border-white shadow-none hover:shadow-[0_8px_32px_rgba(255,255,255,0.12)] backdrop-blur-sm",
     icon: "bg-white/20 text-white group-hover:bg-white/30",
   },
 };
@@ -66,7 +66,7 @@ const ButtonWithIcon = ({
 
   return (
     <Button
-      className={`relative text-sm font-medium rounded-full min-h-[44px] h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer active:scale-95 ${styles.button} ${className}`}
+      className={`relative text-sm font-medium rounded-full min-h-[44px] h-12 p-1 ps-6 pe-14 group transition-[background-color,border-color,color,box-shadow,padding-left,padding-right] duration-300 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer ${styles.button} ${className}`}
       onClick={onClick}
       asChild={!!href}
       aria-label={ariaLabel}

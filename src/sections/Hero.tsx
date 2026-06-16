@@ -48,7 +48,14 @@ export default function Hero() {
         const tl = gsap.timeline({ delay: 0.3 });
         if (heading) tl.fromTo(heading, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' });
         if (subheading) tl.fromTo(subheading, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-        if (buttons?.length) tl.fromTo(buttons, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.08, ease: 'power2.out' }, '-=0.25');
+        if (buttons?.length) {
+          tl.fromTo(
+            buttons,
+            { y: 15, opacity: 0, force3D: true },
+            { y: 0, opacity: 1, duration: 0.45, stagger: 0.08, ease: 'power2.out', clearProps: 'transform,willChange' },
+            '-=0.25'
+          );
+        }
 
         // Divider shimmer
         if (mobileDivider) {
@@ -176,8 +183,8 @@ export default function Hero() {
       const ctaButtons = heroRef.current?.querySelectorAll('.hero-cta');
       if (ctaButtons && ctaButtons.length > 0) {
         gsap.fromTo(ctaButtons,
-          { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, delay: 1.8, ease: 'power2.out' }
+          { opacity: 0, y: 15, force3D: true },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, delay: 1.8, ease: 'power2.out', clearProps: 'transform,willChange' }
         );
       }
 
