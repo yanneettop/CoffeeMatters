@@ -5,6 +5,8 @@ import { MapPin } from 'lucide-react';
 import ButtonWithIcon from '@/components/ui/button-witn-icon';
 
 const DIRECTIONS_URL = 'https://maps.google.com/?q=Coffee+Matters+London+Brick+Lane';
+const MOBILE_HERO_MAX_WIDTH = 639;
+const LIGHT_HERO_MAX_WIDTH = 1180;
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -28,47 +30,77 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (imgRef.current) {
+        imgRef.current.style.opacity = '1';
+      }
+      return;
+    }
 
-    const isMobile = window.innerWidth < 768;
+    const isMobileLayout = window.matchMedia(`(max-width: ${MOBILE_HERO_MAX_WIDTH}px)`).matches;
+    const useLightHeroMotion = window.matchMedia(`(max-width: ${LIGHT_HERO_MAX_WIDTH}px)`).matches;
 
-    if (isMobile) {
+    if (useLightHeroMotion) {
       if (imgRef.current) {
         imgRef.current.style.opacity = '1';
       }
 
-      // Entrance animations for mobile hero content
-      const mobileCtx = gsap.context(() => {
-        const heading = contentRef.current?.querySelector('.hero-heading');
-        const subheading = contentRef.current?.querySelector('p');
-        const buttons = contentRef.current?.querySelectorAll('a');
-        const mobileDivider = contentRef.current?.querySelector('.mobile-divider');
+      const lightCtx = gsap.context(() => {
+        const heading = isMobileLayout
+          ? contentRef.current?.querySelector('.hero-heading')
+          : headingRef.current;
+        const subheading = isMobileLayout
+          ? contentRef.current?.querySelector('p')
+          : subheadingRef.current;
+        const divider = isMobileLayout
+          ? contentRef.current?.querySelector('.mobile-divider')
+          : dividerRef.current;
+        const buttons = isMobileLayout
+          ? contentRef.current?.querySelectorAll('a')
+          : heroRef.current?.querySelectorAll('.hero-cta');
 
-        // Entrance
-        const tl = gsap.timeline({ delay: 0.3 });
-        if (heading) tl.fromTo(heading, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' });
-        if (subheading) tl.fromTo(subheading, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-        if (buttons?.length) {
+        const tl = gsap.timeline({ delay: 0.25, defaults: { ease: 'power2.out' } });
+
+        if (heading) {
           tl.fromTo(
-            buttons,
-            { y: 15, opacity: 0, force3D: true },
-            { y: 0, opacity: 1, duration: 0.45, stagger: 0.08, ease: 'power2.out', clearProps: 'transform,willChange' },
-            '-=0.25'
+            heading,
+            { y: 24, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.55, clearProps: 'transform,willChange' }
           );
         }
 
-        // Divider shimmer
-        if (mobileDivider) {
-          gsap.set(mobileDivider, { backgroundSize: '200% 100%' });
-          gsap.to(mobileDivider, { backgroundPosition: '200% center', duration: 3, ease: 'none', repeat: -1, delay: 1 });
+        if (divider) {
+          tl.fromTo(
+            divider,
+            { y: 8, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.35, clearProps: 'transform,willChange' },
+            '-=0.22'
+          );
         }
 
-        // Heading glow pulse
-        if (heading) {
-          gsap.to(heading, {
-            textShadow: '0 2px 25px rgba(194,91,58,0.45), 0 0 50px rgba(194,91,58,0.2)',
-            duration: 2.5, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 0.9,
-          });
+        if (subheading) {
+          tl.fromTo(
+            subheading,
+            { y: 18, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.45, clearProps: 'transform,willChange' },
+            '-=0.12'
+          );
+        }
+
+        if (buttons?.length) {
+          gsap.fromTo(
+            buttons,
+            { y: 16, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.45,
+              stagger: 0.08,
+              delay: 1.05,
+              ease: 'power2.out',
+              clearProps: 'transform,willChange',
+            }
+          );
         }
       }, heroRef);
 
@@ -86,7 +118,7 @@ export default function Hero() {
       handleScroll();
 
       return () => {
-        mobileCtx.revert();
+        lightCtx.revert();
         window.removeEventListener('scroll', handleScroll);
       };
     }
@@ -276,7 +308,7 @@ export default function Hero() {
       />
 
       {/* Bokeh particles — white, behind content */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="hidden min-[1181px]:block absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(20)].map((_, i) => {
           const size = 5 + (i % 8) * 4;
           return (
@@ -583,7 +615,7 @@ export default function Hero() {
       </div>
 
       {/* Terracotta bokeh — desktop only, clustered at heading edges */}
-      <div className="hidden sm:block absolute inset-0 z-20 pointer-events-none overflow-hidden">
+      <div className="hidden min-[1181px]:block absolute inset-0 z-20 pointer-events-none overflow-hidden">
         {[...Array(40)].map((_, i) => {
           const size = 15 + (i % 6) * 10;
           const colors = [
