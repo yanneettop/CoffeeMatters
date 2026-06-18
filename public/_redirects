@@ -1,5 +1,24 @@
+https://coffeematterslondon.com/menu https://www.coffeematterslondon.com/menu/ 301
+https://coffeematterslondon.com/gallery https://www.coffeematterslondon.com/gallery/ 301
+https://coffeematterslondon.com/about https://www.coffeematterslondon.com/about/ 301
+https://coffeematterslondon.com/contact https://www.coffeematterslondon.com/contact/ 301
+http://coffeematterslondon.com/menu https://www.coffeematterslondon.com/menu/ 301
+http://coffeematterslondon.com/gallery https://www.coffeematterslondon.com/gallery/ 301
+http://coffeematterslondon.com/about https://www.coffeematterslondon.com/about/ 301
+http://coffeematterslondon.com/contact https://www.coffeematterslondon.com/contact/ 301
+http://www.coffeematterslondon.com/menu https://www.coffeematterslondon.com/menu/ 301
+http://www.coffeematterslondon.com/gallery https://www.coffeematterslondon.com/gallery/ 301
+http://www.coffeematterslondon.com/about https://www.coffeematterslondon.com/about/ 301
+http://www.coffeematterslondon.com/contact https://www.coffeematterslondon.com/contact/ 301
+
+https://coffeematterslondon.com/* https://www.coffeematterslondon.com/:splat 301
 http://coffeematterslondon.com/* https://www.coffeematterslondon.com/:splat 301
 http://www.coffeematterslondon.com/* https://www.coffeematterslondon.com/:splat 301
 
-# SPA fallback — serve index.html for client-side routes (must stay last)
+/menu https://www.coffeematterslondon.com/menu/ 301
+/gallery https://www.coffeematterslondon.com/gallery/ 301
+/about https://www.coffeematterslondon.com/about/ 301
+/contact https://www.coffeematterslondon.com/contact/ 301
+
+# SPA fallback: serve index.html for client-side routes (must stay last)
 /* /index.html 200

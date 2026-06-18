@@ -9,10 +9,10 @@
 //
 // Output:
 //   dist/index.html            canonical .../
-//   dist/menu/index.html       canonical .../menu
-//   dist/gallery/index.html    canonical .../gallery
-//   dist/about/index.html      canonical .../about
-//   dist/contact/index.html    canonical .../contact
+//   dist/menu/index.html       canonical .../menu/
+//   dist/gallery/index.html    canonical .../gallery/
+//   dist/about/index.html      canonical .../about/
+//   dist/contact/index.html    canonical .../contact/
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';

@@ -213,7 +213,7 @@ export default function HostEvents() {
               </p>
 
               {/* CTA Button */}
-              <ButtonWithIcon href="/contact" variant="outline">
+              <ButtonWithIcon href="/contact/" variant="outline">
                 Hire Our Venue
               </ButtonWithIcon>
             </div>

@@ -20,12 +20,12 @@ const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-/** Legacy hash anchors → real routes (e.g. /#menu → /menu) */
+/** Legacy hash anchors → real routes (e.g. /#menu → /menu/) */
 const LEGACY_HASH_ROUTES: Record<string, string> = {
-  '#menu': '/menu',
-  '#gallery': '/gallery',
-  '#about': '/about',
-  '#contact': '/contact',
+  '#menu': '/menu/',
+  '#gallery': '/gallery/',
+  '#about': '/about/',
+  '#contact': '/contact/',
   '#home': '/',
 };
 
@@ -124,10 +124,10 @@ function App() {
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/menu" element={<MenuPage />} />
-            <Route path="/about" element={<AboutUsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/menu/" element={<MenuPage />} />
+            <Route path="/about/" element={<AboutUsPage />} />
+            <Route path="/contact/" element={<ContactPage />} />
+            <Route path="/gallery/" element={<GalleryPage />} />
             {/* Unknown paths fall back to home */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

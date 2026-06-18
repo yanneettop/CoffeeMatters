@@ -6,10 +6,10 @@ import { openCookieSettings } from '@/components/CookieConsent';
 
 const quickLinks = [
   { name: 'Home', to: '/' },
-  { name: 'Menu', to: '/menu' },
-  { name: 'Gallery', to: '/gallery' },
-  { name: 'About us', to: '/about' },
-  { name: 'Contact', to: '/contact' },
+  { name: 'Menu', to: '/menu/' },
+  { name: 'Gallery', to: '/gallery/' },
+  { name: 'About us', to: '/about/' },
+  { name: 'Contact', to: '/contact/' },
 ];
 
 const openingHours = [

@@ -213,7 +213,7 @@ export default function SweetsBrunch() {
               </div>
 
               {/* CTA Button */}
-              <ButtonWithIcon href="/menu" variant="outline">
+              <ButtonWithIcon href="/menu/" variant="outline">
                 See Menu
               </ButtonWithIcon>
             </div>

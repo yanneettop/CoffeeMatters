@@ -13,7 +13,7 @@ const DEFAULT_IMAGE = seoConfig.defaultImage;
 const ROUTES = seoConfig.routes as RouteMeta[];
 
 export interface SeoProps {
-  /** Route path beginning with "/" (e.g. "/menu"). Looked up in seo/routes.json. */
+  /** Route path beginning with "/" (e.g. "/menu/"). Looked up in seo/routes.json. */
   path: string;
 }
 
@@ -37,7 +37,8 @@ function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
  */
 export default function Seo({ path }: SeoProps) {
   useEffect(() => {
-    const route = ROUTES.find((r) => r.path === path);
+    const normalizedPath = path === '/' ? '/' : `${path.replace(/\/+$/, '')}/`;
+    const route = ROUTES.find((r) => r.path === normalizedPath);
     if (!route) return;
 
     const canonical = `${SITE_URL}${route.path === '/' ? '/' : route.path}`;

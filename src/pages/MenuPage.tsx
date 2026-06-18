@@ -22,7 +22,7 @@ export default function MenuPage() {
 
   return (
     <div ref={pageRef} className="pt-20">
-      <Seo path="/menu" />
+      <Seo path="/menu/" />
       <Menu />
       <NewsletterCTA />
       <Footer />

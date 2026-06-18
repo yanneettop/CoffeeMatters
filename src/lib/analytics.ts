@@ -122,7 +122,7 @@ const getTrackedEventForLink = (anchor: HTMLAnchorElement) => {
 
   if (href.startsWith('tel:')) return 'phone_click';
   if (href.startsWith('mailto:')) return 'email_click';
-  if (rawHref === '/menu' || rawHref === '#menu') return 'menu_view';
+  if (rawHref === '/menu' || rawHref === '/menu/' || rawHref === '#menu') return 'menu_view';
   if (href.includes('instagram.com')) return 'instagram_click';
   if (href.includes('deliveroo') || href.includes('ubereats') || href.includes('delivery')) {
     return 'delivery_click';

@@ -251,7 +251,7 @@ export default function AboutUs() {
               </p>
 
               {/* CTA Button */}
-              <ButtonWithIcon href="/about" variant="outline">
+              <ButtonWithIcon href="/about/" variant="outline">
                 Read Our Story
               </ButtonWithIcon>
             </div>

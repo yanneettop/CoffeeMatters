@@ -201,7 +201,7 @@ export default function GalleryPage() {
 
   return (
     <div ref={pageRef} className="pt-20">
-      <Seo path="/gallery" />
+      <Seo path="/gallery/" />
       {/* ── Hero ──────────────────────────────────────────── */}
       <section ref={heroRef} className="section-padding py-14 md:py-[4.5rem] lg:py-20 xl:py-24 text-center">
         <p className="hero-anim font-body text-sm tracking-[0.3em] uppercase text-coral mb-4">

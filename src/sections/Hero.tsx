@@ -442,7 +442,7 @@ export default function Hero() {
 
           {/* CTA Buttons — stacked full-width on mobile */}
           <div className="flex flex-col w-full max-w-[300px] gap-4">
-            <ButtonWithIcon href="/menu" variant="solid" className="hero-cta-primary !w-full">
+            <ButtonWithIcon href="/menu/" variant="solid" className="hero-cta-primary !w-full">
               View Menu
             </ButtonWithIcon>
             <ButtonWithIcon
@@ -569,7 +569,7 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-4 lg:gap-5">
-          <ButtonWithIcon href="/menu" variant="solid" className="hero-cta hero-cta-primary">
+          <ButtonWithIcon href="/menu/" variant="solid" className="hero-cta hero-cta-primary">
             View Menu
           </ButtonWithIcon>
           <ButtonWithIcon
