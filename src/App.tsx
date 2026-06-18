@@ -5,20 +5,22 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
+import MenuPage from './pages/MenuPage';
+import AboutUsPage from './pages/AboutUsPage';
+import ContactPage from './pages/ContactPage';
+import GalleryPage from './pages/GalleryPage';
 import BackToTop from './components/BackToTop';
 import LoadingScreen from './components/LoadingScreen';
 import CookieConsent, { hasAnalyticsConsent } from './components/CookieConsent';
 import { initializeAnalytics, initializeAnalyticsConsent, sendPageView, trackCafeLinkClick } from './lib/analytics';
 
-import { Toaster } from 'sonner';
 import './App.css';
 
-const MenuPage = lazy(() => import('./pages/MenuPage'));
-const AboutUsPage = lazy(() => import('./pages/AboutUsPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+const AppToaster = lazy(() => import('./components/AppToaster'));
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+}
 
 /** Legacy hash anchors → real routes (e.g. /#menu → /menu/) */
 const LEGACY_HASH_ROUTES: Record<string, string> = {
@@ -86,7 +88,12 @@ function App() {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  const [loading, setLoading] = useState(() => isHome && !window.location.hash);
+  const [loading, setLoading] = useState(() => isHome && typeof window !== 'undefined' && !window.location.hash);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   /* Track important cafe actions on existing links */
   useEffect(() => {
@@ -116,7 +123,11 @@ function App() {
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-      <Toaster position="top-right" richColors />
+      {mounted && (
+        <Suspense fallback={null}>
+          <AppToaster />
+        </Suspense>
+      )}
       <LegacyHashRedirect />
       <ScrollToTop />
       <Navbar forceGlass={!isHome} />
@@ -134,7 +145,7 @@ function App() {
         </Suspense>
       </main>
       <BackToTop />
-      <CookieConsent />
+      {mounted && <CookieConsent />}
     </>
   );
 }

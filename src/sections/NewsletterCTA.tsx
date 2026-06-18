@@ -170,7 +170,7 @@ export default function NewsletterCTA() {
           <h2 
             ref={headingRef}
             className="font-display text-[clamp(1.8rem,3.4vw,3.2rem)] text-white font-light leading-snug tracking-[0.01em] mb-4 sm:mb-6 max-w-3xl mx-auto text-balance"
-            style={window.innerWidth >= 1024 ? { willChange: 'transform' } : undefined}
+            style={typeof window !== 'undefined' && window.innerWidth >= 1024 ? { willChange: 'transform' } : undefined}
           >
             {headingLines.map((line, lineIndex) => (
               <span

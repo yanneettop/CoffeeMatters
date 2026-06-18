@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
 import { MapPin, Mail, Clock, Send, Loader2 } from 'lucide-react';
 import NewsletterCTA from '@/sections/NewsletterCTA';
 import Footer from '@/sections/Footer';
@@ -97,6 +96,7 @@ export default function ContactPage() {
   /* ── Form submission ──────────────────────────────────── */
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
+    const { toast } = await import('sonner');
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -148,7 +148,7 @@ export default function ContactPage() {
           </span>
         </h1>
         <p className="hero-anim font-body text-[var(--text-secondary)] body-copy max-w-2xl mx-auto">
-          Whether you have a question, want to book an event, or simply want to say hello — drop us a message and we'll get back to you as soon as we can.
+          Whether you have a question, want to book an event, or simply want to say hello — drop us a message and we'll get back to you as soon as we can. You can also visit us for specialty coffee, brunch and pastries near Brick Lane.
         </p>
       </section>
 

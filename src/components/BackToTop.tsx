@@ -3,7 +3,9 @@ import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ArrowUp } from 'lucide-react';
 
-gsap.registerPlugin(ScrollToPlugin);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollToPlugin);
+}
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);

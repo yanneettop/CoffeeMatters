@@ -10,7 +10,7 @@ export default function AboutUs() {
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
 
-  const isMobile = window.innerWidth < 1024;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

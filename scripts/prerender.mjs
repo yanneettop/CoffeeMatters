@@ -1,11 +1,8 @@
-// Post-build prerender: bake route-specific <head> tags into static HTML.
+// Post-build prerender: bake route-specific <head> tags and rendered body into static HTML.
 //
-// Why: the app is a client-rendered SPA, so the SPA-fallback HTML for every
-// deep route ships the homepage <head> (canonical = "/"). Static crawlers
-// (Ahrefs, Bing) read that initial HTML and flag the routes as non-canonical.
-// This script clones the built dist/index.html for each route and rewrites the
-// title, description, canonical, Open Graph and Twitter tags from the same
-// seo/routes.json the runtime <Seo> component uses.
+// Why: crawlers can read the initial HTML before client-side React runs. Rendering
+// the route body at build time gives every indexable page crawlable headings,
+// copy, navigation links, footer links and CTAs while preserving the same React UI.
 //
 // Output:
 //   dist/index.html            canonical .../
@@ -17,6 +14,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createServer } from 'vite';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
@@ -27,9 +25,27 @@ const { siteUrl, defaultImage, imageAlt } = config;
 
 const template = readFileSync(join(distDir, 'index.html'), 'utf8');
 
-/** Escape text placed inside an element (e.g. <title>). */
+globalThis.window ??= {
+  innerWidth: 1440,
+  innerHeight: 900,
+  location: { hash: '', pathname: '/' },
+  history: {},
+  matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+  addEventListener() {},
+  removeEventListener() {},
+  scrollTo() {},
+};
+globalThis.document ??= {
+  documentElement: { clientHeight: 900, scrollTop: 0 },
+  body: { scrollTop: 0, style: {} },
+  getElementById: () => null,
+  querySelectorAll: () => [],
+  head: { querySelector: () => null, appendChild() {} },
+  createElement: () => ({ setAttribute() {} }),
+};
+globalThis.navigator ??= { userAgent: 'node' };
+
 const escText = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-/** Escape a value placed inside a double-quoted attribute. */
 const escAttr = (s) => escText(s).replace(/"/g, '&quot;');
 
 function setTitle(html, title) {
@@ -50,21 +66,26 @@ function setCanonical(html, href) {
   return html.replace(re, `$1${escAttr(href)}$2`);
 }
 
-function buildHtml(route) {
+function setRootHtml(html, appHtml) {
+  const re = /<div id="root">[\s\S]*?<\/div>/;
+  if (!re.test(html)) throw new Error('root element not found');
+  return html.replace(re, `<div id="root">${appHtml}</div>`);
+}
+
+function buildHtml(route, appHtml) {
   const canonical = `${siteUrl}${route.path === '/' ? '/' : route.path}`;
   const image = route.image ?? defaultImage;
 
   let html = template;
+  html = setRootHtml(html, appHtml);
   html = setTitle(html, route.title);
   html = setMeta(html, 'name', 'description', route.description);
   html = setCanonical(html, canonical);
-  // Open Graph
   html = setMeta(html, 'property', 'og:title', route.title);
   html = setMeta(html, 'property', 'og:description', route.description);
   html = setMeta(html, 'property', 'og:url', canonical);
   html = setMeta(html, 'property', 'og:image', image);
   html = setMeta(html, 'property', 'og:image:alt', imageAlt);
-  // Twitter / X
   html = setMeta(html, 'name', 'twitter:title', route.title);
   html = setMeta(html, 'name', 'twitter:description', route.description);
   html = setMeta(html, 'name', 'twitter:image', image);
@@ -72,16 +93,30 @@ function buildHtml(route) {
   return html;
 }
 
-for (const route of config.routes) {
-  const html = buildHtml(route);
-  const outPath =
-    route.path === '/'
-      ? join(distDir, 'index.html')
-      : join(distDir, route.path.replace(/^\//, ''), 'index.html');
+const vite = await createServer({
+  root,
+  appType: 'custom',
+  logLevel: 'error',
+  server: { middlewareMode: true },
+});
 
-  mkdirSync(dirname(outPath), { recursive: true });
-  writeFileSync(outPath, html, 'utf8');
-  console.log(`prerendered ${route.path} -> ${outPath.replace(root, '.')}`);
+try {
+  const { render } = await vite.ssrLoadModule('/src/entry-server.tsx');
+
+  for (const route of config.routes) {
+    const appHtml = render(route.path);
+    const html = buildHtml(route, appHtml);
+    const outPath =
+      route.path === '/'
+        ? join(distDir, 'index.html')
+        : join(distDir, route.path.replace(/^\//, ''), 'index.html');
+
+    mkdirSync(dirname(outPath), { recursive: true });
+    writeFileSync(outPath, html, 'utf8');
+    console.log(`prerendered ${route.path} -> ${outPath.replace(root, '.')}`);
+  }
+} finally {
+  await vite.close();
 }
 
-console.log(`\n✓ prerendered ${config.routes.length} routes`);
+console.log(`\nOK prerendered ${config.routes.length} routes`);

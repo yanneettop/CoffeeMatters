@@ -13,14 +13,17 @@ const devLog = (message: string, details?: unknown) => {
 };
 
 export const hasAnalyticsConsent = () =>
+  typeof localStorage !== 'undefined' &&
   localStorage.getItem(STORAGE_KEY) === 'accepted';
 
 export const openCookieSettings = () => {
+  if (typeof window === 'undefined') return;
   window.dispatchEvent(new CustomEvent(OPEN_SETTINGS_EVENT));
 };
 
 export default function CookieConsent() {
   const [choice, setChoice] = useState<ConsentChoice | null>(() => {
+    if (typeof localStorage === 'undefined') return null;
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored === 'accepted' || stored === 'rejected' ? stored : null;
   });

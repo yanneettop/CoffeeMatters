@@ -1,32 +1,32 @@
 {
   "siteUrl": "https://www.coffeematterslondon.com",
   "defaultImage": "https://www.coffeematterslondon.com/hero-bg-vivid.webp",
-  "imageAlt": "Coffee Matters café interior at Brick Lane, London",
+  "imageAlt": "Coffee Matters cafe interior at Brick Lane, London",
   "routes": [
     {
       "path": "/",
       "title": "Coffee Matters London | Specialty Coffee & Greek Brunch in Brick Lane",
-      "description": "Specialty coffee, authentic Greek pies, pastries & brunch in the heart of Brick Lane, East London. Dine in, host events or grab a takeaway."
+      "description": "Specialty coffee, Greek pastries and brunch on Brick Lane, East London. Dine in, grab takeaway or host an event."
     },
     {
       "path": "/menu/",
-      "title": "Menu | Coffee, Pastries & Brunch — Coffee Matters London",
-      "description": "Explore our menu of specialty coffee, Greek pastries, homemade pies and all-day brunch in Brick Lane, East London. Dine in or take away."
+      "title": "Menu | Coffee, Pastries & Brunch - Coffee Matters London",
+      "description": "Explore specialty coffee, Greek pastries, homemade pies and all-day brunch at Coffee Matters on Brick Lane."
     },
     {
       "path": "/gallery/",
-      "title": "Gallery | Inside Coffee Matters London — Brick Lane Café",
-      "description": "Take a look inside Coffee Matters — our plant-filled, art-lined independent café in Brick Lane, East London. Storefront, seating and the cosy basement lounge."
+      "title": "Gallery | Inside Coffee Matters London - Brick Lane Cafe",
+      "description": "See inside Coffee Matters, our plant-filled independent cafe on Brick Lane with warm seating and a cosy basement lounge."
     },
     {
       "path": "/about/",
-      "title": "About | Coffee Matters London — Independent Café in Brick Lane",
-      "description": "The story behind Coffee Matters — an independent, family-run Greek coffee shop in Brick Lane, East London, serving specialty coffee, homemade pies and Mediterranean warmth."
+      "title": "About | Coffee Matters London - Independent Cafe in Brick Lane",
+      "description": "Learn the story of Coffee Matters, an independent Greek coffee shop on Brick Lane serving coffee, pies and brunch."
     },
     {
       "path": "/contact/",
-      "title": "Contact & Find Us | Coffee Matters London — Brick Lane",
-      "description": "Visit Coffee Matters at 157 Bethnal Green Road, Brick Lane, London E2 7DG. Opening hours, directions and our contact form for events and enquiries."
+      "title": "Contact & Find Us | Coffee Matters London - Brick Lane",
+      "description": "Find Coffee Matters on Brick Lane, London. Check opening hours, directions and contact us for events or enquiries."
     }
   ]
 }

@@ -218,7 +218,8 @@ export default function GalleryPage() {
         </h1>
         <p className="hero-anim font-body text-[var(--text-secondary)] body-copy max-w-2xl mx-auto">
           Plants, art, warm light and the aroma of freshly brewed coffee — step inside our
-          Bethnal Green hideaway and see why people keep coming back.
+          Bethnal Green hideaway and see why people keep coming back for quiet catch-ups,
+          weekend brunch, Greek pastries and a calm Coffee Matters moment just off Brick Lane.
         </p>
       </section>
 
