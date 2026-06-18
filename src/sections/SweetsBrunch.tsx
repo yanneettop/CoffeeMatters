@@ -168,6 +168,7 @@ export default function SweetsBrunch() {
         srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
         sizes="(max-width: 768px) 112px, 160px"
         alt=""
+        aria-hidden="true"
         width={400}
         height={400}
         className="beans-deco absolute -right-12 bottom-16 w-28 xl:w-40 opacity-80 pointer-events-none hidden md:block"
@@ -180,6 +181,7 @@ export default function SweetsBrunch() {
         srcSet="/responsive/beans2-400.webp 400w, /responsive/beans2-800.webp 800w, /responsive/beans2-1200.webp 1200w"
         sizes="(max-width: 768px) 96px, 128px"
         alt=""
+        aria-hidden="true"
         width={400}
         height={400}
         className="beans-deco absolute -left-10 top-12 w-24 xl:w-32 opacity-80 pointer-events-none hidden xl:block"

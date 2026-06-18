@@ -126,7 +126,7 @@ export default function Footer() {
                 sizes="(max-width: 768px) 58px, 72px"
                 width={3665}
                 height={3893}
-                alt=""
+                alt="Coffee Matters building logo"
                 className="w-14 md:w-[4.5rem] h-auto shrink-0 object-contain opacity-90"
                 style={{ filter: 'brightness(0) invert(1)' }}
                 loading="lazy"
