@@ -14,7 +14,7 @@ import ScrollMarquee from '../components/ScrollMarquee';
 import Seo from '../components/Seo';
 
 export default function HomePage() {
-  /* ── Global subtle parallax drift on all sections ──────── */
+  /* Global subtle parallax drift on all sections */
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (window.innerWidth < 1280) return; // Keep tablet and small laptop proportions steady.
@@ -26,7 +26,7 @@ export default function HomePage() {
         const sections = document.querySelectorAll('main section');
 
         sections.forEach((section) => {
-          // Skip hero — has its own parallax
+          // Skip hero because it has its own parallax.
           if (section.id === 'home') return;
 
           gsap.fromTo(section,
@@ -63,13 +63,10 @@ export default function HomePage() {
       <Seo path="/" />
       <Hero />
       <SignatureSection />
-      <div className="hidden lg:block"><ScrollMarquee direction={-1} /></div>
+      <div className="block"><ScrollMarquee direction={-1} /></div>
       <OurCoffee />
       <SweetsBrunch />
-      <div className="hidden lg:block"><ScrollMarquee
-        direction={1}
-        text="SWEETS & PIES  ·  BRUNCH  ·  MEDITERRANEAN  ·  AUTHENTIC RECIPES  ·  BAKED DAILY  ·  "
-      /></div>
+      <div className="block"><ScrollMarquee direction={1} /></div>
       <HostEvents />
       <AboutUs />
       <GoogleReviews />

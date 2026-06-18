@@ -115,10 +115,10 @@ export default function Footer() {
       <div className="section-padding">
         <div 
           ref={columnsRef}
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-10 xl:gap-8 max-w-[1200px] mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.35fr_0.72fr_1fr_1.05fr] gap-4 md:gap-8 lg:gap-7 xl:gap-10 max-w-[1240px] mx-auto"
         >
           {/* Brand Column */}
-          <div className="footer-column text-center md:col-span-2 md:text-left xl:col-span-1">
+          <div className="footer-column text-center md:col-span-2 md:text-left lg:col-span-1">
             <div ref={logoRef} className="mb-3 md:mb-6 group/logo flex items-center justify-center gap-3 md:justify-start md:gap-4 cursor-default">
               <img
                 src="/responsive/logo-building-terracotta-280.webp"
@@ -138,7 +138,7 @@ export default function Footer() {
                 <span className="group-hover/logo:text-coral-on-dark transition-colors duration-400" style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontWeight: 400 }}>MATTERS</span>
               </h3>
             </div>
-            <p className="mx-auto max-w-[19rem] text-xs leading-relaxed text-gray-400 md:mx-0 md:max-w-none md:text-sm">
+            <p className="mx-auto max-w-[19rem] text-xs leading-relaxed text-gray-400 md:mx-0 md:max-w-none md:text-sm lg:max-w-[24rem]">
               Where passion meets community. Your local spot for specialty coffee, Greek bakes and Mediterranean-inspired brunch in Brick Lane, East London.
             </p>
 
@@ -166,7 +166,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="footer-column rounded-lg border border-white/10 bg-white/[0.03] p-3.5 md:border-0 md:bg-transparent md:p-0">
+          <div className="footer-column rounded-lg border border-white/10 bg-white/[0.03] p-3.5 md:border-0 md:bg-transparent md:p-0 lg:pt-1">
             <h4 className="mb-3 font-body text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-300 md:mb-6 md:text-sm md:tracking-wider">
               Quick Links
             </h4>
@@ -186,7 +186,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="footer-column rounded-lg border border-white/10 bg-white/[0.03] p-3.5 md:border-0 md:bg-transparent md:p-0">
+          <div className="footer-column rounded-lg border border-white/10 bg-white/[0.03] p-3.5 md:border-0 md:bg-transparent md:p-0 lg:pt-1">
             <h4 className="mb-3 font-body text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-300 md:mb-6 md:text-sm md:tracking-wider">
               Contact
             </h4>
@@ -216,7 +216,7 @@ export default function Footer() {
           </div>
 
           {/* Opening Hours */}
-          <div className="footer-column rounded-lg border border-white/10 bg-white/[0.03] p-3.5 md:border-0 md:bg-transparent md:p-0">
+          <div className="footer-column rounded-lg border border-white/10 bg-white/[0.03] p-3.5 md:border-0 md:bg-transparent md:p-0 lg:pt-1">
             <h4 className="mb-3 font-body text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-300 md:mb-6 md:text-sm md:tracking-wider">
               Opening Hours
             </h4>
