@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Menu, X } from 'lucide-react';
+import { MapPin, Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', to: '/' },
@@ -12,29 +12,34 @@ const navLinks = [
   { name: 'Contact', to: '/contact/' },
 ];
 
+const DIRECTIONS_URL = 'https://maps.google.com/?q=Coffee+Matters+London+Brick+Lane';
+
 interface NavbarProps {
   /** When true, nav starts with glass style (no transparent hero behind it) */
   forceGlass?: boolean;
+  /** Element id for pages that should start transparent over a dark hero */
+  transparentHeroId?: string;
 }
 
-export default function Navbar({ forceGlass = false }: NavbarProps) {
+export default function Navbar({ forceGlass = false, transparentHeroId = 'home' }: NavbarProps) {
   const navRef = useRef<HTMLElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [navScrolled, setNavScrolled] = useState(forceGlass);
+  const [navScrolled, setNavScrolled] = useState(false);
   const { pathname } = useLocation();
-  const showSolidNav = navScrolled || mobileMenuOpen;
+  const showSolidNav = forceGlass || navScrolled || mobileMenuOpen;
 
   // Scroll-based glassmorphism (only on home page where the transparent hero sits behind the nav)
   useEffect(() => {
     if (forceGlass) {
-      setNavScrolled(true);
       return;
     }
 
-    setNavScrolled(false);
+    const resetFrame = window.requestAnimationFrame(() => setNavScrolled(false));
 
-    const hero = document.getElementById('home');
-    if (!hero) return;
+    const hero = document.getElementById(transparentHeroId);
+    if (!hero) {
+      return () => window.cancelAnimationFrame(resetFrame);
+    }
 
     const trigger = ScrollTrigger.create({
       trigger: hero,
@@ -46,9 +51,10 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
     });
 
     return () => {
+      window.cancelAnimationFrame(resetFrame);
       trigger.kill();
     };
-  }, [forceGlass]);
+  }, [forceGlass, transparentHeroId]);
 
   // GSAP entrance animation (once on mount)
   useEffect(() => {
@@ -73,11 +79,13 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        showSolidNav ? 'bg-[var(--cream)]/95 shadow-lg py-2.5 lg:py-3' : 'bg-transparent py-4 lg:py-5 xl:py-6'
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ${
+        showSolidNav
+          ? 'border-[var(--sandstone)]/55 bg-[var(--cream)]/90 py-2 shadow-[0_12px_34px_rgba(43,38,35,0.08)] backdrop-blur-md lg:py-2.5'
+          : 'border-transparent bg-transparent py-3 lg:py-4'
       }`}
     >
-      <div className="section-padding flex items-center justify-between">
+      <div className="section-padding grid grid-cols-[auto_auto] items-center justify-between lg:grid-cols-[minmax(160px,1fr)_auto_minmax(160px,1fr)]">
         {/* Logo */}
         <Link
           to="/"
@@ -113,9 +121,17 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-8 relative">
+        <div className="relative hidden items-center justify-center gap-5 lg:flex xl:gap-7">
           {navLinks.map((link) => {
             const isActive = pathname === link.to;
+            const linkTone = isActive
+              ? showSolidNav
+                ? 'text-[var(--coral)]'
+                : 'text-white'
+              : showSolidNav
+                ? 'text-[var(--dark)]/80 hover:text-[var(--coral)]'
+                : 'text-white/[0.82] hover:text-white';
+            const underlineTone = showSolidNav ? 'bg-[var(--coral)]' : 'bg-[var(--coral-on-dark)]';
 
             return (
               <Link
@@ -123,26 +139,34 @@ export default function Navbar({ forceGlass = false }: NavbarProps) {
                 to={link.to}
                 aria-current={isActive ? 'page' : undefined}
                 onClick={() => handleLinkClick(link.to)}
-                className={`relative text-[13px] xl:text-sm font-normal tracking-widest uppercase group transition-colors duration-300 ${
-                  isActive
-                    ? 'text-[var(--coral)]'
-                    : showSolidNav
-                    ? 'text-gray-800 hover:text-[var(--coral)]'
-                    : 'text-white/90 hover:text-[var(--coral-on-dark)]'
-                }`}
-                style={{ transition: 'color 0.3s ease, letter-spacing 0.4s cubic-bezier(0.22,1,0.36,1)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.letterSpacing = '0.2em'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.letterSpacing = ''; }}
+                className={`group relative px-1 py-2 text-[12px] font-normal uppercase tracking-[0.18em] transition-colors duration-300 xl:text-[13px] ${linkTone}`}
               >
                 {link.name}
                 <span
-                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-[var(--coral)] transform origin-center transition-transform duration-300 ${
+                  className={`absolute bottom-0 left-1 right-1 h-px ${underlineTone} origin-center transform transition-transform duration-300 ${
                     isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                   }`}
                 />
               </Link>
             );
           })}
+        </div>
+
+        {/* Desktop CTA */}
+        <div className="hidden justify-end lg:flex">
+          <a
+            href={DIRECTIONS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group inline-flex h-10 items-center gap-2 rounded-full border px-4 text-[11px] font-medium uppercase tracking-[0.16em] transition-all duration-300 ${
+              showSolidNav
+                ? 'border-[var(--coral)]/35 bg-white/35 text-[var(--coral)] hover:border-[var(--coral)] hover:bg-[var(--coral)] hover:text-white'
+                : 'border-white/45 bg-white/[0.08] text-white hover:border-white/80 hover:bg-white/[0.14]'
+            }`}
+          >
+            <MapPin className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden="true" />
+            <span>Directions</span>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}

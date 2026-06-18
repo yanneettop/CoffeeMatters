@@ -343,19 +343,6 @@ export default function Hero() {
         className="sm:hidden absolute inset-0 z-10 flex flex-col"
         style={{ willChange: 'transform' }}
       >
-        {/* Top area — subtle location tag */}
-        <div className="flex justify-center pt-[calc(env(safe-area-inset-top,0px)+72px)]">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-px bg-white/30" />
-            <span
-              className="font-body text-white/70 uppercase tracking-[0.32em]"
-              style={{ fontSize: '9px' }}
-            >
-              Est. Brick Lane, London
-            </span>
-            <div className="w-4 h-px bg-white/30" />
-          </div>
-        </div>
 
         {/* Main content — pushed toward bottom */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center -translate-y-8">
@@ -481,14 +468,6 @@ export default function Hero() {
         className="hidden sm:flex relative z-10 h-full flex-col items-center justify-center text-center section-padding pb-12 md:pb-14 lg:pb-16 translate-y-8 md:translate-y-10 lg:translate-y-8 xl:translate-y-6"
         style={{ willChange: 'transform' }}
       >
-        {/* Location tag */}
-        <div className="absolute top-24 md:top-[6.5rem] lg:top-28 left-1/2 -translate-x-1/2 flex items-center gap-3">
-          <div className="w-8 h-px bg-white/25" />
-          <span className="font-body text-white/70 uppercase tracking-[0.35em]" style={{ fontSize: '10px' }}>
-            Est. Brick Lane, London
-          </span>
-          <div className="w-8 h-px bg-white/25" />
-        </div>
 
         <img
           src="/responsive/logo-building-terracotta-280.webp"

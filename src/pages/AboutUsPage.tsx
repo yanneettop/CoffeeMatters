@@ -232,6 +232,7 @@ export default function AboutUsPage() {
       {/*  HERO — Dark background with logo                  */}
       {/* ═══════════════════════════════════════════════════ */}
       <section
+        id="about-hero"
         ref={heroRef}
         className="relative w-full min-h-[620px] h-[82svh] max-h-[760px] flex flex-col items-center justify-center bg-dark overflow-hidden pt-24 pb-16"
       >

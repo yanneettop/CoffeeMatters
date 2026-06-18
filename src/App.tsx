@@ -87,6 +87,7 @@ function ScrollToTop() {
 function App() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const isAbout = location.pathname === '/about/';
 
   const [loading, setLoading] = useState(() => isHome && typeof window !== 'undefined' && !window.location.hash);
   const [mounted, setMounted] = useState(false);
@@ -130,7 +131,7 @@ function App() {
       )}
       <LegacyHashRedirect />
       <ScrollToTop />
-      <Navbar forceGlass={!isHome} />
+      <Navbar forceGlass={!isHome && !isAbout} transparentHeroId={isAbout ? 'about-hero' : 'home'} />
       <main className="relative w-full min-h-screen bg-cream overflow-x-hidden">
         <Suspense fallback={null}>
           <Routes>

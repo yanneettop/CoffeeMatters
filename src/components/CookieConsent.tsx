@@ -28,13 +28,31 @@ export default function CookieConsent() {
     return stored === 'accepted' || stored === 'rejected' ? stored : null;
   });
   const [isManaging, setIsManaging] = useState(false);
+  const [canShowPrompt, setCanShowPrompt] = useState(false);
   const shouldShow = choice === null || isManaging;
 
   useEffect(() => {
-    const handleOpenSettings = () => setIsManaging(true);
+    const handleOpenSettings = () => {
+      setCanShowPrompt(true);
+      setIsManaging(true);
+    };
     window.addEventListener(OPEN_SETTINGS_EVENT, handleOpenSettings);
     return () => window.removeEventListener(OPEN_SETTINGS_EVENT, handleOpenSettings);
   }, []);
+
+  useEffect(() => {
+    if (choice !== null || isManaging) {
+      setCanShowPrompt(true);
+      return;
+    }
+
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealDelay = prefersReducedMotion ? 900 : isMobile ? 3600 : 2800;
+    const timeout = window.setTimeout(() => setCanShowPrompt(true), revealDelay);
+
+    return () => window.clearTimeout(timeout);
+  }, [choice, isManaging]);
 
   const storeChoice = (nextChoice: ConsentChoice) => {
     localStorage.setItem(STORAGE_KEY, nextChoice);
@@ -48,11 +66,14 @@ export default function CookieConsent() {
     }
   };
 
-  if (!shouldShow) return null;
+  if (!shouldShow || !canShowPrompt) return null;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[1000] px-3 pb-3 sm:px-6 sm:pb-6 pointer-events-none">
-      <div className="mx-auto max-w-4xl overflow-hidden rounded-lg border border-[var(--sandstone)]/70 bg-[var(--cream)] text-[var(--text-primary)] shadow-[0_20px_70px_rgba(43,38,35,0.22)] pointer-events-auto">
+      <div
+        className="mx-auto max-w-4xl overflow-hidden rounded-lg border border-[var(--sandstone)]/70 bg-[var(--cream)] text-[var(--text-primary)] shadow-[0_20px_70px_rgba(43,38,35,0.22)] pointer-events-auto"
+        style={{ animation: 'cookieReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both' }}
+      >
         <div className="h-1 bg-[linear-gradient(90deg,var(--coral),var(--coral-on-dark),var(--olive))]" />
         <div className="p-4 sm:p-5 lg:p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
