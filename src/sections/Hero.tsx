@@ -343,6 +343,7 @@ export default function Hero() {
         className="sm:hidden absolute inset-0 z-10 flex flex-col"
         style={{ willChange: 'transform' }}
       >
+        <div className="h-[calc(env(safe-area-inset-top,0px)+84px)] shrink-0" aria-hidden="true" />
 
         {/* Main content — pushed toward bottom */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center -translate-y-8">
