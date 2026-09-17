@@ -4,6 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Google Consent Mode: set consent before Google Tag Manager loads -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      var analyticsConsent = 'denied';
+      try {
+        analyticsConsent = localStorage.getItem('coffee-matters-cookie-consent') === 'accepted' ? 'granted' : 'denied';
+      } catch (error) {
+        analyticsConsent = 'denied';
+      }
+      gtag('consent', 'default', {
+        analytics_storage: analyticsConsent,
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KBB4TCHQ');</script>
+    <!-- End Google Tag Manager -->
+
     <!-- Primary SEO -->
     <title>Coffee Matters London | Specialty Coffee &amp; Greek Brunch in Brick Lane</title>
     <meta name="description" content="Specialty coffee, Greek pastries and brunch on Brick Lane, East London. Dine in, grab takeaway or host an event." />
@@ -107,6 +133,10 @@
     <link rel="stylesheet" crossorigin href="/assets/index-CTD2B2gI.css">
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBB4TCHQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="root"><link rel="preload" as="image" imageSrcSet="/responsive/minimal-logowhiteracota-400.webp 400w, /responsive/minimal-logowhiteracota-800.webp 800w, /responsive/minimal-logowhiteracota-1200.webp 1200w" imageSizes="64px"/><link rel="preload" as="image" imageSrcSet="/responsive/minimal-logowhite-400.webp 400w, /responsive/minimal-logowhite-800.webp 800w, /responsive/minimal-logowhite-1200.webp 1200w" imageSizes="(max-width: 768px) 40px, 48px"/><link rel="preload" as="image" imageSrcSet="/responsive/minimal-logowhiteracota-400.webp 400w, /responsive/minimal-logowhiteracota-800.webp 800w, /responsive/minimal-logowhiteracota-1200.webp 1200w" imageSizes="(max-width: 768px) 40px, 48px"/><link rel="preload" as="image" imageSrcSet="/responsive/logo-building-terracotta-280.webp 280w, /responsive/logo-building-terracotta-560.webp 560w" imageSizes="116px"/><link rel="preload" as="image" imageSrcSet="/responsive/logo-building-terracotta-280.webp 280w, /responsive/logo-building-terracotta-560.webp 560w, /responsive/logo-building-terracotta-900.webp 900w" imageSizes="168px"/><div code-path="src\components\LoadingScreen.tsx:58:5" class="fixed inset-0 z-[1000] flex items-center justify-center bg-[#1a1a1a]"><div code-path="src\components\LoadingScreen.tsx:62:7" class="flex flex-col items-center gap-6"><img code-path="src\components\LoadingScreen.tsx:63:9" src="/responsive/minimal-logowhiteracota-400.webp" srcSet="/responsive/minimal-logowhiteracota-400.webp 400w, /responsive/minimal-logowhiteracota-800.webp 800w, /responsive/minimal-logowhiteracota-1200.webp 1200w" sizes="64px" alt="Coffee Matters" width="403" height="403" loading="eager" decoding="async" class="h-16 w-auto object-contain" style="opacity:0"/><div code-path="src\components\LoadingScreen.tsx:77:9" class="w-20 h-[2px] bg-white/10 rounded-full overflow-hidden"><div code-path="src\components\LoadingScreen.tsx:78:11" class="h-full bg-[var(--coral)] rounded-full" style="animation:loadingBar 1.5s ease-in-out infinite"></div></div></div><style code-path="src\components\LoadingScreen.tsx:87:7">
         @keyframes loadingBar {
           0% { width: 0%; margin-left: 0; }
